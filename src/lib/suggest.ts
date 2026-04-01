@@ -38,13 +38,15 @@ export interface SuggestOptions {
   source?: DishSource;
   excludeIds?: string[];
   ingredients?: string[];
+  vegetarian?: boolean;
 }
 
-function getEligible(mealTime: MealTime, dishType?: DishType, source?: DishSource): Dish[] {
+function getEligible(mealTime: MealTime, dishType?: DishType, source?: DishSource, vegetarian?: boolean): Dish[] {
   return dishes.filter((d) => {
     if (!d.mealTime.includes(mealTime)) return false;
     if (dishType && d.dishType !== dishType) return false;
     if (source && d.source !== source) return false;
+    if (vegetarian && !d.vegetarian) return false;
     return true;
   });
 }
@@ -62,10 +64,11 @@ export interface MealCombo {
 
 export function suggestMealCombo(options: SuggestOptions = {}): MealCombo {
   const mealTime = options.mealTime || getCurrentMealTime();
+  const veg = options.vegetarian;
 
-  const monManList = getEligible(mealTime, 'món-mặn', 'nấu-tại-nhà');
-  const rauList = getEligible(mealTime, 'rau', 'nấu-tại-nhà');
-  const canhList = getEligible(mealTime, 'canh', 'nấu-tại-nhà');
+  const monManList = getEligible(mealTime, 'món-mặn', 'nấu-tại-nhà', veg);
+  const rauList = getEligible(mealTime, 'rau', 'nấu-tại-nhà', veg);
+  const canhList = getEligible(mealTime, 'canh', 'nấu-tại-nhà', veg);
 
   return {
     monMan: pickRandom(monManList)[0],
@@ -77,11 +80,12 @@ export function suggestMealCombo(options: SuggestOptions = {}): MealCombo {
 export function suggestMealCombos(options: SuggestOptions = {}, count: number = 2): MealCombo[] {
   const combos: MealCombo[] = [];
   const usedMonMan = new Set<string>();
+  const veg = options.vegetarian;
   for (let i = 0; i < count; i++) {
     const mealTime = options.mealTime || getCurrentMealTime();
-    const monManList = getEligible(mealTime, 'món-mặn', 'nấu-tại-nhà').filter((d) => !usedMonMan.has(d.id));
-    const rauList = getEligible(mealTime, 'rau', 'nấu-tại-nhà');
-    const canhList = getEligible(mealTime, 'canh', 'nấu-tại-nhà');
+    const monManList = getEligible(mealTime, 'món-mặn', 'nấu-tại-nhà', veg).filter((d) => !usedMonMan.has(d.id));
+    const rauList = getEligible(mealTime, 'rau', 'nấu-tại-nhà', veg);
+    const canhList = getEligible(mealTime, 'canh', 'nấu-tại-nhà', veg);
 
     if (monManList.length === 0 || rauList.length === 0 || canhList.length === 0) break;
     const monMan = pickRandom(monManList)[0];
@@ -98,14 +102,15 @@ export function suggestMealCombos(options: SuggestOptions = {}, count: number = 
 // ===== MÓN CHÍNH (1 món trọn bữa) =====
 export function suggestMainDishes(options: SuggestOptions = {}, count: number = 3): Dish[] {
   const mealTime = options.mealTime || getCurrentMealTime();
-  const eligible = getEligible(mealTime, 'món-chính');
+  const eligible = getEligible(mealTime, 'món-chính', undefined, options.vegetarian);
   return pickRandom(eligible, count);
 }
 
 // ===== RANDOM =====
 export function randomDish(options: SuggestOptions = {}): Dish {
   const mealTime = options.mealTime || getCurrentMealTime();
-  const eligible = dishes.filter((d) => d.mealTime.includes(mealTime));
+  let eligible = dishes.filter((d) => d.mealTime.includes(mealTime));
+  if (options.vegetarian) eligible = eligible.filter((d) => d.vegetarian);
   return eligible[Math.floor(Math.random() * eligible.length)];
 }
 

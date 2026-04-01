@@ -12,6 +12,7 @@ export interface Dish {
   ingredients: string[];
   weather: Weather[];
   kidFriendly: boolean;
+  vegetarian: boolean;
   source: DishSource;
 }
 
@@ -28,8 +29,9 @@ const D = (
   id: string, name: string, desc: string, image: string,
   tags: Tag[], mealTime: MealTime[], dishType: DishType, category: Category,
   budget: Budget, cookTime: number, ingredients: string[],
-  weather: Weather[], kidFriendly: boolean, source: DishSource = 'nấu-tại-nhà'
-): Dish => ({ id, name, description: desc, image, tags, mealTime, dishType, category, budget, cookTime, ingredients, weather, kidFriendly, source });
+  weather: Weather[], kidFriendly: boolean, source: DishSource = 'nấu-tại-nhà',
+  vegetarian: boolean = false
+): Dish => ({ id, name, description: desc, image, tags, mealTime, dishType, category, budget, cookTime, ingredients, weather, kidFriendly, vegetarian, source });
 
 const ALL_WEATHER: Weather[] = ['bình-thường', 'nóng', 'lạnh', 'mưa'];
 const COOL: Weather[] = ['lạnh', 'mưa', 'bình-thường'];
@@ -153,29 +155,29 @@ export const dishes: Dish[] = [
   // ╔══════════════════════════════════════════════════════════════╗
   // ║                        RAU                                    ║
   // ╚══════════════════════════════════════════════════════════════╝
-  D('rau-muong-xao-toi','Rau muống xào tỏi','Rau muống xào tỏi giòn ngọt, kinh điển bữa cơm','🥬',['nhanh','rẻ','healthy','gia-đình'],['trưa','tối'],'rau','cơm','rẻ',5,['rau muống','tỏi','dầu ăn'],HOT,true),
-  D('cai-ngot-xao','Cải ngọt xào tỏi','Cải ngọt xào tỏi xanh giòn','🥬',['nhanh','rẻ','healthy'],['trưa','tối'],'rau','cơm','rẻ',5,['cải ngọt','tỏi','dầu ăn'],HOT,true),
-  D('rau-lang-luoc','Rau lang luộc','Rau lang luộc chấm kho quẹt, đậm vị miền quê','🥬',['rẻ','healthy','nhanh'],['trưa','tối'],'rau','cơm','rẻ',5,['rau lang'],HOT,true),
-  D('su-su-xao','Su su xào tỏi','Su su xào tỏi hoặc xào trứng, nhẹ nhàng thanh mát','🥒',['nhanh','rẻ','healthy'],['trưa','tối'],'rau','cơm','rẻ',10,['su su','tỏi','dầu ăn'],NORMAL,true),
+  D('rau-muong-xao-toi','Rau muống xào tỏi','Rau muống xào tỏi giòn ngọt, kinh điển bữa cơm','🥬',['nhanh','rẻ','healthy','gia-đình'],['trưa','tối'],'rau','cơm','rẻ',5,['rau muống','tỏi','dầu ăn'],HOT,true,'nấu-tại-nhà',true),
+  D('cai-ngot-xao','Cải ngọt xào tỏi','Cải ngọt xào tỏi xanh giòn','🥬',['nhanh','rẻ','healthy'],['trưa','tối'],'rau','cơm','rẻ',5,['cải ngọt','tỏi','dầu ăn'],HOT,true,'nấu-tại-nhà',true),
+  D('rau-lang-luoc','Rau lang luộc','Rau lang luộc chấm kho quẹt, đậm vị miền quê','🥬',['rẻ','healthy','nhanh'],['trưa','tối'],'rau','cơm','rẻ',5,['rau lang'],HOT,true,'nấu-tại-nhà',true),
+  D('su-su-xao','Su su xào tỏi','Su su xào tỏi hoặc xào trứng, nhẹ nhàng thanh mát','🥒',['nhanh','rẻ','healthy'],['trưa','tối'],'rau','cơm','rẻ',10,['su su','tỏi','dầu ăn'],NORMAL,true,'nấu-tại-nhà',true),
   D('bap-cai-xao','Bắp cải xào trứng','Bắp cải xào trứng giòn ngọt, giàu chất xơ','🥬',['nhanh','rẻ','gia-đình'],['trưa','tối'],'rau','cơm','rẻ',10,['bắp cải','trứng','tỏi'],NORMAL,true),
-  D('dau-bap-luoc','Đậu bắp luộc','Đậu bắp luộc chấm kho quẹt hoặc nước tương','🫛',['nhanh','rẻ','healthy'],['trưa','tối'],'rau','cơm','rẻ',5,['đậu bắp'],HOT,true),
-  D('mong-toi-xao','Mồng tơi xào tỏi','Mồng tơi xào tỏi bổ dưỡng giải nhiệt','🥬',['nhanh','rẻ','healthy'],['trưa','tối'],'rau','cơm','rẻ',5,['mồng tơi','tỏi'],HOT,true),
-  D('dua-leo','Dưa leo','Dưa leo cắt miếng ăn kèm, giải nhiệt','🥒',['nhanh','rẻ','healthy'],['trưa','tối'],'rau','cơm','rẻ',0,['dưa leo'],HOT,true),
+  D('dau-bap-luoc','Đậu bắp luộc','Đậu bắp luộc chấm kho quẹt hoặc nước tương','🫛',['nhanh','rẻ','healthy'],['trưa','tối'],'rau','cơm','rẻ',5,['đậu bắp'],HOT,true,'nấu-tại-nhà',true),
+  D('mong-toi-xao','Mồng tơi xào tỏi','Mồng tơi xào tỏi bổ dưỡng giải nhiệt','🥬',['nhanh','rẻ','healthy'],['trưa','tối'],'rau','cơm','rẻ',5,['mồng tơi','tỏi'],HOT,true,'nấu-tại-nhà',true),
+  D('dua-leo','Dưa leo','Dưa leo cắt miếng ăn kèm, giải nhiệt','🥒',['nhanh','rẻ','healthy'],['trưa','tối'],'rau','cơm','rẻ',0,['dưa leo'],HOT,true,'nấu-tại-nhà',true),
   D('kho-quet','Kho quẹt','Kho quẹt mặn ngọt, chấm rau luộc hoặc cơm nóng','🍯',['rẻ','gia-đình','ngon'],['trưa','tối'],'rau','cơm','rẻ',10,['tôm khô','thịt bằm','nước mắm','đường'],NORMAL,true),
   D('goi-cuon','Gỏi cuốn','Gỏi cuốn tôm thịt, chấm tương đậu phộng','🥗',['healthy','ngon'],['trưa','tối'],'rau','cơm','rẻ',20,['bánh tráng','tôm','thịt','bún','rau sống'],HOT,true),
   D('ca-chua-nhoi-thit','Cà chua nhồi thịt','Cà chua nhồi thịt bằm hấp, vừa rau vừa mặn','🍅',['ngon','gia-đình'],['trưa','tối'],'rau','cơm','rẻ',25,['cà chua','thịt bằm','hành lá'],NORMAL,true),
-  D('cai-thia-luoc','Cải thìa luộc','Cải thìa luộc xanh giòn, ăn kèm nước mắm','🥬',['nhanh','rẻ','healthy'],['trưa','tối'],'rau','cơm','rẻ',5,['cải thìa'],HOT,true),
+  D('cai-thia-luoc','Cải thìa luộc','Cải thìa luộc xanh giòn, ăn kèm nước mắm','🥬',['nhanh','rẻ','healthy'],['trưa','tối'],'rau','cơm','rẻ',5,['cải thìa'],HOT,true,'nấu-tại-nhà',true),
   D('muop-xao-trung','Mướp xào trứng','Mướp xào trứng mềm ngọt tự nhiên','🥒',['nhanh','rẻ','healthy'],['trưa','tối'],'rau','cơm','rẻ',10,['mướp','trứng','hành lá'],HOT,true),
-  D('bong-cai-xao-toi','Bông cải xào tỏi','Bông cải xanh xào tỏi giòn, giàu vitamin C','🥦',['nhanh','healthy','ngon'],['trưa','tối'],'rau','cơm','rẻ',8,['bông cải xanh','tỏi','dầu hào'],NORMAL,true),
-  D('bong-cai-trang-luoc','Bông cải trắng luộc','Bông cải trắng luộc chấm nước mắm chanh','🥦',['nhanh','healthy','rẻ'],['trưa','tối'],'rau','cơm','rẻ',5,['bông cải trắng'],NORMAL,true),
+  D('bong-cai-xao-toi','Bông cải xào tỏi','Bông cải xanh xào tỏi giòn, giàu vitamin C','🥦',['nhanh','healthy','ngon'],['trưa','tối'],'rau','cơm','rẻ',8,['bông cải xanh','tỏi','dầu hào'],NORMAL,true,'nấu-tại-nhà',true),
+  D('bong-cai-trang-luoc','Bông cải trắng luộc','Bông cải trắng luộc chấm nước mắm chanh','🥦',['nhanh','healthy','rẻ'],['trưa','tối'],'rau','cơm','rẻ',5,['bông cải trắng'],NORMAL,true,'nấu-tại-nhà',true),
   D('ca-rot-xao','Cà rốt xào trứng','Cà rốt xào trứng vàng ươm, giàu vitamin A','🥕',['nhanh','rẻ','healthy'],['trưa','tối'],'rau','cơm','rẻ',10,['cà rốt','trứng','hành lá'],NORMAL,true),
-  D('dau-que-xao-toi','Đậu que xào tỏi','Đậu que xào tỏi giòn xanh, thanh đạm','🫛',['nhanh','rẻ','healthy'],['trưa','tối'],'rau','cơm','rẻ',8,['đậu que','tỏi','dầu ăn'],NORMAL,true),
-  D('rau-cai-xao-nam','Cải xào nấm','Cải xào nấm rơm/nấm đùi gà, thanh đạm bổ dưỡng','🍄',['healthy','nhanh','ngon'],['trưa','tối'],'rau','cơm','rẻ',10,['cải ngọt','nấm','tỏi','dầu hào'],NORMAL,true),
-  D('salad-rau-tron','Salad rau trộn','Rau trộn dầu giấm kiểu Việt, mát giòn','🥗',['healthy','nhanh','rẻ'],['trưa','tối'],'rau','cơm','rẻ',5,['xà lách','cà chua','dưa leo','hành tây','dầu giấm'],HOT,true),
-  D('bi-ngoi-xao','Bí ngòi xào tỏi','Bí ngòi xào tỏi mềm ngọt, nhẹ bụng','🥒',['nhanh','rẻ','healthy'],['trưa','tối'],'rau','cơm','rẻ',8,['bí ngòi','tỏi','dầu ăn'],NORMAL,true),
-  D('nam-xao-dau-hao','Nấm xào dầu hào','Nấm đùi gà xào dầu hào bơ tỏi thơm béo','🍄',['ngon','healthy','nhanh'],['trưa','tối'],'rau','cơm','rẻ',10,['nấm đùi gà','tỏi','dầu hào','bơ'],NORMAL,true),
+  D('dau-que-xao-toi','Đậu que xào tỏi','Đậu que xào tỏi giòn xanh, thanh đạm','🫛',['nhanh','rẻ','healthy'],['trưa','tối'],'rau','cơm','rẻ',8,['đậu que','tỏi','dầu ăn'],NORMAL,true,'nấu-tại-nhà',true),
+  D('rau-cai-xao-nam','Cải xào nấm','Cải xào nấm rơm/nấm đùi gà, thanh đạm bổ dưỡng','🍄',['healthy','nhanh','ngon'],['trưa','tối'],'rau','cơm','rẻ',10,['cải ngọt','nấm','tỏi','dầu hào'],NORMAL,true,'nấu-tại-nhà',true),
+  D('salad-rau-tron','Salad rau trộn','Rau trộn dầu giấm kiểu Việt, mát giòn','🥗',['healthy','nhanh','rẻ'],['trưa','tối'],'rau','cơm','rẻ',5,['xà lách','cà chua','dưa leo','hành tây','dầu giấm'],HOT,true,'nấu-tại-nhà',true),
+  D('bi-ngoi-xao','Bí ngòi xào tỏi','Bí ngòi xào tỏi mềm ngọt, nhẹ bụng','🥒',['nhanh','rẻ','healthy'],['trưa','tối'],'rau','cơm','rẻ',8,['bí ngòi','tỏi','dầu ăn'],NORMAL,true,'nấu-tại-nhà',true),
+  D('nam-xao-dau-hao','Nấm xào dầu hào','Nấm đùi gà xào dầu hào bơ tỏi thơm béo','🍄',['ngon','healthy','nhanh'],['trưa','tối'],'rau','cơm','rẻ',10,['nấm đùi gà','tỏi','dầu hào','bơ'],NORMAL,true,'nấu-tại-nhà',true),
   D('goi-ga-bap-cai','Gỏi gà bắp cải','Gỏi gà bắp cải trộn rau răm, chua ngọt giòn','🥗',['ngon','healthy'],['trưa','tối'],'rau','cơm','vừa',15,['gà','bắp cải','rau răm','hành tây','chanh'],HOT,true),
-  D('rau-cu-luoc','Rau củ luộc thập cẩm','Cà rốt, bắp cải, đậu que luộc đủ màu sắc','🥕',['healthy','rẻ','nhanh','gia-đình'],['trưa','tối'],'rau','cơm','rẻ',10,['cà rốt','bắp cải','đậu que','bông cải'],NORMAL,true),
+  D('rau-cu-luoc','Rau củ luộc thập cẩm','Cà rốt, bắp cải, đậu que luộc đủ màu sắc','🥕',['healthy','rẻ','nhanh','gia-đình'],['trưa','tối'],'rau','cơm','rẻ',10,['cà rốt','bắp cải','đậu que','bông cải'],NORMAL,true,'nấu-tại-nhà',true),
 
   // ╔══════════════════════════════════════════════════════════════╗
   // ║                        CANH                                   ║
@@ -229,7 +231,7 @@ export const dishes: Dish[] = [
   D('lau-ga-la-e','Lẩu gà lá é','Lẩu gà nấu lá é thơm đặc trưng Đà Lạt','🍲',['ngon','gia-đình','đặc-biệt'],['tối'],'món-chính','lẩu','vừa',35,['gà','lá é','nấm','rau nhúng'],COOL,true),
   D('lau-bo','Lẩu bò','Lẩu bò sa tế, thịt bò mềm ngọt','🍲',['ngon','gia-đình','no-lâu','đặc-biệt'],['tối'],'món-chính','lẩu','cao',30,['bò','sa tế','rau nhúng','bún'],['lạnh','mưa'],true),
   D('lau-ca','Lẩu cá','Lẩu cá nấu mẻ hoặc dưa chua, thanh mát','🍲',['ngon','gia-đình'],['tối'],'món-chính','lẩu','vừa',30,['cá','dưa chua','cà chua','rau nhúng'],COOL,true),
-  D('lau-nam','Lẩu nấm','Lẩu nấm chay thanh đạm, nhiều loại nấm','🍲',['healthy','gia-đình'],['tối'],'món-chính','lẩu','vừa',25,['nấm các loại','đậu hũ','rau nhúng'],['lạnh','mưa'],true),
+  D('lau-nam','Lẩu nấm','Lẩu nấm chay thanh đạm, nhiều loại nấm','🍲',['healthy','gia-đình'],['tối'],'món-chính','lẩu','vừa',25,['nấm các loại','đậu hũ','rau nhúng'],['lạnh','mưa'],true,'nấu-tại-nhà',true),
   D('lau-hai-san','Lẩu hải sản','Lẩu hải sản tươi sống, tôm cua mực nghêu','🍲',['ngon','đặc-biệt','gia-đình'],['tối'],'món-chính','lẩu','cao',30,['tôm','cua','mực','nghêu','rau nhúng'],['lạnh','mưa'],true),
   D('lau-de','Lẩu dê','Lẩu dê nấu thuốc bắc, bổ dưỡng','🍲',['ngon','đặc-biệt','no-lâu'],['tối'],'món-chính','lẩu','cao',40,['thịt dê','thuốc bắc','rau nhúng'],['lạnh','mưa'],false),
   D('lau-mam','Lẩu mắm','Lẩu mắm miền Tây đậm đà, rau nhúng đủ loại','🍲',['ngon','đặc-biệt','gia-đình'],['tối'],'món-chính','lẩu','vừa',35,['mắm cá','cá','tôm','mực','cà tím','rau nhúng'],NORMAL,true),
@@ -247,6 +249,60 @@ export const dishes: Dish[] = [
   D('mi-cay','Mì cay Hàn Quốc','Mì cay 7 cấp độ, thử thách vị giác','🍜',['ngon','đặc-biệt'],['trưa','tối'],'món-chính','bún-phở','vừa',0,[],COOL,false,'mua-ngoài'),
   D('banh-mi-doner','Bánh mì Doner Kebab','Bánh mì doner thịt nướng kiểu Thổ Nhĩ Kỳ','🥖',['ngon','no-lâu'],['trưa','tối'],'món-chính','bánh','vừa',0,[],NORMAL,true,'mua-ngoài'),
   D('bo-ne','Bò né','Bò né trứng ốp la, pate bơ, bánh mì nóng','🍳',['ngon','đặc-biệt','no-lâu'],['sáng','trưa'],'món-chính','khác','vừa',0,[],NORMAL,true,'mua-ngoài'),
+
+  // ╔══════════════════════════════════════════════════════════════╗
+  // ║               MÓN CHAY - MÓN MẶN CHAY                       ║
+  // ╚══════════════════════════════════════════════════════════════╝
+  D('dau-hu-kho-sa-ot','Đậu hũ kho sả ớt','Đậu hũ kho sả ớt đậm đà, thay thịt hoàn hảo','🧈',['ngon','rẻ'],['trưa','tối'],'món-mặn','cơm','rẻ',20,['đậu hũ','sả','ớt','nước tương','đường'],NORMAL,true,'nấu-tại-nhà',true),
+  D('dau-hu-sot-nam','Đậu hũ sốt nấm','Đậu hũ chiên giòn sốt nấm đùi gà thơm béo','🧈',['ngon','healthy'],['trưa','tối'],'món-mặn','cơm','rẻ',20,['đậu hũ','nấm đùi gà','nước tương','bơ thực vật'],NORMAL,true,'nấu-tại-nhà',true),
+  D('nam-kho-tieu','Nấm kho tiêu','Nấm rơm kho tiêu mặn ngọt, thơm nức','🍄',['ngon','rẻ','nhanh'],['trưa','tối'],'món-mặn','cơm','rẻ',15,['nấm rơm','tiêu','nước tương','đường'],NORMAL,true,'nấu-tại-nhà',true),
+  D('dau-hu-chien-xa-chay','Đậu hũ chiên sả (chay)','Đậu hũ chiên sả ớt chay thuần, giòn thơm','🧈',['rẻ','nhanh','ngon'],['trưa','tối'],'món-mặn','cơm','rẻ',15,['đậu hũ','sả','ớt','nước tương'],NORMAL,true,'nấu-tại-nhà',true),
+  D('ca-tim-kho','Cà tím kho','Cà tím kho tộ chay, mềm bùi đậm vị','🍆',['ngon','rẻ'],['trưa','tối'],'món-mặn','cơm','rẻ',25,['cà tím','nước tương','đường','tỏi','ớt'],NORMAL,true,'nấu-tại-nhà',true),
+  D('nem-chay','Nem chay (Chả giò chay)','Nem chay giòn rụm nhân nấm mộc nhĩ rau củ','🥟',['ngon','đặc-biệt'],['trưa','tối'],'món-mặn','cơm','rẻ',30,['bánh tráng','nấm mèo','mộc nhĩ','cà rốt','khoai môn','miến'],NORMAL,true,'nấu-tại-nhà',true),
+  D('dau-phu-xao-nam','Đậu phụ xào nấm','Đậu phụ xào nấm hương, thanh đạm bổ dưỡng','🧈',['healthy','nhanh'],['trưa','tối'],'món-mặn','cơm','rẻ',15,['đậu phụ','nấm hương','cải ngọt','dầu hào chay'],NORMAL,true,'nấu-tại-nhà',true),
+  D('kho-quet-chay','Kho quẹt chay','Kho quẹt đậu phộng nước tương, chấm rau luộc','🍯',['rẻ','gia-đình','ngon'],['trưa','tối'],'món-mặn','cơm','rẻ',10,['đậu phộng','nước tương','đường','ớt'],NORMAL,true,'nấu-tại-nhà',true),
+  D('ca-ri-chay','Cà ri chay','Cà ri rau củ nước cốt dừa, khoai tây cà rốt bí đỏ','🍛',['ngon','gia-đình','no-lâu'],['trưa','tối'],'món-mặn','cơm','rẻ',30,['khoai tây','cà rốt','bí đỏ','nước cốt dừa','bột cà ri','đậu hũ'],COOL,true,'nấu-tại-nhà',true),
+  D('chao-chay','Chao chay','Đậu hũ kho chao thơm béo ngậy','🧈',['ngon','rẻ'],['trưa','tối'],'món-mặn','cơm','rẻ',15,['đậu hũ','chao','sả','ớt','đường'],NORMAL,true,'nấu-tại-nhà',true),
+  D('goi-ngo-sen','Gỏi ngó sen','Gỏi ngó sen chay giòn mát, chua ngọt thanh','🥗',['healthy','ngon'],['trưa','tối'],'món-mặn','cơm','rẻ',15,['ngó sen','cà rốt','rau răm','đậu phộng','nước chanh đường'],HOT,true,'nấu-tại-nhà',true),
+  D('nam-xao-dau-hao-chay','Nấm xào dầu hào chay','Nấm đùi gà xào dầu hào chay, béo ngậy đậm đà','🍄',['ngon','healthy','nhanh'],['trưa','tối'],'món-mặn','cơm','rẻ',10,['nấm đùi gà','bông cải xanh','cà rốt','dầu hào chay'],NORMAL,true,'nấu-tại-nhà',true),
+  D('dau-hu-om-ca-chua','Đậu hũ om cà chua','Đậu hũ om cà chua sốt sánh, thơm ngọt','🍅',['rẻ','nhanh','gia-đình'],['trưa','tối'],'món-mặn','cơm','rẻ',15,['đậu hũ','cà chua','hành lá','rau mùi'],NORMAL,true,'nấu-tại-nhà',true),
+  D('bi-do-xao-chay','Bí đỏ xào chay','Bí đỏ xào tỏi vàng ươm, ngọt bùi','🎃',['rẻ','nhanh','healthy'],['trưa','tối'],'món-mặn','cơm','rẻ',10,['bí đỏ','tỏi','dầu ăn'],NORMAL,true,'nấu-tại-nhà',true),
+
+  // ╔══════════════════════════════════════════════════════════════╗
+  // ║               MÓN CHAY - RAU CHAY                            ║
+  // ╚══════════════════════════════════════════════════════════════╝
+  D('rau-xao-thap-cam-chay','Rau xào thập cẩm chay','Rau củ xào thập cẩm đủ màu: cà rốt, bắp cải, nấm, đậu que','🥬',['healthy','gia-đình','ngon'],['trưa','tối'],'rau','cơm','rẻ',10,['cà rốt','bắp cải','nấm','đậu que','bông cải'],NORMAL,true,'nấu-tại-nhà',true),
+  D('rau-cu-hap-chay','Rau củ hấp chay','Rau củ hấp giữ nguyên dinh dưỡng, chấm nước tương gừng','🥦',['healthy','rẻ','nhanh'],['trưa','tối'],'rau','cơm','rẻ',10,['bông cải xanh','cà rốt','bắp ngô','khoai lang','đậu que'],NORMAL,true,'nấu-tại-nhà',true),
+  D('goi-cuon-chay','Gỏi cuốn chay','Gỏi cuốn rau củ đậu hũ, chấm tương đậu phộng','🥗',['healthy','ngon'],['trưa','tối'],'rau','cơm','rẻ',15,['bánh tráng','đậu hũ','bún','rau sống','dưa leo','cà rốt'],HOT,true,'nấu-tại-nhà',true),
+
+  // ╔══════════════════════════════════════════════════════════════╗
+  // ║               MÓN CHAY - CANH CHAY                           ║
+  // ╚══════════════════════════════════════════════════════════════╝
+  D('canh-rau-cu-chay','Canh rau củ chay','Canh rau củ nấu nấm, ngọt từ rau tự nhiên','🥕',['healthy','rẻ','gia-đình'],['trưa','tối'],'canh','món-nước','rẻ',15,['cà rốt','su su','bắp cải','nấm rơm','đậu hũ'],NORMAL,true,'nấu-tại-nhà',true),
+  D('canh-nam-chay','Canh nấm chay','Canh nấm hỗn hợp ngọt thanh, bổ dưỡng','🍄',['healthy','rẻ','nhanh'],['trưa','tối'],'canh','món-nước','rẻ',10,['nấm đùi gà','nấm rơm','nấm hương','đậu hũ','hành lá'],NORMAL,true,'nấu-tại-nhà',true),
+  D('canh-bi-do-chay','Canh bí đỏ chay','Canh bí đỏ nấu đậu hũ, ngọt bùi không cần tôm','🎃',['healthy','rẻ','gia-đình'],['trưa','tối'],'canh','món-nước','rẻ',15,['bí đỏ','đậu hũ','hành lá'],NORMAL,true,'nấu-tại-nhà',true),
+  D('canh-chua-chay','Canh chua chay','Canh chua chay nấu thơm me, nấm đậu bắp giá','🍲',['ngon','healthy'],['trưa','tối'],'canh','món-nước','rẻ',20,['thơm','me','nấm','đậu bắp','giá','cà chua'],HOT,true,'nấu-tại-nhà',true),
+  D('canh-kho-qua-chay','Canh khổ qua nhồi nấm','Canh khổ qua nhồi nấm đậu hũ, thanh nhiệt','🥒',['healthy'],['trưa','tối'],'canh','món-nước','rẻ',25,['khổ qua','nấm','đậu hũ','miến','hành lá'],HOT,true,'nấu-tại-nhà',true),
+  D('canh-bap-cai-chay','Canh bắp cải nấm','Canh bắp cải nấu nấm rơm, thanh ngọt nhẹ nhàng','🥬',['healthy','rẻ','nhanh'],['trưa','tối'],'canh','món-nước','rẻ',10,['bắp cải','nấm rơm','hành lá'],NORMAL,true,'nấu-tại-nhà',true),
+
+  // ╔══════════════════════════════════════════════════════════════╗
+  // ║               MÓN CHAY - MÓN CHÍNH CHAY                      ║
+  // ╚══════════════════════════════════════════════════════════════╝
+  D('com-chien-chay','Cơm chiên chay','Cơm chiên rau củ nấm đủ màu sắc','🍳',['nhanh','ngon','gia-đình'],['trưa','tối'],'món-chính','cơm','rẻ',15,['cơm nguội','cà rốt','đậu que','bắp ngọt','nấm','nước tương'],NORMAL,true,'nấu-tại-nhà',true),
+  D('bun-chay','Bún chay','Bún chay nước lèo nấm, rau sống đầy đủ','🍜',['healthy','ngon'],['trưa','tối'],'món-chính','bún-phở','rẻ',20,['bún','nấm','đậu hũ','cà chua','rau sống'],NORMAL,true,'nấu-tại-nhà',true),
+  D('pho-chay','Phở chay','Phở chay nước dùng rau củ, thanh đạm','🍜',['healthy','ngon'],['sáng','trưa'],'món-chính','bún-phở','rẻ',25,['phở','nấm','đậu hũ','cải ngọt','hành lá','gừng'],COOL,true,'nấu-tại-nhà',true),
+  D('mi-xao-chay','Mì xào chay','Mì xào giòn rau củ nấm, đủ màu đủ chất','🍝',['nhanh','ngon','gia-đình'],['trưa','tối'],'món-chính','bún-phở','rẻ',15,['mì','nấm','cải ngọt','cà rốt','bắp cải','dầu hào chay'],NORMAL,true,'nấu-tại-nhà',true),
+  D('lau-nam-chay','Lẩu nấm chay','Lẩu nấm 5 loại chay thuần, đậu hũ rau nhúng','🍲',['healthy','gia-đình','đặc-biệt'],['tối'],'món-chính','lẩu','vừa',25,['nấm đùi gà','nấm rơm','nấm hương','nấm kim châm','đậu hũ','rau nhúng'],['lạnh','mưa'],true,'nấu-tại-nhà',true),
+  D('banh-xeo-chay','Bánh xèo chay','Bánh xèo giòn nhân nấm giá đậu xanh','🥞',['ngon','đặc-biệt'],['trưa','tối'],'món-chính','bánh','rẻ',25,['bột gạo','nấm','giá','đậu xanh','nghệ','rau sống'],NORMAL,true,'nấu-tại-nhà',true),
+  D('hu-tiu-chay','Hủ tiếu chay','Hủ tiếu chay nước dùng rau củ, ngọt thanh','🍜',['ngon','healthy'],['sáng','trưa'],'món-chính','bún-phở','rẻ',20,['hủ tiếu','nấm','đậu hũ','cải ngọt','cần tây'],COOL,true,'nấu-tại-nhà',true),
+  D('com-chay-phan','Cơm chay phần','Cơm chay đĩa: cơm + 3 món chay đa dạng','🍚',['ngon','gia-đình','healthy'],['trưa','tối'],'món-chính','cơm','rẻ',0,[],ALL_WEATHER,true,'mua-ngoài',true),
+
+  // ╔══════════════════════════════════════════════════════════════╗
+  // ║               MÓN CHAY - ĂN SÁNG CHAY                        ║
+  // ╚══════════════════════════════════════════════════════════════╝
+  D('chao-nam-chay','Cháo nấm chay','Cháo nấm rơm thanh đạm, ấm bụng buổi sáng','🥣',['healthy','rẻ'],['sáng'],'ăn-sáng','cháo','rẻ',15,['gạo','nấm rơm','hành lá','gừng','rau mùi'],COOL,true,'nấu-tại-nhà',true),
+  D('banh-mi-chay','Bánh mì chay','Bánh mì chay nhân đậu hũ rau củ','🥖',['nhanh','rẻ','healthy'],['sáng'],'ăn-sáng','bánh','rẻ',5,['bánh mì','đậu hũ','dưa leo','cà rốt','nước tương'],ALL_WEATHER,true,'nấu-tại-nhà',true),
+  D('xoi-chay','Xôi chay','Xôi đậu đen/đậu xanh chay, dẻo thơm','🍚',['no-lâu','rẻ'],['sáng'],'ăn-sáng','khác','rẻ',15,['nếp','đậu đen','đậu xanh','muối mè'],COOL,true,'nấu-tại-nhà',true),
 ];
 
 // All unique ingredients across all dishes

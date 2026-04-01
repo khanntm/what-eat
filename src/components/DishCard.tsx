@@ -40,6 +40,11 @@ export default function DishCard({ dish, onSelect, showVoting, onVote, currentVo
                 {dish.cookTime} phút
               </span>
             )}
+            {dish.vegetarian && (
+              <span className="text-xs px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-full font-medium">
+                🌿 Chay
+              </span>
+            )}
             {dish.kidFriendly && (
               <span className="text-xs px-2 py-0.5 bg-green-50 text-green-600 rounded-full font-medium">
                 Kid-friendly

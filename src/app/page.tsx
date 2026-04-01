@@ -15,6 +15,7 @@ type SuggestMode = 'combo' | 'main' | 'quick';
 
 export default function HomePage() {
   const [mealTime, setMealTime] = useState<MealTime>(getCurrentMealTime());
+  const [vegetarian, setVegetarian] = useState(false);
   const [combos, setCombos] = useState<MealCombo[]>([]);
   const [mainDishes, setMainDishes] = useState<Dish[]>([]);
   const [quickDish, setQuickDish] = useState<Dish | null>(null);
@@ -33,37 +34,37 @@ export default function HomePage() {
     setIsShaking(true);
     setMode(null);
     setTimeout(() => {
-      setCombos(suggestMealCombos({ mealTime }, 2));
+      setCombos(suggestMealCombos({ mealTime, vegetarian: vegetarian || undefined }, 2));
       setMainDishes([]);
       setQuickDish(null);
       setMode('combo');
       setIsShaking(false);
     }, 500);
-  }, [mealTime]);
+  }, [mealTime, vegetarian]);
 
   const handleMain = useCallback(() => {
     setIsShaking(true);
     setMode(null);
     setTimeout(() => {
-      setMainDishes(suggestMainDishes({ mealTime }, 3));
+      setMainDishes(suggestMainDishes({ mealTime, vegetarian: vegetarian || undefined }, 3));
       setCombos([]);
       setQuickDish(null);
       setMode('main');
       setIsShaking(false);
     }, 500);
-  }, [mealTime]);
+  }, [mealTime, vegetarian]);
 
   const handleQuick = useCallback(() => {
     setIsShaking(true);
     setMode(null);
     setTimeout(() => {
-      setQuickDish(randomDish({ mealTime }));
+      setQuickDish(randomDish({ mealTime, vegetarian: vegetarian || undefined }));
       setCombos([]);
       setMainDishes([]);
       setMode('quick');
       setIsShaking(false);
     }, 500);
-  }, [mealTime]);
+  }, [mealTime, vegetarian]);
 
   const currentMealInfo = mealTimes.find((m) => m.key === mealTime)!;
   const isLunchOrDinner = mealTime === 'trưa' || mealTime === 'tối';
@@ -78,7 +79,7 @@ export default function HomePage() {
       </div>
 
       {/* Meal Time Picker */}
-      <div className="flex gap-2 mb-5">
+      <div className="flex gap-2 mb-3">
         {mealTimes.map((mt) => (
           <button
             key={mt.key}
@@ -95,24 +96,38 @@ export default function HomePage() {
         ))}
       </div>
 
+      {/* Vegetarian Toggle */}
+      <button
+        onClick={() => { setVegetarian(!vegetarian); setMode(null); }}
+        className={`w-full mb-5 py-2.5 px-4 rounded-xl text-sm font-medium transition-all flex items-center justify-center gap-2 ${
+          vegetarian
+            ? 'bg-green-500 text-white shadow-md shadow-green-200'
+            : 'bg-white text-gray-500 border border-gray-100 hover:bg-green-50'
+        }`}
+      >
+        <span className="text-lg">🌿</span>
+        <span>{vegetarian ? 'Đang chọn: Ăn chay' : 'Ăn chay'}</span>
+        {vegetarian && <span className="text-xs bg-green-600 px-1.5 py-0.5 rounded-full">ON</span>}
+      </button>
+
       {/* Action Buttons */}
       {isLunchOrDinner ? (
         <div className="space-y-3">
           <button
             onClick={handleCombo}
             disabled={isShaking}
-            className={`w-full py-4 px-6 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-2xl font-bold text-lg shadow-lg shadow-orange-200 transition-all active:scale-95 disabled:opacity-70 ${
+            className={`w-full py-4 px-6 ${vegetarian ? 'bg-gradient-to-r from-green-500 to-emerald-500 shadow-green-200' : 'bg-gradient-to-r from-orange-500 to-red-500 shadow-orange-200'} text-white rounded-2xl font-bold text-lg shadow-lg transition-all active:scale-95 disabled:opacity-70 ${
               isShaking ? 'animate-shake' : ''
             }`}
           >
-            {isShaking ? '🔄 Đang chọn...' : '🍚 Gợi ý bữa cơm (mặn + rau + canh)'}
+            {isShaking ? '🔄 Đang chọn...' : vegetarian ? '🌿 Gợi ý bữa cơm chay' : '🍚 Gợi ý bữa cơm (mặn + rau + canh)'}
           </button>
           <button
             onClick={handleMain}
             disabled={isShaking}
-            className="w-full py-3 px-6 bg-white border-2 border-orange-200 text-orange-600 rounded-2xl font-semibold text-base transition-all active:scale-95 hover:bg-orange-50 disabled:opacity-70"
+            className={`w-full py-3 px-6 bg-white border-2 ${vegetarian ? 'border-green-200 text-green-600 hover:bg-green-50' : 'border-orange-200 text-orange-600 hover:bg-orange-50'} rounded-2xl font-semibold text-base transition-all active:scale-95 disabled:opacity-70`}
           >
-            🍜 Gợi ý món chính (1 món trọn bữa)
+            {vegetarian ? '🌿 Gợi ý món chính chay' : '🍜 Gợi ý món chính (1 món trọn bữa)'}
           </button>
           <button
             onClick={handleQuick}
@@ -127,16 +142,16 @@ export default function HomePage() {
           <button
             onClick={handleMain}
             disabled={isShaking}
-            className={`w-full py-4 px-6 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-2xl font-bold text-lg shadow-lg shadow-orange-200 transition-all active:scale-95 disabled:opacity-70 ${
+            className={`w-full py-4 px-6 ${vegetarian ? 'bg-gradient-to-r from-green-500 to-emerald-500 shadow-green-200' : 'bg-gradient-to-r from-orange-500 to-red-500 shadow-orange-200'} text-white rounded-2xl font-bold text-lg shadow-lg transition-all active:scale-95 disabled:opacity-70 ${
               isShaking ? 'animate-shake' : ''
             }`}
           >
-            {isShaking ? '🔄 Đang chọn...' : `🍜 Ăn ${currentMealInfo.label.toLowerCase()} gì?`}
+            {isShaking ? '🔄 Đang chọn...' : vegetarian ? `🌿 Ăn ${currentMealInfo.label.toLowerCase()} chay gì?` : `🍜 Ăn ${currentMealInfo.label.toLowerCase()} gì?`}
           </button>
           <button
             onClick={handleQuick}
             disabled={isShaking}
-            className="w-full py-3 px-6 bg-white border-2 border-orange-200 text-orange-600 rounded-2xl font-semibold text-base transition-all active:scale-95 hover:bg-orange-50 disabled:opacity-70"
+            className={`w-full py-3 px-6 bg-white border-2 ${vegetarian ? 'border-green-200 text-green-600 hover:bg-green-50' : 'border-orange-200 text-orange-600 hover:bg-orange-50'} rounded-2xl font-semibold text-base transition-all active:scale-95 disabled:opacity-70`}
           >
             ⚡ Random nhanh 1 món
           </button>
@@ -146,25 +161,28 @@ export default function HomePage() {
       {/* === COMBO RESULTS === */}
       {mode === 'combo' && combos.length > 0 && (
         <div className="mt-6 space-y-5">
+          {vegetarian && (
+            <div className="flex items-center gap-2 px-3 py-2 bg-green-50 rounded-xl text-xs text-green-700 font-medium">
+              🌿 Thực đơn chay
+            </div>
+          )}
           {combos.map((combo, ci) => (
             <div key={ci} className="animate-slide-up" style={{ animationDelay: `${ci * 0.15}s` }}>
               <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                <div className="bg-gradient-to-r from-orange-50 to-red-50 px-4 py-2.5 border-b border-orange-100">
-                  <h3 className="text-sm font-bold text-orange-700">
-                    Thực đơn {ci + 1}
+                <div className={`${vegetarian ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-green-100' : 'bg-gradient-to-r from-orange-50 to-red-50 border-orange-100'} px-4 py-2.5 border-b`}>
+                  <h3 className={`text-sm font-bold ${vegetarian ? 'text-green-700' : 'text-orange-700'}`}>
+                    {vegetarian ? '🌿 ' : ''}Thực đơn {ci + 1}
                   </h3>
                 </div>
                 <div className="divide-y divide-gray-50">
-                  {/* Món mặn */}
                   <div className="px-4 py-3 flex items-center gap-3">
-                    <span className="text-xs font-semibold text-red-500 bg-red-50 px-2 py-0.5 rounded-full whitespace-nowrap">Mặn</span>
+                    <span className={`text-xs font-semibold ${vegetarian ? 'text-green-600 bg-green-50' : 'text-red-500 bg-red-50'} px-2 py-0.5 rounded-full whitespace-nowrap`}>{vegetarian ? 'Chay' : 'Mặn'}</span>
                     <span className="text-2xl">{combo.monMan.image}</span>
                     <div className="min-w-0">
                       <p className="font-semibold text-gray-900 text-sm">{combo.monMan.name}</p>
                       <p className="text-xs text-gray-500 truncate">{combo.monMan.description}</p>
                     </div>
                   </div>
-                  {/* Rau */}
                   <div className="px-4 py-3 flex items-center gap-3">
                     <span className="text-xs font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded-full whitespace-nowrap">Rau</span>
                     <span className="text-2xl">{combo.rau.image}</span>
@@ -173,7 +191,6 @@ export default function HomePage() {
                       <p className="text-xs text-gray-500 truncate">{combo.rau.description}</p>
                     </div>
                   </div>
-                  {/* Canh */}
                   <div className="px-4 py-3 flex items-center gap-3">
                     <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full whitespace-nowrap">Canh</span>
                     <span className="text-2xl">{combo.canh.image}</span>
@@ -188,7 +205,7 @@ export default function HomePage() {
           ))}
           <button
             onClick={handleCombo}
-            className="w-full py-2.5 text-sm text-orange-500 font-medium hover:text-orange-600"
+            className={`w-full py-2.5 text-sm ${vegetarian ? 'text-green-500 hover:text-green-600' : 'text-orange-500 hover:text-orange-600'} font-medium`}
           >
             🔄 Gợi ý thực đơn khác
           </button>
@@ -199,7 +216,7 @@ export default function HomePage() {
       {mode === 'main' && mainDishes.length > 0 && (
         <div className="mt-6 space-y-3">
           <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
-            Gợi ý món chính
+            {vegetarian ? '🌿 Gợi ý món chay' : 'Gợi ý món chính'}
           </h2>
           {mainDishes.map((dish, i) => (
             <div key={dish.id} className="animate-slide-up" style={{ animationDelay: `${i * 0.1}s` }}>
@@ -208,7 +225,7 @@ export default function HomePage() {
           ))}
           <button
             onClick={handleMain}
-            className="w-full py-2.5 text-sm text-orange-500 font-medium hover:text-orange-600"
+            className={`w-full py-2.5 text-sm ${vegetarian ? 'text-green-500 hover:text-green-600' : 'text-orange-500 hover:text-orange-600'} font-medium`}
           >
             🔄 Gợi ý khác
           </button>
