@@ -33,9 +33,23 @@ export default function InstallPrompt() {
     };
     window.addEventListener('beforeinstallprompt', handler);
 
-    // Register service worker
+    // Register service worker with auto-update
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch(() => {});
+      navigator.serviceWorker.register('/sw.js').then((reg) => {
+        // Check for updates every 60 seconds
+        setInterval(() => reg.update(), 60 * 1000);
+
+        reg.addEventListener('updatefound', () => {
+          const newWorker = reg.installing;
+          if (!newWorker) return;
+          newWorker.addEventListener('statechange', () => {
+            // New version ready - reload to get latest
+            if (newWorker.state === 'activated' && navigator.serviceWorker.controller) {
+              window.location.reload();
+            }
+          });
+        });
+      }).catch(() => {});
     }
 
     return () => window.removeEventListener('beforeinstallprompt', handler);
