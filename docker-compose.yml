@@ -1,0 +1,11 @@
+services:
+  what-eat:
+    build: .
+    container_name: what-eat-app
+    ports:
+      - "3456:3000"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+    hostname: what-eat

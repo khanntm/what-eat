@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/macvn/Documents/**)",
+      "Bash(yes \"n\")",
+      "Bash(npx create-next-app@latest what-eat-temp --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-npm)",
+      "Bash(cp -r /Users/macvn/Documents/what-eat-temp/* /Users/macvn/Documents/what-eat/)",
+      "Bash(cp -r /Users/macvn/Documents/what-eat-temp/.eslintrc* /Users/macvn/Documents/what-eat/)",
+      "Bash(cp /Users/macvn/Documents/what-eat-temp/.gitignore /Users/macvn/Documents/what-eat/)",
+      "Bash(cp /Users/macvn/Documents/what-eat-temp/tsconfig.json /Users/macvn/Documents/what-eat/)",
+      "Bash(rm -rf /Users/macvn/Documents/what-eat-temp)",
+      "Bash(npm run:*)",
+      "Bash(npm install:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}
