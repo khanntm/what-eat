@@ -1,20 +1,26 @@
-import { Dish, dishes, MealTime, Weather, Budget, DishSource } from '@/data/dishes';
+import { Dish, DishType, dishes, MealTime, Weather, Budget, DishSource } from '@/data/dishes';
 
 // Match whole words only to avoid "cá" matching "các" in "rau các loại"
 function ingredientMatches(ingredient: string, userInput: string): boolean {
   const ing = ingredient.toLowerCase().trim();
   const input = userInput.toLowerCase().trim();
   if (ing === input) return true;
-  // Check if input matches a whole word in the ingredient string
   const words = ing.split(/\s+/);
   if (words.some((w) => w === input)) return true;
-  // Check if ingredient is a whole word in the input
   const inputWords = input.split(/\s+/);
   if (inputWords.some((w) => w === ing)) return true;
-  // Multi-word ingredient: check if input contains the full ingredient or vice versa
   if (input.length > 2 && ing.startsWith(input)) return true;
   if (ing.length > 2 && input.startsWith(ing)) return true;
   return false;
+}
+
+function shuffle<T>(arr: T[]): T[] {
+  const shuffled = [...arr];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
 }
 
 function getCurrentMealTime(): MealTime {
@@ -34,64 +40,76 @@ export interface SuggestOptions {
   ingredients?: string[];
 }
 
-function scoreDish(dish: Dish, options: SuggestOptions): number {
-  let score = 0;
+function getEligible(mealTime: MealTime, dishType?: DishType, source?: DishSource): Dish[] {
+  return dishes.filter((d) => {
+    if (!d.mealTime.includes(mealTime)) return false;
+    if (dishType && d.dishType !== dishType) return false;
+    if (source && d.source !== source) return false;
+    return true;
+  });
+}
+
+function pickRandom(arr: Dish[], count: number = 1): Dish[] {
+  return shuffle(arr).slice(0, count);
+}
+
+// ===== COMBO BỮA CƠM: món mặn + rau + canh =====
+export interface MealCombo {
+  monMan: Dish;
+  rau: Dish;
+  canh: Dish;
+}
+
+export function suggestMealCombo(options: SuggestOptions = {}): MealCombo {
   const mealTime = options.mealTime || getCurrentMealTime();
 
-  // Must match meal time
-  if (!dish.mealTime.includes(mealTime)) return -1;
+  const monManList = getEligible(mealTime, 'món-mặn', 'nấu-tại-nhà');
+  const rauList = getEligible(mealTime, 'rau', 'nấu-tại-nhà');
+  const canhList = getEligible(mealTime, 'canh', 'nấu-tại-nhà');
 
-  // Must match source filter if set
-  if (options.source && dish.source !== options.source) return -1;
-
-  // Must match budget if set
-  if (options.budget && dish.budget !== options.budget) return -1;
-
-  // Must be kid friendly if required
-  if (options.kidFriendly && !dish.kidFriendly) return -1;
-
-  // Exclude specific IDs
-  if (options.excludeIds?.includes(dish.id)) return -1;
-
-  // Weather bonus
-  if (options.weather && dish.weather.includes(options.weather)) {
-    score += 3;
-  }
-
-  // Ingredient matching
-  if (options.ingredients && options.ingredients.length > 0) {
-    const matched = dish.ingredients.filter((ing) =>
-      options.ingredients!.some((userIng) => ingredientMatches(ing, userIng))
-    );
-    if (matched.length === 0 && dish.ingredients.length > 0) return -1;
-    score += matched.length * 5;
-  }
-
-  // Tag bonuses
-  if (dish.tags.includes('gia-đình')) score += 2;
-  if (dish.tags.includes('ngon')) score += 1;
-
-  // Add randomness to keep suggestions fresh
-  score += Math.random() * 4;
-
-  return score;
+  return {
+    monMan: pickRandom(monManList)[0],
+    rau: pickRandom(rauList)[0],
+    canh: pickRandom(canhList)[0],
+  };
 }
 
-export function suggestDishes(options: SuggestOptions = {}, count: number = 3): Dish[] {
-  const scored = dishes
-    .map((dish) => ({ dish, score: scoreDish(dish, options) }))
-    .filter((s) => s.score >= 0)
-    .sort((a, b) => b.score - a.score);
+export function suggestMealCombos(options: SuggestOptions = {}, count: number = 2): MealCombo[] {
+  const combos: MealCombo[] = [];
+  const usedMonMan = new Set<string>();
+  for (let i = 0; i < count; i++) {
+    const mealTime = options.mealTime || getCurrentMealTime();
+    const monManList = getEligible(mealTime, 'món-mặn', 'nấu-tại-nhà').filter((d) => !usedMonMan.has(d.id));
+    const rauList = getEligible(mealTime, 'rau', 'nấu-tại-nhà');
+    const canhList = getEligible(mealTime, 'canh', 'nấu-tại-nhà');
 
-  return scored.slice(0, count).map((s) => s.dish);
+    if (monManList.length === 0 || rauList.length === 0 || canhList.length === 0) break;
+    const monMan = pickRandom(monManList)[0];
+    usedMonMan.add(monMan.id);
+    combos.push({
+      monMan,
+      rau: pickRandom(rauList)[0],
+      canh: pickRandom(canhList)[0],
+    });
+  }
+  return combos;
 }
 
+// ===== MÓN CHÍNH (1 món trọn bữa) =====
+export function suggestMainDishes(options: SuggestOptions = {}, count: number = 3): Dish[] {
+  const mealTime = options.mealTime || getCurrentMealTime();
+  const eligible = getEligible(mealTime, 'món-chính');
+  return pickRandom(eligible, count);
+}
+
+// ===== RANDOM =====
 export function randomDish(options: SuggestOptions = {}): Dish {
   const mealTime = options.mealTime || getCurrentMealTime();
   const eligible = dishes.filter((d) => d.mealTime.includes(mealTime));
   return eligible[Math.floor(Math.random() * eligible.length)];
 }
 
+// ===== INGREDIENT-BASED =====
 export function suggestByIngredients(ingredients: string[]): Dish[] {
   if (ingredients.length === 0) return [];
 
@@ -105,27 +123,31 @@ export function suggestByIngredients(ingredients: string[]): Dish[] {
     })
     .filter((s) => s.matched > 0)
     .sort((a, b) => b.matched - a.matched)
-    .slice(0, 6)
+    .slice(0, 8)
     .map((s) => s.dish);
 }
 
+// ===== BREAKFAST =====
 export function suggestBreakfast(): { home: Dish[]; outside: Dish[]; store: Dish[] } {
   const breakfastDishes = dishes.filter((d) => d.mealTime.includes('sáng'));
-
-  const shuffle = <T>(arr: T[]): T[] => {
-    const shuffled = [...arr];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-  };
 
   return {
     home: shuffle(breakfastDishes.filter((d) => d.source === 'nấu-tại-nhà')).slice(0, 3),
     outside: shuffle(breakfastDishes.filter((d) => d.source === 'mua-ngoài')).slice(0, 3),
     store: shuffle(breakfastDishes.filter((d) => d.source === 'cửa-hàng-tiện-lợi')).slice(0, 3),
   };
+}
+
+// ===== VOTING =====
+export function suggestForVoting(options: SuggestOptions = {}, count: number = 4): Dish[] {
+  const mealTime = options.mealTime || getCurrentMealTime();
+  if (mealTime === 'sáng') {
+    return pickRandom(getEligible(mealTime), count);
+  }
+  // For lunch/dinner: mix món chính + combo ideas
+  const mainDishes = pickRandom(getEligible(mealTime, 'món-chính'), 2);
+  const monMan = pickRandom(getEligible(mealTime, 'món-mặn', 'nấu-tại-nhà'), 2);
+  return [...mainDishes, ...monMan].slice(0, count);
 }
 
 export { getCurrentMealTime };

@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { Dish, MealTime } from '@/data/dishes';
-import { suggestDishes, randomDish, getCurrentMealTime, SuggestOptions } from '@/lib/suggest';
+import { suggestMealCombos, suggestMainDishes, randomDish, getCurrentMealTime, MealCombo } from '@/lib/suggest';
 import DishCard from '@/components/DishCard';
 
 const mealTimes: { key: MealTime; icon: string; label: string }[] = [
@@ -11,54 +11,62 @@ const mealTimes: { key: MealTime; icon: string; label: string }[] = [
   { key: 'tối', icon: '🌙', label: 'Tối' },
 ];
 
+type SuggestMode = 'combo' | 'main' | 'quick';
+
 export default function HomePage() {
   const [mealTime, setMealTime] = useState<MealTime>(getCurrentMealTime());
-  const [suggestions, setSuggestions] = useState<Dish[]>([]);
+  const [combos, setCombos] = useState<MealCombo[]>([]);
+  const [mainDishes, setMainDishes] = useState<Dish[]>([]);
   const [quickDish, setQuickDish] = useState<Dish | null>(null);
   const [isShaking, setIsShaking] = useState(false);
-  const [showResults, setShowResults] = useState(false);
-  const [selectedDish, setSelectedDish] = useState<Dish | null>(null);
+  const [mode, setMode] = useState<SuggestMode | null>(null);
 
   const handleMealTimeChange = (mt: MealTime) => {
     setMealTime(mt);
-    setShowResults(false);
-    setSuggestions([]);
+    setMode(null);
+    setCombos([]);
+    setMainDishes([]);
     setQuickDish(null);
-    setSelectedDish(null);
   };
 
-  const handleSuggest = useCallback(() => {
+  const handleCombo = useCallback(() => {
     setIsShaking(true);
-    setShowResults(false);
-    setQuickDish(null);
-    setSelectedDish(null);
-
+    setMode(null);
     setTimeout(() => {
-      const options: SuggestOptions = { mealTime };
-      setSuggestions(suggestDishes(options, 3));
+      setCombos(suggestMealCombos({ mealTime }, 2));
+      setMainDishes([]);
+      setQuickDish(null);
+      setMode('combo');
       setIsShaking(false);
-      setShowResults(true);
-    }, 600);
+    }, 500);
   }, [mealTime]);
 
-  const handleQuickMode = useCallback(() => {
+  const handleMain = useCallback(() => {
     setIsShaking(true);
-    setShowResults(false);
-    setSuggestions([]);
-    setSelectedDish(null);
+    setMode(null);
+    setTimeout(() => {
+      setMainDishes(suggestMainDishes({ mealTime }, 3));
+      setCombos([]);
+      setQuickDish(null);
+      setMode('main');
+      setIsShaking(false);
+    }, 500);
+  }, [mealTime]);
 
+  const handleQuick = useCallback(() => {
+    setIsShaking(true);
+    setMode(null);
     setTimeout(() => {
       setQuickDish(randomDish({ mealTime }));
+      setCombos([]);
+      setMainDishes([]);
+      setMode('quick');
       setIsShaking(false);
-      setShowResults(true);
-    }, 600);
+    }, 500);
   }, [mealTime]);
 
-  const handleSelect = (dish: Dish) => {
-    setSelectedDish(dish);
-  };
-
   const currentMealInfo = mealTimes.find((m) => m.key === mealTime)!;
+  const isLunchOrDinner = mealTime === 'trưa' || mealTime === 'tối';
 
   return (
     <div className="px-4 pt-6">
@@ -87,62 +95,119 @@ export default function HomePage() {
         ))}
       </div>
 
-      {/* Main CTA */}
-      <button
-        onClick={handleSuggest}
-        disabled={isShaking}
-        className={`w-full py-4 px-6 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-2xl font-bold text-lg shadow-lg shadow-orange-200 transition-all active:scale-95 disabled:opacity-70 ${
-          isShaking ? 'animate-shake' : 'hover:shadow-xl hover:shadow-orange-300'
-        }`}
-      >
-        {isShaking ? '🔄 Đang chọn...' : `🍜 Ăn ${currentMealInfo.label.toLowerCase()} gì?`}
-      </button>
-
-      {/* Quick Mode */}
-      <button
-        onClick={handleQuickMode}
-        disabled={isShaking}
-        className="w-full mt-3 py-3 px-6 bg-white border-2 border-orange-200 text-orange-600 rounded-2xl font-semibold text-base transition-all active:scale-95 hover:bg-orange-50 disabled:opacity-70"
-      >
-        ⚡ Random nhanh 1 món
-      </button>
-
-      {/* Selected dish confirmation */}
-      {selectedDish && (
-        <div className="mt-6 p-4 bg-green-50 rounded-2xl border border-green-200 animate-bounce-in">
-          <div className="text-center">
-            <div className="text-3xl mb-2">🎉</div>
-            <h3 className="font-bold text-green-800 text-lg">Đã chọn!</h3>
-            <p className="text-2xl mt-2">{selectedDish.image} {selectedDish.name}</p>
-            <p className="text-sm text-green-600 mt-1">{selectedDish.description}</p>
-            {selectedDish.ingredients.length > 0 && (
-              <div className="mt-3 text-xs text-green-700">
-                <span className="font-medium">Nguyên liệu:</span> {selectedDish.ingredients.join(', ')}
-              </div>
-            )}
-            <button
-              onClick={() => setSelectedDish(null)}
-              className="mt-3 text-sm text-green-600 underline"
-            >
-              Chọn lại
-            </button>
-          </div>
+      {/* Action Buttons */}
+      {isLunchOrDinner ? (
+        <div className="space-y-3">
+          <button
+            onClick={handleCombo}
+            disabled={isShaking}
+            className={`w-full py-4 px-6 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-2xl font-bold text-lg shadow-lg shadow-orange-200 transition-all active:scale-95 disabled:opacity-70 ${
+              isShaking ? 'animate-shake' : ''
+            }`}
+          >
+            {isShaking ? '🔄 Đang chọn...' : '🍚 Gợi ý bữa cơm (mặn + rau + canh)'}
+          </button>
+          <button
+            onClick={handleMain}
+            disabled={isShaking}
+            className="w-full py-3 px-6 bg-white border-2 border-orange-200 text-orange-600 rounded-2xl font-semibold text-base transition-all active:scale-95 hover:bg-orange-50 disabled:opacity-70"
+          >
+            🍜 Gợi ý món chính (1 món trọn bữa)
+          </button>
+          <button
+            onClick={handleQuick}
+            disabled={isShaking}
+            className="w-full py-3 px-6 bg-white border-2 border-gray-200 text-gray-600 rounded-2xl font-semibold text-sm transition-all active:scale-95 hover:bg-gray-50 disabled:opacity-70"
+          >
+            ⚡ Random nhanh 1 món
+          </button>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          <button
+            onClick={handleMain}
+            disabled={isShaking}
+            className={`w-full py-4 px-6 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-2xl font-bold text-lg shadow-lg shadow-orange-200 transition-all active:scale-95 disabled:opacity-70 ${
+              isShaking ? 'animate-shake' : ''
+            }`}
+          >
+            {isShaking ? '🔄 Đang chọn...' : `🍜 Ăn ${currentMealInfo.label.toLowerCase()} gì?`}
+          </button>
+          <button
+            onClick={handleQuick}
+            disabled={isShaking}
+            className="w-full py-3 px-6 bg-white border-2 border-orange-200 text-orange-600 rounded-2xl font-semibold text-base transition-all active:scale-95 hover:bg-orange-50 disabled:opacity-70"
+          >
+            ⚡ Random nhanh 1 món
+          </button>
         </div>
       )}
 
-      {/* Suggestions */}
-      {showResults && suggestions.length > 0 && !selectedDish && (
-        <div className="mt-6 space-y-3">
-          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
-            Gợi ý bữa {currentMealInfo.label.toLowerCase()}
-          </h2>
-          {suggestions.map((dish, i) => (
-            <div key={dish.id} className={`animate-slide-up delay-${(i + 1) * 100}`}>
-              <DishCard dish={dish} onSelect={handleSelect} />
+      {/* === COMBO RESULTS === */}
+      {mode === 'combo' && combos.length > 0 && (
+        <div className="mt-6 space-y-5">
+          {combos.map((combo, ci) => (
+            <div key={ci} className="animate-slide-up" style={{ animationDelay: `${ci * 0.15}s` }}>
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div className="bg-gradient-to-r from-orange-50 to-red-50 px-4 py-2.5 border-b border-orange-100">
+                  <h3 className="text-sm font-bold text-orange-700">
+                    Thực đơn {ci + 1}
+                  </h3>
+                </div>
+                <div className="divide-y divide-gray-50">
+                  {/* Món mặn */}
+                  <div className="px-4 py-3 flex items-center gap-3">
+                    <span className="text-xs font-semibold text-red-500 bg-red-50 px-2 py-0.5 rounded-full whitespace-nowrap">Mặn</span>
+                    <span className="text-2xl">{combo.monMan.image}</span>
+                    <div className="min-w-0">
+                      <p className="font-semibold text-gray-900 text-sm">{combo.monMan.name}</p>
+                      <p className="text-xs text-gray-500 truncate">{combo.monMan.description}</p>
+                    </div>
+                  </div>
+                  {/* Rau */}
+                  <div className="px-4 py-3 flex items-center gap-3">
+                    <span className="text-xs font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded-full whitespace-nowrap">Rau</span>
+                    <span className="text-2xl">{combo.rau.image}</span>
+                    <div className="min-w-0">
+                      <p className="font-semibold text-gray-900 text-sm">{combo.rau.name}</p>
+                      <p className="text-xs text-gray-500 truncate">{combo.rau.description}</p>
+                    </div>
+                  </div>
+                  {/* Canh */}
+                  <div className="px-4 py-3 flex items-center gap-3">
+                    <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full whitespace-nowrap">Canh</span>
+                    <span className="text-2xl">{combo.canh.image}</span>
+                    <div className="min-w-0">
+                      <p className="font-semibold text-gray-900 text-sm">{combo.canh.name}</p>
+                      <p className="text-xs text-gray-500 truncate">{combo.canh.description}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
           <button
-            onClick={handleSuggest}
+            onClick={handleCombo}
+            className="w-full py-2.5 text-sm text-orange-500 font-medium hover:text-orange-600"
+          >
+            🔄 Gợi ý thực đơn khác
+          </button>
+        </div>
+      )}
+
+      {/* === MAIN DISH RESULTS === */}
+      {mode === 'main' && mainDishes.length > 0 && (
+        <div className="mt-6 space-y-3">
+          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
+            Gợi ý món chính
+          </h2>
+          {mainDishes.map((dish, i) => (
+            <div key={dish.id} className="animate-slide-up" style={{ animationDelay: `${i * 0.1}s` }}>
+              <DishCard dish={dish} />
+            </div>
+          ))}
+          <button
+            onClick={handleMain}
             className="w-full py-2.5 text-sm text-orange-500 font-medium hover:text-orange-600"
           >
             🔄 Gợi ý khác
@@ -150,15 +215,15 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Quick Mode Result */}
-      {showResults && quickDish && !selectedDish && (
+      {/* === QUICK RESULT === */}
+      {mode === 'quick' && quickDish && (
         <div className="mt-6 animate-bounce-in">
           <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
             ⚡ Kết quả random
           </h2>
-          <DishCard dish={quickDish} onSelect={handleSelect} />
+          <DishCard dish={quickDish} />
           <button
-            onClick={handleQuickMode}
+            onClick={handleQuick}
             className="w-full mt-3 py-2.5 text-sm text-orange-500 font-medium hover:text-orange-600"
           >
             🎲 Random lại
@@ -167,7 +232,7 @@ export default function HomePage() {
       )}
 
       {/* Empty state */}
-      {!showResults && !isShaking && (
+      {!mode && !isShaking && (
         <div className="mt-10 text-center text-gray-400">
           <div className="text-5xl mb-3 opacity-30">🍽️</div>
           <p className="text-sm">Chọn bữa ăn rồi bấm nút ở trên!</p>

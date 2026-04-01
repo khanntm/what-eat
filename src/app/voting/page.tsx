@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { suggestDishes, getCurrentMealTime } from '@/lib/suggest';
+import { suggestForVoting, getCurrentMealTime } from '@/lib/suggest';
 import { Dish } from '@/data/dishes';
 import { VoteSession, createSession, castVote, getResults, hasEveryoneVoted } from '@/lib/voting';
 import DishCard from '@/components/DishCard';
@@ -27,7 +27,7 @@ export default function VotingPage() {
     const validMembers = members.filter((m) => m.trim());
     if (validMembers.length < 2) return;
 
-    const dishes = suggestDishes({ mealTime: getCurrentMealTime() }, 4);
+    const dishes = suggestForVoting({ mealTime: getCurrentMealTime() }, 4);
     const newSession = createSession(dishes, validMembers);
     setSession(newSession);
     setCurrentMember(0);
