@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import BottomNav from '@/components/BottomNav';
+import InstallPrompt from '@/components/InstallPrompt';
 
 export const metadata: Metadata = {
   title: 'Hôm Nay Ăn Gì?',
@@ -33,6 +34,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-[#faf9f7]">
         <main className="flex-1 max-w-lg mx-auto w-full pb-20">
+          <InstallPrompt />
           {children}
         </main>
         <BottomNav />
