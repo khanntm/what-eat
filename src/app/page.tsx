@@ -1,21 +1,31 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { Dish } from '@/data/dishes';
+import { Dish, MealTime } from '@/data/dishes';
 import { suggestDishes, randomDish, getCurrentMealTime, SuggestOptions } from '@/lib/suggest';
 import DishCard from '@/components/DishCard';
 
-const mealTimeEmoji = { 'sáng': '🌅', 'trưa': '☀️', 'tối': '🌙' };
-const mealTimeLabel = { 'sáng': 'Buổi sáng', 'trưa': 'Buổi trưa', 'tối': 'Buổi tối' };
+const mealTimes: { key: MealTime; icon: string; label: string }[] = [
+  { key: 'sáng', icon: '🌅', label: 'Sáng' },
+  { key: 'trưa', icon: '☀️', label: 'Trưa' },
+  { key: 'tối', icon: '🌙', label: 'Tối' },
+];
 
 export default function HomePage() {
+  const [mealTime, setMealTime] = useState<MealTime>(getCurrentMealTime());
   const [suggestions, setSuggestions] = useState<Dish[]>([]);
   const [quickDish, setQuickDish] = useState<Dish | null>(null);
   const [isShaking, setIsShaking] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [selectedDish, setSelectedDish] = useState<Dish | null>(null);
 
-  const mealTime = getCurrentMealTime();
+  const handleMealTimeChange = (mt: MealTime) => {
+    setMealTime(mt);
+    setShowResults(false);
+    setSuggestions([]);
+    setQuickDish(null);
+    setSelectedDish(null);
+  };
 
   const handleSuggest = useCallback(() => {
     setIsShaking(true);
@@ -48,13 +58,33 @@ export default function HomePage() {
     setSelectedDish(dish);
   };
 
+  const currentMealInfo = mealTimes.find((m) => m.key === mealTime)!;
+
   return (
     <div className="px-4 pt-6">
       {/* Header */}
-      <div className="text-center mb-6">
-        <div className="text-4xl mb-2">{mealTimeEmoji[mealTime]}</div>
+      <div className="text-center mb-4">
+        <div className="text-4xl mb-2">{currentMealInfo.icon}</div>
         <h1 className="text-2xl font-bold text-gray-900">Hôm nay ăn gì?</h1>
-        <p className="text-sm text-gray-500 mt-1">{mealTimeLabel[mealTime]} - Hãy để app quyết định!</p>
+        <p className="text-sm text-gray-500 mt-1">Chọn bữa rồi bấm gợi ý!</p>
+      </div>
+
+      {/* Meal Time Picker */}
+      <div className="flex gap-2 mb-5">
+        {mealTimes.map((mt) => (
+          <button
+            key={mt.key}
+            onClick={() => handleMealTimeChange(mt.key)}
+            className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-all ${
+              mealTime === mt.key
+                ? 'bg-orange-500 text-white shadow-md shadow-orange-200'
+                : 'bg-white text-gray-600 border border-gray-100 hover:bg-orange-50'
+            }`}
+          >
+            <span className="block text-lg">{mt.icon}</span>
+            <span className="block text-xs mt-0.5">{mt.label}</span>
+          </button>
+        ))}
       </div>
 
       {/* Main CTA */}
@@ -65,7 +95,7 @@ export default function HomePage() {
           isShaking ? 'animate-shake' : 'hover:shadow-xl hover:shadow-orange-300'
         }`}
       >
-        {isShaking ? '🔄 Đang chọn...' : '🍜 Hôm nay ăn gì?'}
+        {isShaking ? '🔄 Đang chọn...' : `🍜 Ăn ${currentMealInfo.label.toLowerCase()} gì?`}
       </button>
 
       {/* Quick Mode */}
@@ -104,7 +134,7 @@ export default function HomePage() {
       {showResults && suggestions.length > 0 && !selectedDish && (
         <div className="mt-6 space-y-3">
           <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
-            Gợi ý cho bạn
+            Gợi ý bữa {currentMealInfo.label.toLowerCase()}
           </h2>
           {suggestions.map((dish, i) => (
             <div key={dish.id} className={`animate-slide-up delay-${(i + 1) * 100}`}>
@@ -138,9 +168,9 @@ export default function HomePage() {
 
       {/* Empty state */}
       {!showResults && !isShaking && (
-        <div className="mt-12 text-center text-gray-400">
-          <div className="text-6xl mb-4 opacity-30">🍽️</div>
-          <p className="text-sm">Bấm nút ở trên để bắt đầu!</p>
+        <div className="mt-10 text-center text-gray-400">
+          <div className="text-5xl mb-3 opacity-30">🍽️</div>
+          <p className="text-sm">Chọn bữa ăn rồi bấm nút ở trên!</p>
         </div>
       )}
     </div>

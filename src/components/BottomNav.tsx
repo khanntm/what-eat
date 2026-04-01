@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const navItems = [
-  { href: '/', icon: '🎲', label: 'Gợi ý' },
+  { href: '/', icon: '🍜', label: 'Ăn gì?' },
   { href: '/breakfast', icon: '🌅', label: 'Ăn sáng' },
   { href: '/ingredients', icon: '🧊', label: 'Nguyên liệu' },
   { href: '/voting', icon: '👨‍👩‍👧', label: 'Vote' },
