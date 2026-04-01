@@ -1,5 +1,22 @@
 import { Dish, dishes, MealTime, Weather, Budget, DishSource } from '@/data/dishes';
 
+// Match whole words only to avoid "cá" matching "các" in "rau các loại"
+function ingredientMatches(ingredient: string, userInput: string): boolean {
+  const ing = ingredient.toLowerCase().trim();
+  const input = userInput.toLowerCase().trim();
+  if (ing === input) return true;
+  // Check if input matches a whole word in the ingredient string
+  const words = ing.split(/\s+/);
+  if (words.some((w) => w === input)) return true;
+  // Check if ingredient is a whole word in the input
+  const inputWords = input.split(/\s+/);
+  if (inputWords.some((w) => w === ing)) return true;
+  // Multi-word ingredient: check if input contains the full ingredient or vice versa
+  if (input.length > 2 && ing.startsWith(input)) return true;
+  if (ing.length > 2 && input.startsWith(ing)) return true;
+  return false;
+}
+
 function getCurrentMealTime(): MealTime {
   const hour = new Date().getHours();
   if (hour >= 5 && hour < 10) return 'sáng';
@@ -44,9 +61,7 @@ function scoreDish(dish: Dish, options: SuggestOptions): number {
   // Ingredient matching
   if (options.ingredients && options.ingredients.length > 0) {
     const matched = dish.ingredients.filter((ing) =>
-      options.ingredients!.some(
-        (userIng) => ing.toLowerCase().includes(userIng.toLowerCase()) || userIng.toLowerCase().includes(ing.toLowerCase())
-      )
+      options.ingredients!.some((userIng) => ingredientMatches(ing, userIng))
     );
     if (matched.length === 0 && dish.ingredients.length > 0) return -1;
     score += matched.length * 5;
@@ -84,9 +99,7 @@ export function suggestByIngredients(ingredients: string[]): Dish[] {
     .map((dish) => {
       if (dish.ingredients.length === 0) return { dish, matched: 0 };
       const matched = dish.ingredients.filter((ing) =>
-        ingredients.some(
-          (userIng) => ing.toLowerCase().includes(userIng.toLowerCase()) || userIng.toLowerCase().includes(ing.toLowerCase())
-        )
+        ingredients.some((userIng) => ingredientMatches(ing, userIng))
       );
       return { dish, matched: matched.length };
     })
