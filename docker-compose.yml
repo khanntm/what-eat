@@ -3,7 +3,7 @@ services:
     build: .
     container_name: what-eat-app
     ports:
-      - "3456:3000"
+      - "3500:3000"
     restart: unless-stopped
     environment:
       - NODE_ENV=production
