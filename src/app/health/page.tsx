@@ -1,7 +1,11 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import type { Gender, AgeGroup } from '@/data/health-types';
+import type { UserProfile } from '@/data/health-types';
+import { generateDailyDiet } from '@/lib/engine/daily-diet';
+import type { DailyDietPlan, DietNotification } from '@/lib/engine/daily-diet';
+import { SUPERFOODS_DB } from '@/data/nutrition-rules';
 
 // ============================================================================
 // HEALTH PAGE — Tối giản như giải thích cho trẻ 9 tuổi
@@ -378,6 +382,8 @@ function DailyView({
   onStartTest: () => void;
   onReset: () => void;
 }) {
+  const [tab, setTab] = useState<'supplement' | 'meal'>('supplement');
+  const [expandedWarning, setExpandedWarning] = useState<string | null>(null);
   const isMorning = new Date().getHours() < 14;
 
   // Dosage by profile
@@ -390,180 +396,323 @@ function DailyView({
     (sum, d) => sum + (d.morning ? 1 : 0) + (d.night ? 1 : 0), 0
   ) + (state.todayChecks.morning ? 1 : 0) + (state.todayChecks.night ? 1 : 0);
 
+  // Generate meal plan
+  const dietPlan = useMemo(() => {
+    const profile: UserProfile = {
+      ageGroup: state.ageGroup,
+      gender: state.gender,
+      conditions: [],
+      lifestyle: [],
+      concerns: ['calcium', 'magnesium', 'vitamin-d3'],
+    };
+    return generateDailyDiet(profile);
+  }, [state.gender, state.ageGroup]);
+
   return (
     <div className="px-5 pt-5 pb-4">
       {/* Header */}
-      <div className="flex items-center justify-between mb-1">
-        <h1 className="text-lg font-bold text-gray-900">Tam Giác Vàng</h1>
-        <div className="flex items-center gap-2">
-          <span className="text-xs bg-teal-50 text-teal-700 font-semibold px-2.5 py-1 rounded-full">
-            Ngày {day}/7
-          </span>
-        </div>
-      </div>
-      <p className="text-xs text-gray-400 mb-5">
-        {totalChecks > 0 ? `Bạn đã uống ${totalChecks} lần rồi, giỏi lắm!` : 'Hôm nay bắt đầu nào!'}
-      </p>
-
-      {/* Day Progress */}
-      <div className="flex gap-1 mb-6">
-        {[1, 2, 3, 4, 5, 6, 7].map(d => (
-          <div key={d} className={`h-2 flex-1 rounded-full transition-all ${
-            d < day ? 'bg-teal-400' : d === day ? 'bg-teal-500 animate-pulse' : d === 7 ? 'bg-amber-200' : 'bg-gray-200'
-          }`} />
-        ))}
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-lg font-bold text-gray-900">Sức khỏe mỗi ngày</h1>
+        <span className="text-xs bg-teal-50 text-teal-700 font-semibold px-2.5 py-1 rounded-full">
+          Ngày {day}/7
+        </span>
       </div>
 
-      {/* Morning Card */}
-      <button
-        onClick={() => !state.todayChecks.morning && onCheck('morning')}
-        className={`w-full mb-3 rounded-2xl border-2 transition-all text-left overflow-hidden ${
-          state.todayChecks.morning
-            ? 'border-teal-300 bg-teal-50'
-            : isMorning
-            ? 'border-amber-300 bg-gradient-to-r from-amber-50 to-yellow-50 shadow-md shadow-amber-100'
-            : 'border-gray-200 bg-white'
-        }`}
-      >
-        <div className="p-4">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">☀️</span>
-              <div>
-                <div className="text-sm font-bold text-gray-900">Buổi sáng</div>
-                <div className="text-[11px] text-gray-500">Sau bữa ăn sáng</div>
-              </div>
-            </div>
-            {state.todayChecks.morning ? (
-              <div className="w-8 h-8 rounded-full bg-teal-500 flex items-center justify-center text-white text-lg">
-                &#10003;
-              </div>
-            ) : isMorning ? (
-              <div className="text-xs font-semibold text-amber-600 bg-amber-100 px-3 py-1 rounded-full animate-pulse">
-                Uống ngay
-              </div>
-            ) : (
-              <div className="w-8 h-8 rounded-full border-2 border-gray-300" />
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <div className="flex items-center gap-3 bg-white/60 rounded-xl px-3 py-2">
-              <span className="text-lg">🧱</span>
-              <div className="flex-1">
-                <div className="text-sm font-semibold text-gray-800">Canxi</div>
-                <div className="text-[11px] text-gray-500">Gạch xây nhà</div>
-              </div>
-              <span className="text-xs font-semibold text-blue-600">{caDose}</span>
-            </div>
-            <div className="flex items-center gap-3 bg-white/60 rounded-xl px-3 py-2">
-              <span className="text-lg">🌞</span>
-              <div className="flex-1">
-                <div className="text-sm font-semibold text-gray-800">Vitamin D3</div>
-                <div className="text-[11px] text-gray-500">Ánh nắng giúp dính gạch</div>
-              </div>
-              <span className="text-xs font-semibold text-amber-600">{d3Dose}</span>
-            </div>
-          </div>
-        </div>
-      </button>
-
-      {/* Night Card */}
-      <button
-        onClick={() => !state.todayChecks.night && onCheck('night')}
-        className={`w-full mb-5 rounded-2xl border-2 transition-all text-left overflow-hidden ${
-          state.todayChecks.night
-            ? 'border-teal-300 bg-teal-50'
-            : !isMorning
-            ? 'border-indigo-300 bg-gradient-to-r from-indigo-50 to-purple-50 shadow-md shadow-indigo-100'
-            : 'border-gray-200 bg-white'
-        }`}
-      >
-        <div className="p-4">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">🌙</span>
-              <div>
-                <div className="text-sm font-bold text-gray-900">Buổi tối</div>
-                <div className="text-[11px] text-gray-500">Trước khi ngủ 1 tiếng</div>
-              </div>
-            </div>
-            {state.todayChecks.night ? (
-              <div className="w-8 h-8 rounded-full bg-teal-500 flex items-center justify-center text-white text-lg">
-                &#10003;
-              </div>
-            ) : !isMorning ? (
-              <div className="text-xs font-semibold text-indigo-600 bg-indigo-100 px-3 py-1 rounded-full animate-pulse">
-                Uống ngay
-              </div>
-            ) : (
-              <div className="w-8 h-8 rounded-full border-2 border-gray-300" />
-            )}
-          </div>
-
-          <div className="flex items-center gap-3 bg-white/60 rounded-xl px-3 py-2">
-            <span className="text-lg">🌙</span>
-            <div className="flex-1">
-              <div className="text-sm font-semibold text-gray-800">Magie</div>
-              <div className="text-[11px] text-gray-500">Xi-măng kết dính, ngủ ngon</div>
-            </div>
-            <span className="text-xs font-semibold text-indigo-600">{mgDose}</span>
-          </div>
-        </div>
-      </button>
-
-      {/* Both done today */}
-      {state.todayChecks.morning && state.todayChecks.night && (
-        <div className="bg-gradient-to-r from-teal-50 to-emerald-50 border border-teal-200 rounded-2xl p-4 mb-5 text-center animate-bounce-in">
-          <div className="text-3xl mb-1">🎉</div>
-          <div className="text-sm font-bold text-teal-800">Hoàn thành ngày hôm nay!</div>
-          <div className="text-xs text-teal-600 mt-1">Cơ thể bạn cảm ơn bạn đấy</div>
-        </div>
-      )}
-
-      {/* Separation reminder */}
-      <div className="bg-gray-50 rounded-xl px-4 py-3 mb-5">
-        <div className="text-[11px] text-gray-500 text-center">
-          💡 <span className="font-medium">Sáng uống Canxi+D3</span> — cách xa — <span className="font-medium">Tối uống Magie</span>
-        </div>
-        <div className="text-[10px] text-gray-400 text-center mt-1">
-          Chúng "giành nhau" nếu uống cùng lúc
-        </div>
-      </div>
-
-      {/* Day 7: Stomach Test CTA */}
-      {day >= 6 && !state.testResult && (
+      {/* Tab Switcher */}
+      <div className="flex gap-1 bg-gray-100 p-1 rounded-xl mb-4">
         <button
-          onClick={onStartTest}
-          className="w-full py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-2xl font-bold text-base shadow-lg shadow-orange-200 active:scale-95 transition-all mb-4"
+          onClick={() => setTab('supplement')}
+          className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+            tab === 'supplement' ? 'bg-white text-teal-600 shadow-sm' : 'text-gray-500'
+          }`}
         >
-          🧪 Kiểm tra sức khỏe dạ dày (2 phút)
+          💊 Tam Giác Vàng
         </button>
+        <button
+          onClick={() => setTab('meal')}
+          className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+            tab === 'meal' ? 'bg-white text-orange-600 shadow-sm' : 'text-gray-500'
+          }`}
+        >
+          🍽️ Gợi ý Ăn uống
+        </button>
+      </div>
+
+      {/* === TAB 1: Tam Giác Vàng === */}
+      {tab === 'supplement' && (
+        <div className="animate-slide-up">
+          {/* Day Progress */}
+          <div className="flex gap-1 mb-5">
+            {[1, 2, 3, 4, 5, 6, 7].map(d => (
+              <div key={d} className={`h-2 flex-1 rounded-full transition-all ${
+                d < day ? 'bg-teal-400' : d === day ? 'bg-teal-500 animate-pulse' : d === 7 ? 'bg-amber-200' : 'bg-gray-200'
+              }`} />
+            ))}
+          </div>
+
+          {/* Morning Card */}
+          <button
+            onClick={() => !state.todayChecks.morning && onCheck('morning')}
+            className={`w-full mb-3 rounded-2xl border-2 transition-all text-left overflow-hidden ${
+              state.todayChecks.morning
+                ? 'border-teal-300 bg-teal-50'
+                : isMorning
+                ? 'border-amber-300 bg-gradient-to-r from-amber-50 to-yellow-50 shadow-md shadow-amber-100'
+                : 'border-gray-200 bg-white'
+            }`}
+          >
+            <div className="p-4">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">☀️</span>
+                  <div>
+                    <div className="text-sm font-bold text-gray-900">Buổi sáng</div>
+                    <div className="text-[11px] text-gray-500">Sau bữa ăn sáng</div>
+                  </div>
+                </div>
+                {state.todayChecks.morning ? (
+                  <div className="w-8 h-8 rounded-full bg-teal-500 flex items-center justify-center text-white text-lg">&#10003;</div>
+                ) : isMorning ? (
+                  <div className="text-xs font-semibold text-amber-600 bg-amber-100 px-3 py-1 rounded-full animate-pulse">Uống ngay</div>
+                ) : (
+                  <div className="w-8 h-8 rounded-full border-2 border-gray-300" />
+                )}
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-3 bg-white/60 rounded-xl px-3 py-2">
+                  <span className="text-lg">🧱</span>
+                  <div className="flex-1"><div className="text-sm font-semibold text-gray-800">Canxi</div><div className="text-[11px] text-gray-500">Gạch xây nhà</div></div>
+                  <span className="text-xs font-semibold text-blue-600">{caDose}</span>
+                </div>
+                <div className="flex items-center gap-3 bg-white/60 rounded-xl px-3 py-2">
+                  <span className="text-lg">🌞</span>
+                  <div className="flex-1"><div className="text-sm font-semibold text-gray-800">Vitamin D3</div><div className="text-[11px] text-gray-500">Ánh nắng giúp dính gạch</div></div>
+                  <span className="text-xs font-semibold text-amber-600">{d3Dose}</span>
+                </div>
+              </div>
+            </div>
+          </button>
+
+          {/* Night Card */}
+          <button
+            onClick={() => !state.todayChecks.night && onCheck('night')}
+            className={`w-full mb-4 rounded-2xl border-2 transition-all text-left overflow-hidden ${
+              state.todayChecks.night
+                ? 'border-teal-300 bg-teal-50'
+                : !isMorning
+                ? 'border-indigo-300 bg-gradient-to-r from-indigo-50 to-purple-50 shadow-md shadow-indigo-100'
+                : 'border-gray-200 bg-white'
+            }`}
+          >
+            <div className="p-4">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">🌙</span>
+                  <div><div className="text-sm font-bold text-gray-900">Buổi tối</div><div className="text-[11px] text-gray-500">Trước khi ngủ 1 tiếng</div></div>
+                </div>
+                {state.todayChecks.night ? (
+                  <div className="w-8 h-8 rounded-full bg-teal-500 flex items-center justify-center text-white text-lg">&#10003;</div>
+                ) : !isMorning ? (
+                  <div className="text-xs font-semibold text-indigo-600 bg-indigo-100 px-3 py-1 rounded-full animate-pulse">Uống ngay</div>
+                ) : (
+                  <div className="w-8 h-8 rounded-full border-2 border-gray-300" />
+                )}
+              </div>
+              <div className="flex items-center gap-3 bg-white/60 rounded-xl px-3 py-2">
+                <span className="text-lg">🌙</span>
+                <div className="flex-1"><div className="text-sm font-semibold text-gray-800">Magie</div><div className="text-[11px] text-gray-500">Xi-măng kết dính, ngủ ngon</div></div>
+                <span className="text-xs font-semibold text-indigo-600">{mgDose}</span>
+              </div>
+            </div>
+          </button>
+
+          {/* Both done today */}
+          {state.todayChecks.morning && state.todayChecks.night && (
+            <div className="bg-gradient-to-r from-teal-50 to-emerald-50 border border-teal-200 rounded-2xl p-4 mb-4 text-center animate-bounce-in">
+              <div className="text-3xl mb-1">🎉</div>
+              <div className="text-sm font-bold text-teal-800">Hoàn thành ngày hôm nay!</div>
+              <div className="text-xs text-teal-600 mt-1">Cơ thể bạn cảm ơn bạn đấy</div>
+            </div>
+          )}
+
+          {/* Separation reminder */}
+          <div className="bg-gray-50 rounded-xl px-4 py-3 mb-4">
+            <div className="text-[11px] text-gray-500 text-center">
+              💡 <span className="font-medium">Sáng uống Canxi+D3</span> — cách xa — <span className="font-medium">Tối uống Magie</span>
+            </div>
+            <div className="text-[10px] text-gray-400 text-center mt-1">Chúng &ldquo;giành nhau&rdquo; nếu uống cùng lúc</div>
+          </div>
+
+          {/* Stomach Test */}
+          {day >= 6 && !state.testResult && (
+            <button onClick={onStartTest} className="w-full py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-2xl font-bold text-base shadow-lg shadow-orange-200 active:scale-95 transition-all mb-4">
+              🧪 Kiểm tra sức khỏe dạ dày (2 phút)
+            </button>
+          )}
+          {state.testResult && (
+            <div className={`rounded-2xl p-4 mb-4 ${state.testResult === 'low' ? 'bg-amber-50 border border-amber-200' : state.testResult === 'high' ? 'bg-red-50 border border-red-200' : 'bg-green-50 border border-green-200'}`}>
+              <div className="text-sm font-bold text-gray-800 mb-1">🧪 Kết quả test dạ dày</div>
+              <div className="text-xs text-gray-600">
+                {state.testResult === 'low' && 'Dạ dày hơi thiếu axit. Tam Giác Vàng sẽ giúp cải thiện!'}
+                {state.testResult === 'normal' && 'Dạ dày axit vừa phải. Tiếp tục giữ gìn nhé!'}
+                {state.testResult === 'high' && 'Dạ dày nhiều axit. Hạn chế chua cay, ăn chậm nhai kỹ.'}
+              </div>
+            </div>
+          )}
+        </div>
       )}
 
-      {/* Test result badge */}
-      {state.testResult && (
-        <div className={`rounded-2xl p-4 mb-4 ${
-          state.testResult === 'low' ? 'bg-amber-50 border border-amber-200' :
-          state.testResult === 'high' ? 'bg-red-50 border border-red-200' :
-          'bg-green-50 border border-green-200'
-        }`}>
-          <div className="text-sm font-bold text-gray-800 mb-1">
-            🧪 Kết quả test dạ dày
+      {/* === TAB 2: Gợi ý Ăn uống === */}
+      {tab === 'meal' && (
+        <div className="animate-slide-up space-y-4">
+          {/* Stomach Rule */}
+          <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl border border-amber-200 p-4">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-lg">😋</span>
+              <span className="text-sm font-bold text-amber-800">Quy tắc Dạ dày</span>
+            </div>
+            <div className="text-sm text-amber-700 font-medium">{dietPlan.stomachRule.ruleVi}</div>
+            <div className="text-[11px] text-amber-600 mt-1">{dietPlan.stomachRule.whyVi}</div>
           </div>
-          <div className="text-xs text-gray-600">
-            {state.testResult === 'low' && 'Dạ dày bạn hơi thiếu axit. Tam Giác Vàng sẽ giúp cải thiện!'}
-            {state.testResult === 'normal' && 'Dạ dày bạn axit vừa phải. Tiếp tục giữ gìn nhé!'}
-            {state.testResult === 'high' && 'Dạ dày bạn nhiều axit. Hạn chế chua cay, ăn chậm nhai kỹ.'}
+
+          {/* Fist Rule */}
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl border border-green-200 p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-lg">🥬</span>
+              <span className="text-sm font-bold text-green-800">Quy tắc Nắm Đấm (không cần đếm Calo)</span>
+            </div>
+            <div className="text-sm text-green-700 font-medium">{dietPlan.fiberTarget.genderVi}</div>
+            <div className="flex gap-3 mt-3">
+              {[
+                { label: 'Sáng', count: dietPlan.fiberTarget.perMeal.morning },
+                { label: 'Trưa', count: dietPlan.fiberTarget.perMeal.lunch },
+                { label: 'Tối', count: dietPlan.fiberTarget.perMeal.dinner },
+              ].map(f => (
+                <div key={f.label} className="flex-1 text-center bg-white rounded-xl py-2 border border-green-200">
+                  <div className="text-lg font-bold text-green-700">{f.count}</div>
+                  <div className="text-[10px] text-green-600">{f.label}</div>
+                </div>
+              ))}
+            </div>
+            <div className="text-[11px] text-green-600 mt-2">{dietPlan.fiberTarget.tipVi}</div>
           </div>
+
+          {/* Superfood highlights */}
+          <div>
+            <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Siêu thực phẩm thay thuốc</div>
+            <div className="space-y-2">
+              {SUPERFOODS_DB.filter(s => s.priority >= 9).map(sf => (
+                <div key={sf.id} className="bg-white rounded-xl border border-gray-100 p-3 shadow-sm">
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="text-sm font-bold text-gray-800">{sf.nameVi}</div>
+                    <span className="text-[10px] bg-teal-50 text-teal-700 font-semibold px-2 py-0.5 rounded-full">{sf.keyNutrient}</span>
+                  </div>
+                  <div className="text-xs text-gray-600 leading-relaxed">{sf.whyVi}</div>
+                  <div className="text-[11px] text-teal-600 font-medium mt-1.5">📏 {sf.servingVi}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Smart Tips */}
+          {dietPlan.smartTips.length > 0 && (
+            <div>
+              <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Mẹo ăn uống thông minh</div>
+              <div className="space-y-2">
+                {dietPlan.smartTips.map((tip, i) => (
+                  <div key={i} className="bg-white border border-gray-100 rounded-xl px-3.5 py-3 shadow-sm">
+                    <div className="flex items-start gap-2">
+                      <span className="text-base flex-shrink-0">{tip.icon}</span>
+                      <div>
+                        <div className="text-xs font-semibold text-gray-500">{tip.conditionVi}</div>
+                        <div className="text-sm text-gray-800 mt-0.5 leading-relaxed">{tip.tipVi}</div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Cooking Warnings */}
+          {dietPlan.notifications.length > 0 && (
+            <div>
+              <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Cảnh báo chế biến</div>
+              <div className="space-y-2">
+                {dietPlan.notifications.map((n, i) => {
+                  const isExpanded = expandedWarning === `${i}`;
+                  const colors = n.type === 'danger'
+                    ? 'bg-red-50 border-red-300 text-red-800'
+                    : 'bg-amber-50 border-amber-300 text-amber-800';
+                  return (
+                    <button key={i} onClick={() => setExpandedWarning(isExpanded ? null : `${i}`)} className={`w-full text-left ${colors} border rounded-xl px-3 py-2.5 transition-all`}>
+                      <div className="flex items-start gap-2">
+                        <span className="text-base flex-shrink-0">{n.icon}</span>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-semibold">{n.titleVi}</div>
+                          {isExpanded ? (
+                            <div className="text-[11px] mt-1.5 opacity-90 leading-relaxed whitespace-pre-line">{n.messageVi}</div>
+                          ) : (
+                            <div className="text-[10px] opacity-60 mt-0.5">Nhấn để xem chi tiết</div>
+                          )}
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Meal Suggestions */}
+          {dietPlan.meals.map(meal => {
+            const timeEmoji = meal.mealTime === 'sáng' ? '🌅' : meal.mealTime === 'trưa' ? '☀️' : '🌙';
+            return (
+              <div key={meal.mealTime} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                <div className="px-4 py-2.5 bg-gradient-to-r from-orange-50 to-amber-50 border-b border-orange-100">
+                  <h3 className="text-sm font-bold text-orange-800">{timeEmoji} {meal.labelVi}</h3>
+                </div>
+                <div className="px-4 py-3 space-y-2">
+                  {meal.dishes.slice(0, 3).map((sd, i) => (
+                    <div key={i} className="flex items-center gap-3">
+                      <span className="text-2xl flex-shrink-0">{sd.dish.image}</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-semibold text-gray-800">{sd.dish.name}</div>
+                        {sd.dish.superfoodTags && sd.dish.superfoodTags.length > 0 && (
+                          <div className="text-[10px] text-teal-600 font-medium">
+                            ✦ {sd.dish.superfoodTags.map(t => {
+                              const sf = SUPERFOODS_DB.find(s => s.tag === t);
+                              return sf?.keyNutrient ?? t;
+                            }).join(', ')}
+                          </div>
+                        )}
+                        {sd.dish.healthTips && sd.dish.healthTips.length > 0 && (
+                          <div className="text-[10px] text-amber-600">💡 {sd.dish.healthTips[0]}</div>
+                        )}
+                      </div>
+                      {sd.score > 0 && (
+                        <div className="text-xs font-semibold text-teal-500 bg-teal-50 px-2 py-0.5 rounded-full">+{sd.score}</div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                {meal.superfoodAddOns.length > 0 && (
+                  <div className="px-4 pb-3">
+                    <div className="bg-emerald-50 rounded-lg px-3 py-2 space-y-1">
+                      {meal.superfoodAddOns.map((tip, i) => (
+                        <div key={i} className="text-[11px] text-emerald-700">✦ {tip}</div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
 
       {/* Reset */}
-      <button
-        onClick={onReset}
-        className="w-full py-2 text-xs text-gray-400 font-medium"
-      >
+      <button onClick={onReset} className="w-full mt-4 py-2 text-xs text-gray-400 font-medium">
         Bắt đầu lại từ đầu
       </button>
     </div>
