@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import type { UserProfile } from '@/data/health-types';
 import { runEngine } from '@/lib/engine';
-import type { ReminderSlot, DietRule, DietNotification, MealSuggestion, FiberTarget, SuperfoodTip } from '@/lib/engine';
+import type { ReminderSlot, DietRule, DietNotification, MealSuggestion, FiberTarget, SuperfoodTip, SmartTipOutput } from '@/lib/engine';
 
 interface Props {
   profile: UserProfile;
@@ -76,6 +76,8 @@ export default function HealthResult({ profile, onRestart }: Props) {
           fiberTarget={result.diet.fiberTarget}
           dietRules={result.diet.dietRules}
           superfoodTips={result.diet.superfoodTips}
+          smartTips={result.diet.smartTips}
+          stomachRule={result.diet.stomachRule}
         />
       )}
     </div>
@@ -152,20 +154,32 @@ function ReminderTab({ slots, warnings }: { slots: ReminderSlot[]; warnings: { t
 // ============================================================================
 
 function DietTab({
-  meals, fiberTarget, dietRules, superfoodTips,
+  meals, fiberTarget, dietRules, superfoodTips, smartTips, stomachRule,
 }: {
   meals: MealSuggestion[];
   fiberTarget: FiberTarget;
   dietRules: DietRule[];
   superfoodTips: SuperfoodTip[];
+  smartTips: SmartTipOutput[];
+  stomachRule: { ruleVi: string; whyVi: string };
 }) {
   return (
     <div className="space-y-4 animate-slide-up">
+      {/* Stomach Rule */}
+      <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl border border-amber-200 p-4">
+        <div className="flex items-center gap-2 mb-1">
+          <span className="text-lg">😋</span>
+          <span className="text-sm font-bold text-amber-800">Quy tắc Dạ dày</span>
+        </div>
+        <div className="text-sm text-amber-700 font-medium">{stomachRule.ruleVi}</div>
+        <div className="text-[11px] text-amber-600 mt-1">{stomachRule.whyVi}</div>
+      </div>
+
       {/* Fiber Target Card */}
       <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl border border-green-200 p-4">
         <div className="flex items-center gap-2 mb-2">
           <span className="text-lg">🥬</span>
-          <span className="text-sm font-bold text-green-800">Quy tắc Nắm Đấm</span>
+          <span className="text-sm font-bold text-green-800">Quy tắc Nắm Đấm (không cần đếm Calo)</span>
         </div>
         <div className="text-sm text-green-700 font-medium">{fiberTarget.genderVi}</div>
         <div className="flex gap-3 mt-3">
@@ -175,6 +189,28 @@ function DietTab({
         </div>
         <div className="text-[11px] text-green-600 mt-2">{fiberTarget.tipVi}</div>
       </div>
+
+      {/* Smart Tips (BS Phúc) */}
+      {smartTips.length > 0 && (
+        <div>
+          <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
+            Mẹo ăn uống thông minh
+          </div>
+          <div className="space-y-2">
+            {smartTips.slice(0, 5).map((tip, i) => (
+              <div key={i} className="bg-white border border-gray-100 rounded-xl px-3.5 py-3 shadow-sm">
+                <div className="flex items-start gap-2">
+                  <span className="text-base flex-shrink-0">{tip.icon}</span>
+                  <div>
+                    <div className="text-xs font-semibold text-gray-500">{tip.conditionVi}</div>
+                    <div className="text-sm text-gray-800 mt-0.5 leading-relaxed">{tip.tipVi}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Diet Rules */}
       {dietRules.length > 0 && (

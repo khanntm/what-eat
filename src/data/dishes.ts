@@ -14,6 +14,10 @@ export interface Dish {
   kidFriendly: boolean;
   vegetarian: boolean;
   source: DishSource;
+  superfoodTags?: SuperfoodTag[];      // Siêu thực phẩm có trong món
+  cookingWarnings?: CookingWarningId[]; // ID cảnh báo chế biến
+  fistfuls?: number;                    // Số nắm tay rau/quả (for rau/canh/fruit dishes)
+  healthTips?: string[];                // Mẹo ăn uống đi kèm
 }
 
 export type DishType = 'món-mặn' | 'rau' | 'canh' | 'món-chính' | 'ăn-sáng' | 'ăn-vặt';
@@ -24,14 +28,34 @@ export type Budget = 'rẻ' | 'vừa' | 'cao';
 export type Weather = 'nóng' | 'lạnh' | 'mưa' | 'bình-thường';
 export type DishSource = 'nấu-tại-nhà' | 'mua-ngoài' | 'cửa-hàng-tiện-lợi';
 
+export type SuperfoodTag =
+  | 'omega3'        // Hạt tía tô, cá hồi, cá thu
+  | 'lecithin'      // Trứng chim cút, đậu phụ
+  | 'vitamin-e'     // Hạt hướng dương
+  | 'zinc-rich'     // Hàu biển, tôm, sò
+  | 'fiber-rich'    // Khoai lang, rau xanh
+  | 'probiotic'     // Kim chi, sữa chua
+  | 'anti-inflammatory' // Nghệ, gừng, tỏi đen
+  | 'curcumin';     // Nghệ
+
+export type CookingWarningId =
+  | 'lectin-grain'       // Bánh mì nguyên cám, gạo lứt
+  | 'lectin-bean-raw'    // Đậu đỗ sống
+  | 'lectin-soy-sprout'  // Giá đỗ tương sống
+  | 'aflatoxin-leftover' // Thức ăn thừa >3 ngày
+  | 'oil-high-heat'      // Dầu thực vật chiên rán nhiệt cao
+  | 'raw-salad'          // Rau sống miễn dịch yếu
+  | 'juice-no-fiber';    // Nước ép mất chất xơ
+
 // Helper to reduce boilerplate
 const D = (
   id: string, name: string, desc: string, image: string,
   tags: Tag[], mealTime: MealTime[], dishType: DishType, category: Category,
   budget: Budget, cookTime: number, ingredients: string[],
   weather: Weather[], kidFriendly: boolean, source: DishSource = 'nấu-tại-nhà',
-  vegetarian: boolean = false
-): Dish => ({ id, name, description: desc, image, tags, mealTime, dishType, category, budget, cookTime, ingredients, weather, kidFriendly, vegetarian, source });
+  vegetarian: boolean = false,
+  extra?: { sf?: SuperfoodTag[]; cw?: CookingWarningId[]; fist?: number; tips?: string[] }
+): Dish => ({ id, name, description: desc, image, tags, mealTime, dishType, category, budget, cookTime, ingredients, weather, kidFriendly, vegetarian, source, ...(extra?.sf && { superfoodTags: extra.sf }), ...(extra?.cw && { cookingWarnings: extra.cw }), ...(extra?.fist && { fistfuls: extra.fist }), ...(extra?.tips && { healthTips: extra.tips }) });
 
 const ALL_WEATHER: Weather[] = ['bình-thường', 'nóng', 'lạnh', 'mưa'];
 const COOL: Weather[] = ['lạnh', 'mưa', 'bình-thường'];
@@ -332,6 +356,42 @@ export const dishes: Dish[] = [
   D('bun-chay-sang','Bún riêu chay sáng','Bún riêu chay nóng hổi cho buổi sáng','🍜',['ngon','healthy'],['sáng'],'ăn-sáng','bún-phở','rẻ',20,['bún','đậu hũ','cà chua','rau sống'],NORMAL,true,'nấu-tại-nhà',true),
   D('banh-bao-chay','Bánh bao chay','Bánh bao nhân đậu xanh nấm mộc nhĩ','🥟',['ngon','tiện'],['sáng'],'ăn-sáng','bánh','rẻ',10,['bột mì','đậu xanh','nấm mèo','mộc nhĩ'],ALL_WEATHER,true,'nấu-tại-nhà',true),
   D('sinh-to-chay','Sinh tố xanh','Sinh tố rau bina chuối bơ, giàu dinh dưỡng','🥤',['healthy','nhanh'],['sáng'],'ăn-sáng','khác','rẻ',5,['rau bina','chuối','bơ','sữa đậu nành'],ALL_WEATHER,true,'nấu-tại-nhà',true),
+
+  // ╔══════════════════════════════════════════════════════════════╗
+  // ║           MÓN SUPERFOOD — GIÀU VI CHẤT VÀNG                  ║
+  // ╚══════════════════════════════════════════════════════════════╝
+
+  // Omega-3 (Hạt tía tô)
+  D('com-hat-tia-to','Cơm rắc hạt tía tô','Cơm trắng rắc hạt tía tô rang — Omega-3 số 1 Việt Nam','🍚',['healthy','rẻ','nhanh'],['trưa','tối'],'món-chính','cơm','rẻ',5,['cơm','hạt tía tô'],ALL_WEATHER,true,'nấu-tại-nhà',false,{sf:['omega3'],tips:['Hạt tía tô: Omega-3 vượt cả cá hồi, rắc lên cơm mỗi bữa']}),
+  D('ca-thu-kho','Cá thu kho nghệ','Cá thu kho nghệ dân dã, Omega-3 + Curcumin','🐟',['ngon','healthy','rẻ'],['trưa','tối'],'món-mặn','cơm','rẻ',25,['cá thu','nghệ','nước mắm','tiêu đen','hành'],COOL,true,'nấu-tại-nhà',false,{sf:['omega3','curcumin'],tips:['Cá thu: Omega-3 giá rẻ. Nghệ + tiêu đen tăng hấp thu 2000%']}),
+  D('ca-hoi-ap-chao','Cá hồi áp chảo','Cá hồi áp chảo bơ tỏi, giàu Omega-3 DHA+EPA','🐟',['ngon','healthy','đặc-biệt'],['trưa','tối'],'món-mặn','cơm','cao',15,['cá hồi','bơ','tỏi','tiêu','chanh'],NORMAL,true,'nấu-tại-nhà',false,{sf:['omega3']}),
+  D('salad-hat-tia-to','Salad rau trộn hạt tía tô','Salad rau xanh trộn dầu oliu, rắc hạt tía tô','🥗',['healthy','nhanh','rẻ'],['trưa','tối'],'rau','khác','rẻ',10,['rau xà lách','cà chua','dưa leo','hạt tía tô','dầu oliu'],HOT,true,'nấu-tại-nhà',false,{sf:['omega3'],fist:2}),
+
+  // Lecithin (Trứng chim cút, Đậu phụ)
+  D('trung-cut-luoc','Trứng cút luộc','5 quả trứng cút luộc — Lecithin cực cao, tốt cho trí nhớ','🥚',['nhanh','rẻ','healthy'],['sáng','trưa','tối'],'ăn-vặt','khác','rẻ',8,['trứng chim cút'],ALL_WEATHER,true,'nấu-tại-nhà',false,{sf:['lecithin'],tips:['5 quả cút = 1 quả gà, Lecithin cao gấp bội, ít dị ứng']}),
+  D('trung-cut-kho','Trứng cút kho thịt','Trứng cút kho thịt ba chỉ nước dừa, đậm đà','🥚',['ngon','gia-đình','no-lâu'],['trưa','tối'],'món-mặn','cơm','rẻ',35,['trứng chim cút','thịt ba chỉ','nước dừa','nước mắm'],COOL,true,'nấu-tại-nhà',false,{sf:['lecithin']}),
+  D('dau-phu-sot-ca','Đậu phụ sốt cà chua','Đậu phụ rán sốt cà chua — Lecithin thực vật giá rẻ','🧊',['rẻ','nhanh','healthy'],['trưa','tối'],'món-mặn','cơm','rẻ',15,['đậu phụ','cà chua','hành lá','nước mắm'],NORMAL,true,'nấu-tại-nhà',true,{sf:['lecithin'],cw:['oil-high-heat'],tips:['Đậu phụ giàu Lecithin. Rán bằng mỡ lợn — không dùng dầu thực vật nhiệt cao']}),
+  D('dau-phu-nhoi-thit','Đậu phụ nhồi thịt','Đậu phụ nhồi thịt bằm chiên giòn, chấm nước mắm chua ngọt','🧊',['ngon','gia-đình'],['trưa','tối'],'món-mặn','cơm','rẻ',25,['đậu phụ','thịt bằm','nấm mèo','hành lá'],NORMAL,true,'nấu-tại-nhà',false,{sf:['lecithin']}),
+
+  // Vitamin E (Hạt hướng dương)
+  D('rau-tron-hat-huong-duong','Rau trộn hạt hướng dương','Rau xanh trộn hạt hướng dương — vô địch Vitamin E','🥗',['healthy','nhanh'],['trưa','tối'],'rau','khác','rẻ',10,['rau xà lách','cà rốt','hạt hướng dương','dầu oliu','chanh'],HOT,true,'nấu-tại-nhà',true,{sf:['vitamin-e'],fist:2,tips:['Hạt hướng dương: vô địch Vitamin E, chống oxy hóa, đẹp da']}),
+
+  // Kẽm (Hàu biển)
+  D('hau-nuong-mo-hanh','Hàu nướng mỡ hành','Hàu biển nướng mỡ hành, giàu Kẽm nhất','🦪',['ngon','đặc-biệt'],['tối'],'món-mặn','khác','vừa',15,['hàu biển','mỡ hành','đậu phộng','hành phi'],NORMAL,true,'nấu-tại-nhà',false,{sf:['zinc-rich'],tips:['Hàu: rẻ tiền nhưng giàu Kẽm nhất, tăng miễn dịch']}),
+  D('hau-chien-trung','Hàu chiên trứng (Ô Tạc Tiễn)','Hàu chiên bột trứng kiểu Đài — giòn bên ngoài, mềm bên trong','🦪',['ngon','đặc-biệt'],['tối'],'món-mặn','khác','vừa',20,['hàu biển','trứng','bột năng','hành lá','giá'],NORMAL,true,'nấu-tại-nhà',false,{sf:['zinc-rich','lecithin']}),
+
+  // Chất xơ (Khoai lang thay tinh bột)
+  D('khoai-lang-luoc','Khoai lang luộc','Khoai lang luộc thay cơm — an toàn, KHÔNG Lectin, giàu chất xơ','🍠',['healthy','rẻ','nhanh'],['sáng','trưa','tối'],'món-chính','khác','rẻ',15,['khoai lang'],ALL_WEATHER,true,'nấu-tại-nhà',true,{sf:['fiber-rich'],tips:['Khoai lang: thay gạo lứt/bánh mì nguyên cám — an toàn, không Lectin']}),
+  D('khoai-lang-nuong','Khoai lang nướng','Khoai lang nướng ngọt tự nhiên, thơm bùi','🍠',['ngon','healthy','rẻ'],['sáng','tối'],'ăn-vặt','khác','rẻ',30,['khoai lang'],COOL,true,'nấu-tại-nhà',true,{sf:['fiber-rich']}),
+  D('canh-khoai-lang','Canh khoai lang lá','Canh khoai lang nấu lá khoai, ngọt mát dân dã','🍲',['healthy','rẻ','gia-đình'],['trưa','tối'],'canh','món-nước','rẻ',15,['khoai lang','lá khoai lang','tôm khô','hành lá'],HOT,true,'nấu-tại-nhà',false,{sf:['fiber-rich'],fist:2}),
+
+  // Nghệ + Tiêu đen (Curcumin)
+  D('ca-kho-nghe','Cá kho nghệ','Cá kho nghệ tiêu đen — chống viêm cực mạnh','🐟',['ngon','healthy','rẻ'],['trưa','tối'],'món-mặn','cơm','rẻ',25,['cá','nghệ tươi','tiêu đen','nước mắm','hành lá'],COOL,true,'nấu-tại-nhà',false,{sf:['curcumin','anti-inflammatory'],tips:['Nghệ + tiêu đen: Curcumin chống viêm, tiêu đen tăng hấp thu 2000%']}),
+  D('com-nghe','Cơm nghệ','Cơm nấu nghệ vàng, thơm nhẹ, đẹp mắt','🍚',['healthy','nhanh','rẻ'],['trưa','tối'],'món-chính','cơm','rẻ',20,['gạo','nghệ tươi','tiêu đen','dầu dừa'],NORMAL,true,'nấu-tại-nhà',true,{sf:['curcumin']}),
+
+  // Probiotic
+  D('kim-chi-han-quoc','Kim chi Hàn Quốc','Kim chi tự làm, probiotic tự nhiên cho đường ruột','🥬',['healthy','rẻ'],['trưa','tối'],'rau','khác','rẻ',0,['kim chi'],ALL_WEATHER,true,'mua-ngoài',true,{sf:['probiotic'],fist:1}),
+  D('sua-chua-khong-duong','Sữa chua không đường','Sữa chua không đường + hạt, probiotic + protein','🥛',['healthy','nhanh'],['sáng','tối'],'ăn-vặt','tráng-miệng','rẻ',0,['sữa chua','hạt hướng dương','hạt tía tô'],ALL_WEATHER,true,'mua-ngoài',true,{sf:['probiotic','omega3','vitamin-e'],tips:['Thêm hạt tía tô + hướng dương = Omega-3 + Vitamin E']}),
 ];
 
 // All unique ingredients across all dishes

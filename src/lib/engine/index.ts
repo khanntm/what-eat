@@ -54,6 +54,6 @@ export function runEngine(profile: UserProfile): EngineOutput {
 
 // Re-export types for convenience
 export type { SmartReminderPlan, ReminderSlot, ScheduledNutrient, ReminderWarning } from './smart-reminder';
-export type { DailyDietPlan, MealSuggestion, ScoredDish, FiberTarget, DietRule, DietNotification, SuperfoodTip } from './daily-diet';
+export type { DailyDietPlan, MealSuggestion, ScoredDish, FiberTarget, DietRule, DietNotification, SuperfoodTip, SmartTipOutput } from './daily-diet';
 export { generateSmartReminder } from './smart-reminder';
 export { generateDailyDiet } from './daily-diet';

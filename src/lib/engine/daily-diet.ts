@@ -7,6 +7,7 @@ import { SUPERFOODS, getSuperfoodsForCondition } from '@/data/superfoods';
 import { ANTI_PATTERNS } from '@/data/anti-patterns';
 import { RECOMMENDATION_RULES } from '@/data/recommendations';
 import { getMicronutrientsForCondition } from '@/data/micronutrients';
+import { FIST_RULES, STOMACH_RULES, COOKING_WARNINGS, SMART_TIPS, SUPERFOODS_DB, getWarningsForIngredients, getSmartTipsForProfile } from '@/data/nutrition-rules';
 
 // ============================================================================
 // LUỒNG 2: DAILY DIET SUGGESTION ENGINE
@@ -26,6 +27,14 @@ export interface DailyDietPlan {
   dietRules: DietRule[];
   notifications: DietNotification[];
   superfoodTips: SuperfoodTip[];
+  smartTips: SmartTipOutput[];
+  stomachRule: { ruleVi: string; whyVi: string };
+}
+
+export interface SmartTipOutput {
+  icon: string;
+  conditionVi: string;
+  tipVi: string;
 }
 
 export interface MealSuggestion {
@@ -215,7 +224,37 @@ export function generateDailyDiet(profile: UserProfile): DailyDietPlan {
   // ── BƯỚC 5: Superfood tips ──
   const superfoodTips = generateSuperfoodTips(profile);
 
-  return { meals, fiberTarget, dietRules, notifications, superfoodTips };
+  // ── BƯỚC 6: Smart Tips (BS Phúc) ──
+  const allIngredients = allSelectedDishes.flatMap(d => d.ingredients);
+  const smartTipsRaw = getSmartTipsForProfile(
+    profile.conditions as string[],
+    allIngredients,
+  );
+  const smartTips: SmartTipOutput[] = smartTipsRaw.map(t => ({
+    icon: t.icon,
+    conditionVi: t.conditionVi,
+    tipVi: t.tipVi,
+  }));
+
+  // ── BƯỚC 7: Cooking warnings from new nutrition-rules DB ──
+  const cookingWarnings = getWarningsForIngredients(allIngredients);
+  for (const cw of cookingWarnings) {
+    const existing = notifications.find(n => n.titleVi === cw.titleVi);
+    if (!existing) {
+      notifications.push({
+        type: cw.dangerLevel === 'danger' ? 'danger' : 'warning',
+        titleVi: cw.titleVi,
+        messageVi: cw.messageVi + (cw.alternativeVi ? `\n\n💡 ${cw.alternativeVi}` : ''),
+        triggerIngredients: cw.triggerKeywords,
+        icon: cw.icon,
+      });
+    }
+  }
+
+  return {
+    meals, fiberTarget, dietRules, notifications, superfoodTips, smartTips,
+    stomachRule: { ruleVi: STOMACH_RULES.ruleVi, whyVi: STOMACH_RULES.whyVi },
+  };
 }
 
 // ============================================================================
@@ -404,6 +443,21 @@ function generateMeals(profile: UserProfile, dietRules: DietRule[]): MealSuggest
       if (dish.tags.includes('healthy')) {
         score += 2;
         reasons.push('Món healthy');
+      }
+
+      // ── Boost: superfood-tagged dishes (from new nutrition rules) ──
+      if (dish.superfoodTags && dish.superfoodTags.length > 0) {
+        score += 4;
+        const sfNames = dish.superfoodTags.map(t => {
+          const sf = SUPERFOODS_DB.find(s => s.tag === t);
+          return sf?.keyNutrient ?? t;
+        });
+        reasons.push(`Siêu thực phẩm: ${sfNames.join(', ')}`);
+      }
+
+      // ── Boost: dishes with health tips ──
+      if (dish.healthTips && dish.healthTips.length > 0) {
+        score += 1;
       }
 
       // ── Boost: nguyên liệu khớp superfood/nutrient sources ──
