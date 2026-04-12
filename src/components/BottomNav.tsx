@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 const navItems = [
   { href: '/', icon: '🍜', label: 'Ăn gì?' },
   { href: '/breakfast', icon: '🌅', label: 'Ăn sáng' },
+  { href: '/health', icon: '🩺', label: 'Sức khỏe' },
   { href: '/ingredients', icon: '🧊', label: 'Nguyên liệu' },
   { href: '/voting', icon: '👨‍👩‍👧', label: 'Vote' },
 ];
