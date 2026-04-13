@@ -6,6 +6,7 @@ import type { UserProfile } from '@/data/health-types';
 import { generateDailyDiet } from '@/lib/engine/daily-diet';
 import type { DailyDietPlan, DietNotification } from '@/lib/engine/daily-diet';
 import { SUPERFOODS_DB } from '@/data/nutrition-rules';
+import HealthFeatures from '@/components/HealthFeatures';
 
 // ============================================================================
 // HEALTH PAGE — Tối giản như giải thích cho trẻ 9 tuổi
@@ -565,6 +566,9 @@ function DailyView({
       {/* === TAB 2: Gợi ý Ăn uống === */}
       {tab === 'meal' && (
         <div className="animate-slide-up space-y-4">
+          {/* 4 Features: Tips, GI/GL, Supplement, Quiz */}
+          <HealthFeatures />
+
           {/* Stomach Rule */}
           <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl border border-amber-200 p-4">
             <div className="flex items-center gap-2 mb-1">
