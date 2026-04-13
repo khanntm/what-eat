@@ -118,6 +118,38 @@ export const DAILY_TIPS: DailyTip[] = [
   { id: 30, icon: '💊', categoryVi: 'Vi chất', module: 1,
     titleVi: 'Canxi vô cơ vs hữu cơ: chọn đúng!',
     bodyVi: 'CaCO3 (vô cơ): rẻ, ít dị ứng nhưng ngấm kém, gây táo bón — PHẢI uống sau ăn để axit dạ dày hòa tan. Canxi hữu cơ (vỏ hàu): ngấm tốt hơn nhưng tá dược có thể gây ngứa/mề đay ở người dị ứng.' },
+
+  // --- Chuyển hóa mỡ & Intermittent Fasting ---
+  { id: 31, icon: '🔥', categoryVi: 'Bữa ăn', module: 3,
+    titleVi: 'Insulin TĂNG = Không thể đốt mỡ!',
+    bodyVi: 'Insulin ức chế enzyme phân hủy mỡ. Muốn đốt mỡ → giữ đường huyết ổn định: ưu tiên GI thấp (rau, thịt, khoai lang), tránh đường tinh luyện. ĐỪNG cắt hoàn toàn tinh bột (não + hồng cầu BẮT BUỘC cần đường)!' },
+  { id: 32, icon: '🧈', categoryVi: 'Bữa ăn', module: 3,
+    titleVi: 'Trans fat: kẻ ngụy trang đánh lừa cơ thể!',
+    bodyVi: 'Chất béo chuyển hóa (Trans fat) trong bánh nướng/quy công nghiệp "ngụy trang" cấu trúc → cơ thể không nhận diện được → tích mỡ, bệnh mãn tính. Ưu tiên chất béo không bão hòa (dầu ô liu, cá biển sâu).' },
+  { id: 33, icon: '🥚', categoryVi: 'Bữa ăn', module: 3,
+    titleVi: 'Thiếu đạm = Mỡ quay về GAN!',
+    bodyVi: 'Protein tạo Albumin — "phà" vận chuyển axit béo đến cơ bắp đốt cháy. Thiếu đạm → axit béo không có xe → quay về gan → GAN NHIỄM MỠ! Lòng đỏ trứng + đậu phụ chứa Lecithin hòa tan cholesterol.' },
+  { id: 34, icon: '⏰', categoryVi: 'Bữa ăn', module: 3,
+    titleVi: 'Nhịn ăn từng phần: nhịn Calo, KHÔNG nhịn Vi chất!',
+    bodyVi: 'Sau 8-10h hết Glycogen → cơ thể chuyển sang đốt mỡ. Nhưng phải uống đủ nước + vi chất + vitamin! Nhịn sai cách = phá hủy cơ bắp + Albumin. Tuyến tụy được nghỉ → khắc phục kháng Insulin.' },
+  { id: 35, icon: '💨', categoryVi: 'Lối sống', module: 4,
+    titleVi: '84% mỡ thừa thải qua HƠI THỞ!',
+    bodyVi: 'Mỡ đốt cháy → 84% thành CO2 (thở ra), 16% thành H2O (mồ hôi/nước tiểu). Tập thở cơ hoành, hít sâu thở dài = tăng oxy vào + đẩy CO2 ra = đốt mỡ hiệu quả hơn!' },
+  { id: 36, icon: '☕', categoryVi: 'Lối sống', module: 4,
+    titleVi: 'Cà phê đen trước tập = đốt mỡ x2!',
+    bodyVi: '1 ly cà phê đen (KHÔNG đường) 30-60 phút trước tập. Cafein kích thích Adrenaline → enzyme phân hủy mỡ hoạt động mạnh + mạch máu mở rộng vận chuyển mỡ đi đốt.' },
+  { id: 37, icon: '💊', categoryVi: 'Vi chất', module: 1,
+    titleVi: 'Magie + B6 = Chìa khóa giảm mỡ máu + ngủ ngon!',
+    bodyVi: 'Mg + B6 tổng hợp Lecithin (phân cắt mỡ vào tế bào đốt). Thiếu bộ đôi → mỡ lơ lửng trong máu! B6 còn là "radar" dẫn Mg đến bảo vệ Tim + Não. Mg+B6 → Serotonin + Melatonin → ngủ sâu.' },
+  { id: 38, icon: '🏋️', categoryVi: 'Lối sống', module: 4,
+    titleVi: 'Bí kíp: Kỵ khí trước → Hiếu khí sau!',
+    bodyVi: 'Bước 1: Nâng tạ/chạy nước rút (kỵ khí) → hết đường + nhắc cơ thể giữ cơ. Bước 2: Chạy chậm/đi bộ 30-40 phút (hiếu khí) → cơ thể chuyển sang ĐỐT MỠ. Đây là vùng thời gian vàng!' },
+  { id: 39, icon: '😴', categoryVi: 'Lối sống', module: 4,
+    titleVi: 'Ngủ trước 11h đêm = hormone tăng trưởng đạt đỉnh!',
+    bodyVi: '11h đêm - 3h sáng: hGH (hormone tăng trưởng) sửa chữa tế bào, điều phối nội tiết. Thức khuya qua 11h → phá hủy chu trình → suy chuyển hóa, tích mỡ. Đừng nhảy lên cân mỗi ngày — giảm mỡ tính bằng tháng!' },
+  { id: 40, icon: '🍖', categoryVi: 'Giải mã tin đồn', module: 2,
+    titleVi: 'Lòng già lợn: ít mỡ nhất trong nội tạng!',
+    bodyVi: 'Lòng già (đại tràng) có tỷ lệ mỡ + cholesterol THẤP NHẤT so với dạ dày, lòng non. Ngược lại TRÁNH: óc lợn (cholesterol khổng lồ), móng giò, thịt cổ (hạch bạch huyết). Lẩu rất tốt cho người tỳ vị yếu — nhưng đừng ăn quá no!' },
 ];
 
 /** Lấy tip cho ngày hôm nay (xoay vòng) */
@@ -355,6 +387,112 @@ export const EXERCISE_RULES = {
   preMealVi: 'ĐỪNG tập khi đói! Ăn tinh bột trước 30p hoặc protein trước 2-3h. Đói + tập → tiêu cơ vân → axit uric → GÚT!',
   postWaterVi: 'Sau tập PHẢI uống nhiều nước để đi tiểu. 80% Axit Uric thải qua nước tiểu, chỉ 20% qua mồ hôi.',
   anaerobicVi: 'Tập gắng sức (thở không kịp) = kỵ khí → sinh Axit Lactic → đau cơ, viêm mãn tính. Nên tập hiếu khí (vừa sức, hít thở sâu).',
+  hiitBenefitVi: 'HIIT tăng hormone tăng trưởng (hGH) + mở cửa tế bào đón đường (chìa khóa thứ 2 ngoài Insulin) → giảm tiểu đường.',
+  comboRuleVi: 'Bước 1: Kỵ khí (nâng tạ, chạy nước rút) → hết đường + giữ cơ. Bước 2: Hiếu khí 30-40 phút → đốt mỡ. Đây là combo vàng!',
+  coffeeHackVi: 'Cà phê đen (không đường) 30-60p trước tập. Cafein → Adrenaline → enzyme phân hủy mỡ hoạt động + mạch máu mở rộng.',
+  breathingVi: '84% mỡ thải qua hơi thở (CO2). Tập thở cơ hoành, hít sâu thở dài = đốt mỡ hiệu quả hơn!',
+};
+
+// ============================================================================
+// 3g. FAT METABOLISM DEEP DIVE — Cơ chế đốt mỡ
+// ============================================================================
+
+export const FAT_METABOLISM = {
+  krebs: {
+    titleVi: '🔬 Chu trình Krebs — Nhà máy đốt mỡ',
+    bodyVi: 'Mỡ đốt trong ti thể qua chu trình Krebs. Cần: Magie (biến axit béo → Acyl-CoA), Vitamin C (vận chuyển mỡ vào ti thể), Nước (nguyên liệu), Oxy (từ hít thở).',
+  },
+  insulin: {
+    titleVi: '📊 Insulin — Kẻ khóa cửa đốt mỡ',
+    bodyVi: 'Đường huyết tăng → Insulin tăng → ỨC CHẾ enzyme phân hủy mỡ. Giữ GI thấp + ăn đúng giờ = giữ Insulin thấp = đốt mỡ liên tục.',
+  },
+  albumin: {
+    titleVi: '🚢 Albumin — Con phà chở mỡ đi đốt',
+    bodyVi: 'Protein → Albumin. Axit béo PHẢI có Albumin mới đến được cơ bắp. Thiếu đạm → axit béo quay về gan → GAN NHIỄM MỠ.',
+  },
+  triglyceride: {
+    titleVi: '🧈 Triglyceride — Dạng tồn tại của mỡ thừa',
+    bodyVi: 'Mỡ dự trữ = Glycerol + 3 axit béo. Chất béo không bão hòa (cá, dầu ô liu) cấu trúc lỏng lẻo → dễ cắt nhỏ đốt cháy. Trans fat (bánh công nghiệp) ngụy trang → không đốt được → tích mỡ.',
+  },
+  lCarnitine: {
+    titleVi: '🚀 L-Carnitine — Tàu vũ trụ chở mỡ vào ti thể',
+    bodyVi: 'L-Carnitine chở axit béo vào ti thể. NHƯNG cơ thể bình thường tự tổng hợp rất tốt. Không cần mua TPCN đắt tiền nếu tài chính hạn hẹp.',
+  },
+};
+
+// ============================================================================
+// 3h. INTERMITTENT FASTING GUIDE
+// ============================================================================
+
+export const IF_GUIDE = {
+  whatVi: 'Nhịn Calo nhưng VẪN NẠP đủ nước + vi chất + vitamin. Sau 8-10h hết glycogen → đốt mỡ.',
+  benefitsVi: [
+    'Tuyến tụy nghỉ ngơi → khắc phục kháng Insulin (gốc rễ tiểu đường tuýp 2)',
+    'Giảm IGF-1 (yếu tố đột biến gen) → kích hoạt sửa DNA, chậm lão hóa',
+    'Tăng BDNF (yếu tố dinh dưỡng thần kinh) → não khỏe hơn',
+  ],
+  rulesVi: [
+    '✅ Uống nước lọc, vi chất, vitamin trong thời gian nhịn',
+    '❌ TUYỆT ĐỐI không uống nước ép/nước ngọt (phá vỡ đốt mỡ)',
+    '❌ Không nhịn kiểu cực đoan — cơ thể sẽ tích mỡ + phá hủy cơ',
+    '✅ Ăn đủ đạm khi ăn lại để duy trì Albumin',
+  ],
+  emptyCaloVi: 'Tránh "Calo rỗng": nhiều đường/mỡ xấu/Natri nhưng nghèo vi chất (đồ chiên rán nhiều lần, thức ăn chế biến sẵn).',
+};
+
+// ============================================================================
+// 3i. B6 + MAGNESIUM SYNERGY
+// ============================================================================
+
+export const B6_MG_SYNERGY = {
+  titleVi: 'Magie + B6: Bộ đôi Vàng',
+  roles: [
+    { icon: '🧈', actionVi: 'Tổng hợp Lecithin', resultVi: 'Phân cắt mỡ → đưa vào tế bào đốt → giảm mỡ máu' },
+    { icon: '😴', actionVi: 'Tạo Serotonin + Melatonin', resultVi: 'Ngủ sâu, giảm Cortisol (stress)' },
+    { icon: '😊', actionVi: 'Tạo Dopamine', resultVi: 'Hormone hạnh phúc, chống trầm cảm' },
+    { icon: '🎯', actionVi: 'B6 = "Radar"', resultVi: 'Ưu tiên dẫn Magie đến bảo vệ Tim và Não' },
+  ],
+  labelReadVi: 'Viên ghi "Magnesium Lactate Dihydrate 470mg" → Mg nguyên tố chỉ ~47mg. Vì vậy cần 6-8 viên/ngày = ~400mg Mg.',
+};
+
+// ============================================================================
+// 3j. CALCIUM SELECTION GUIDE (Expanded)
+// ============================================================================
+
+export const CALCIUM_SELECTION = {
+  excessAcid: {
+    conditionVi: 'Thừa axit dạ dày (ợ nóng, trào ngược)',
+    choiceVi: 'Canxi Carbonate (vô cơ, rẻ tiền)',
+    whyVi: 'Cần axit để hòa tan → trung hòa bớt axit dạ dày. Uống SAU ĂN.',
+  },
+  lowAcid: {
+    conditionVi: 'Thiếu axit (đầy bụng, khó tiêu), người già, phụ nữ có thai',
+    choiceVi: 'Canxi Hữu cơ (Citrate, Lactate, Gluconate, Amino Acid)',
+    whyVi: 'Hòa tan tốt KHÔNG cần axit. Canxi Citrate đặc biệt tốt cho người sỏi thận.',
+  },
+  ratioVi: 'Tỷ lệ vàng: 2 Canxi : 1 Magie. KHÔNG uống viên tích hợp — uống TÁCH RỜI, cách nhau ≥2 tiếng.',
+  timingVi: '9h sáng + 9h tối (khi có axit dạ dày). Bổ sung thêm trước ngủ 40 phút.',
+  avoidVi: 'Tránh Mg Oxide/Chloride nếu bụng yếu (hấp thu ~4%, gây tiêu chảy). Chỉ dùng cho người táo bón.',
+};
+
+// ============================================================================
+// 3k. FOOD CHOICE INSIGHTS
+// ============================================================================
+
+export const FOOD_INSIGHTS = {
+  organMeats: {
+    safeVi: 'Lòng già (đại tràng): ít mỡ + cholesterol nhất trong nội tạng lợn',
+    dangerVi: 'TRÁNH: óc lợn (cholesterol khổng lồ), móng giò, thịt cổ (hạch bạch huyết)',
+    hotpotVi: 'Lẩu đa dạng rất tốt cho người tỳ vị yếu — nhiều loại dưỡng chất. Miễn không ăn quá no!',
+  },
+  cookingTipsVi: [
+    'Rửa rau dưới vòi nước chảy. Trần rau từ nước lạnh đun lên → giòn, ngọt, giữ màu.',
+    'Dùng muối biển thay muối tinh → thêm khoáng chất vi lượng tự nhiên.',
+    'Không dùng nước ép/nước ngọt khi nhịn ăn — phá vỡ hoàn toàn quá trình đốt mỡ!',
+  ],
+  sleepGoldenVi: '11h đêm - 3h sáng: hGH đạt đỉnh sửa chữa tế bào. Thức khuya = phá hủy toàn bộ nội tiết!',
+  karaokeWarningVi: 'Karaoke âm lượng lớn, gào thét quãng 8 → tăng áp lực lồng ngực → nổ phế nang! Nghe nhạc khí/giao hưởng để chữa lành.',
+  mindfulEatingVi: '"Ăn mía ngược" — nhai kỹ, từ tốn giống cách ông bà gặm mía. Ăn chậm → enzyme tiêu hóa tăng → no lâu → bảo vệ tỳ vị.',
 };
 
 // ============================================================================
@@ -628,4 +766,66 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     ],
     correctIndex: 1,
     explanationVi: 'Dầu thực vật chứa nhiều Omega-6. Thừa Omega-6, thiếu Omega-3 → kích hoạt viêm tự miễn, xơ vữa, tiểu đường. Mỡ lợn bền nhiệt, phù hợp chiên rán. LUÂN PHIÊN: bữa mỡ lợn, bữa dầu thực vật, đổi loại dầu!' },
+
+  // --- Chuyển hóa mỡ & IF ---
+  { id: 19, icon: '🔥', module: 3,
+    questionVi: 'Tại sao ăn nhiều đường lại KHÔNG THỂ đốt mỡ?',
+    options: [
+      { label: 'A', text: 'Vì đường chuyển thẳng thành mỡ' },
+      { label: 'B', text: 'Vì đường huyết tăng → Insulin tăng → Insulin ỨC CHẾ enzyme phân hủy mỡ' },
+      { label: 'C', text: 'Vì đường làm tắc mạch máu' },
+      { label: 'D', text: 'Đường không ảnh hưởng đến đốt mỡ' },
+    ],
+    correctIndex: 1,
+    explanationVi: 'Khi đường huyết tăng → tuyến tụy tiết Insulin → Insulin ỨC CHẾ enzyme phân hủy mỡ. Muốn đốt mỡ phải giữ đường huyết ổn định: ăn GI thấp, tránh đường tinh luyện. NHƯNG không cắt hoàn toàn tinh bột — não và hồng cầu BẮT BUỘC cần đường!' },
+  { id: 20, icon: '🥚', module: 3,
+    questionVi: 'Thiếu protein gây ra hậu quả gì nghiêm trọng nhất?',
+    options: [
+      { label: 'A', text: 'Chỉ bị yếu cơ' },
+      { label: 'B', text: 'Gan nhiễm mỡ — vì không có Albumin vận chuyển axit béo đến cơ đốt cháy' },
+      { label: 'C', text: 'Không ảnh hưởng gì nếu ăn đủ rau' },
+      { label: 'D', text: 'Chỉ ảnh hưởng người tập gym' },
+    ],
+    correctIndex: 1,
+    explanationVi: 'Protein → Albumin = "phà" chuyên chở axit béo đến cơ bắp đốt cháy. Thiếu đạm → axit béo không có xe → quay về gan → GAN NHIỄM MỠ! Lòng đỏ trứng + đậu phụ chứa Lecithin hòa tan cholesterol, tốt cho não.' },
+  { id: 21, icon: '💊', module: 1,
+    questionVi: 'Magie + Vitamin B6 kết hợp giúp gì?',
+    options: [
+      { label: 'A', text: 'Chỉ giúp ngủ ngon' },
+      { label: 'B', text: 'Tổng hợp Lecithin đốt mỡ + tiết Serotonin/Melatonin ngủ sâu + B6 dẫn Mg đến Tim/Não' },
+      { label: 'C', text: 'Giúp xương chắc hơn' },
+      { label: 'D', text: 'Không cần kết hợp, uống riêng giống nhau' },
+    ],
+    correctIndex: 1,
+    explanationVi: 'Mg + B6 = bộ đôi vàng: (1) Tổng hợp Lecithin phân cắt mỡ đưa vào tế bào đốt → giảm mỡ máu, (2) Tạo Serotonin + Melatonin → ngủ sâu, giảm Cortisol, (3) B6 là "radar" ưu tiên dẫn Mg đến bảo vệ Tim + Não.' },
+  { id: 22, icon: '⏰', module: 3,
+    questionVi: 'Nhịn ăn gián đoạn (IF) đúng cách là như thế nào?',
+    options: [
+      { label: 'A', text: 'Nhịn hoàn toàn không ăn uống gì' },
+      { label: 'B', text: 'Nhịn Calo nhưng VẪN NẠP đủ nước, vi chất, vitamin' },
+      { label: 'C', text: 'Chỉ uống nước ép trái cây' },
+      { label: 'D', text: 'Ăn 1 bữa thật no rồi nhịn' },
+    ],
+    correctIndex: 1,
+    explanationVi: 'IF = nhịn Calo, KHÔNG nhịn vi chất! Sau 8-10h hết glycogen → đốt mỡ. Nhưng PHẢI uống đủ nước + vi chất + vitamin. Nước ép/nước ngọt phá vỡ hoàn toàn quá trình! Lợi ích: tuyến tụy nghỉ → khắc phục kháng Insulin, giảm IGF-1, kích hoạt sửa DNA.' },
+  { id: 23, icon: '🍖', module: 2,
+    questionVi: 'Bộ phận nội tạng lợn nào có ÍT mỡ và cholesterol nhất?',
+    options: [
+      { label: 'A', text: 'Dạ dày (bao tử)' },
+      { label: 'B', text: 'Lòng non' },
+      { label: 'C', text: 'Lòng già (đại tràng)' },
+      { label: 'D', text: 'Gan lợn' },
+    ],
+    correctIndex: 2,
+    explanationVi: 'Bất ngờ: Lòng già (đại tràng) có tỷ lệ mỡ + cholesterol THẤP NHẤT! Tuyệt đối TRÁNH: óc lợn (cholesterol khổng lồ), móng giò, thịt cổ (hạch bạch huyết). Lẩu đa dạng nội tạng tốt cho người tỳ vị yếu — miễn không ăn quá no.' },
+  { id: 24, icon: '💨', module: 4,
+    questionVi: 'Phần lớn mỡ thừa khi bị đốt cháy thải ra qua đâu?',
+    options: [
+      { label: 'A', text: 'Mồ hôi (vì tập xong mồ hôi nhiều)' },
+      { label: 'B', text: 'Nước tiểu' },
+      { label: 'C', text: 'Hơi thở — 84% thành CO2 thở ra' },
+      { label: 'D', text: 'Phân' },
+    ],
+    correctIndex: 2,
+    explanationVi: '84% khối lượng mỡ đốt cháy → CO2 (thở ra), chỉ 16% → H2O (mồ hôi/nước tiểu). Vì vậy tập thở cơ hoành, hít sâu thở dài = tăng oxy vào + đẩy CO2 ra = đốt mỡ hiệu quả hơn cả chạy bộ thở nông!' },
 ];
