@@ -86,6 +86,38 @@ export const DAILY_TIPS: DailyTip[] = [
   { id: 20, icon: '🥚', categoryVi: 'Giải mã tin đồn', module: 2,
     titleVi: 'Ăn trứng KHÔNG gây sỏi mật!',
     bodyVi: 'Ngược lại: kiêng trứng → thiếu cholesterol → gan phải tự sản xuất quá tải → dư thừa → tạo sỏi! Trứng có trống KHÔNG bổ hơn, không chứa hormone sinh dục, còn dễ thối (H2S) hơn trứng thường.' },
+
+  // --- 10 bài giảng mới ---
+  { id: 21, icon: '🦀', categoryVi: 'Bữa ăn', module: 3,
+    titleVi: 'Tế bào ung thư chỉ ăn ĐƯỜNG!',
+    bodyVi: 'Tế bào bình thường dùng chất béo làm thức ăn chính. Tế bào ung thư mất khả năng này, ĐƯỜNG là nguồn thức ăn duy nhất. Cắt giảm carbohydrate = "bỏ đói" ung thư!' },
+  { id: 22, icon: '🩸', categoryVi: 'Vi chất', module: 1,
+    titleVi: 'LDL không hoàn toàn xấu — đừng sợ!',
+    bodyVi: 'LDL là "con tàu" chuyên chở chất béo nuôi tế bào. LDL chỉ xấu (loại B) khi bị oxy hóa hoặc bị đường hóa (ăn nhiều ngọt). Tập trung: Triglyceride/HDL < 2.0 mới là chỉ số cần theo dõi!' },
+  { id: 23, icon: '🍚', categoryVi: 'Bữa ăn', module: 3,
+    titleVi: 'Gạo lứt 100% ≠ Lành mạnh!',
+    bodyVi: 'Gạo lứt giàu chất xơ + B nhưng vỏ chứa Axit Phytic — ức chế hấp thu Canxi, Magie → đau khớp, sương mù não, mất ngủ. Phải ăn ĐAN XEN với gạo trắng, không ăn 100% lứt!' },
+  { id: 24, icon: '🧈', categoryVi: 'Bữa ăn', module: 3,
+    titleVi: 'Bỏ hoàn toàn mỡ lợn = SAI LẦM!',
+    bodyVi: 'Chỉ dùng dầu thực vật → thừa Omega-6 → viêm tự miễn, xơ vữa, tiểu đường. Mỡ lợn bền nhiệt, phù hợp chiên rán. LUÂN PHIÊN: bữa mỡ lợn, bữa dầu thực vật, đổi loại dầu thường xuyên!' },
+  { id: 25, icon: '🍊', categoryVi: 'Vi chất', module: 1,
+    titleVi: 'Vitamin C: thợ dệt collagen + đốt mỡ!',
+    bodyVi: 'C tạo collagen cho da-mạch-sụn, VẬN CHUYỂN mỡ vào ti thể đốt cháy (thiếu C = không giảm cân), tăng tốc bạch cầu diệt virus. Liều: 200-300mg/ngày, KHÔNG quá 1000mg. Chanh chỉ có 20mg — thua xa ổi, kiwi!' },
+  { id: 26, icon: '🥤', categoryVi: 'Lối sống', module: 4,
+    titleVi: 'Vi nhựa: kẻ giết người thầm lặng!',
+    bodyVi: 'Nhựa số 3 (PVC) và số 6 (PS-xốp) chứa BPA bắt chước estrogen → rối loạn nội tiết, nữ hóa nam, ung thư. Đun sôi nước 5 phút "nhốt" 80% vi nhựa. Tránh hâm nóng đồ ăn trong màng bọc/hộp nhựa!' },
+  { id: 27, icon: '🏃', categoryVi: 'Lối sống', module: 4,
+    titleVi: 'ĐỪNG tập lúc đói → Gút!',
+    bodyVi: 'Đói + tập = cơ thể tiêu hủy cơ Vân → sinh hypoxanthine + axit lactic → gan chuyển thành Axit Uric → GÚT! Ăn tinh bột trước 30 phút hoặc protein trước 2-3h. Sau tập PHẢI uống nước nhiều để đi tiểu thải uric.' },
+  { id: 28, icon: '🍺', categoryVi: 'Lối sống', module: 4,
+    titleVi: 'Mẹo sơ cứu ngộ độc rượu lậu!',
+    bodyVi: 'Rượu quê/rượu tự nấu có thể chứa Methanol gây MÙ và TỬ VONG. Nếu chóng mặt + nhìn mờ/nhìn đôi: cho uống bia/rượu xịn (Ethanol) để cạnh tranh men gan, ngăn Methanol → Axit Formic. Gọi cấp cứu ngay!' },
+  { id: 29, icon: '🍚', categoryVi: 'Giải mã tin đồn', module: 2,
+    titleVi: 'GẠO NHỰA không tồn tại!',
+    bodyVi: 'Nhựa đắt gấp 3-4 lần gạo — ai điên mà làm gạo nhựa! Clip trên mạng thực chất là máy ép cám gia cầm dạng viên hoặc xưởng mô hình thức ăn giả trưng bày nhà hàng Nhật. Mẹo: thêm 3-4ml giấm khi nấu cơm = dẻo, thơm, không thiu!' },
+  { id: 30, icon: '💊', categoryVi: 'Vi chất', module: 1,
+    titleVi: 'Canxi vô cơ vs hữu cơ: chọn đúng!',
+    bodyVi: 'CaCO3 (vô cơ): rẻ, ít dị ứng nhưng ngấm kém, gây táo bón — PHẢI uống sau ăn để axit dạ dày hòa tan. Canxi hữu cơ (vỏ hàu): ngấm tốt hơn nhưng tá dược có thể gây ngứa/mề đay ở người dị ứng.' },
 ];
 
 /** Lấy tip cho ngày hôm nay (xoay vòng) */
@@ -320,10 +352,87 @@ export const EXERCISE_RULES = {
   trampolineVi: 'BS Phúc đặc biệt khuyên trampoline: đốt 40% hơn chạy bộ, kích hoạt toàn bộ tế bào, xúc rửa hệ bạch huyết.',
   brainVi: 'Vận động = cách #1 rèn não (không phải cờ/ngoại ngữ). Tăng oxy não, giảm cortisol, tiết dopamine + endorphin.',
   dangerVi: 'Tập quá sức: cơ vân tiêu hủy → myoglobin tràn máu → suy thận. Quỹ nhịp tim CÓ HẠN — đừng phung phí!',
+  preMealVi: 'ĐỪNG tập khi đói! Ăn tinh bột trước 30p hoặc protein trước 2-3h. Đói + tập → tiêu cơ vân → axit uric → GÚT!',
+  postWaterVi: 'Sau tập PHẢI uống nhiều nước để đi tiểu. 80% Axit Uric thải qua nước tiểu, chỉ 20% qua mồ hôi.',
+  anaerobicVi: 'Tập gắng sức (thở không kịp) = kỵ khí → sinh Axit Lactic → đau cơ, viêm mãn tính. Nên tập hiếu khí (vừa sức, hít thở sâu).',
 };
 
 // ============================================================================
-// 4. MYTH-BUSTING QUIZ — 12 câu hỏi
+// 3c. VITAMIN C DEEP DIVE
+// ============================================================================
+
+export const VITAMIN_C_GUIDE = {
+  roles: [
+    { icon: '🧶', titleVi: 'Thợ dệt Collagen', bodyVi: 'Đan kết sợi collagen tạo sức bền cho thành mạch, sụn khớp, da. Thiếu C → chảy máu chân răng, bầm tím, da nhăn.' },
+    { icon: '🔥', titleVi: 'Đốt mỡ giảm cân', bodyVi: 'C vận chuyển mỡ (Lipid) vào ti thể đốt cháy → năng lượng. Thiếu C = không thể tiêu hủy tế bào mỡ!' },
+    { icon: '🛡️', titleVi: 'Tăng đề kháng', bodyVi: 'C chui vào ti thể bạch cầu, tăng tốc di chuyển, tạo electron "bom nguyên tử" tiêu diệt virus, vi khuẩn.' },
+  ],
+  dosageVi: '200-300mg/ngày. KHÔNG quá 1000mg (biến C thành chất oxy hóa ngược!).',
+  lemonMythVi: 'Nước cốt chanh chỉ có ~20mg Vitamin C/100g — thua xa ớt chuông (200mg), ổi, kiwi. Chữa ung thư/sỏi thận bằng chanh = TIN ĐỒN.',
+  topSources: ['Ớt chuông (200mg)', 'Ổi (228mg)', 'Kiwi (93mg)', 'Bông cải xanh (89mg)', 'Cam (53mg)', 'Chanh (20mg 😅)'],
+};
+
+// ============================================================================
+// 3d. RICE GUIDE — Cách chọn gạo
+// ============================================================================
+
+export const RICE_GUIDE = {
+  types: [
+    { nameVi: 'Gạo Indica (hạt dài, trong)', icon: '🍚',
+      descVi: 'Nhiều tinh bột (Amylose), tơi xốp, dễ tiêu. Tăng đường huyết nhanh.',
+      useVi: 'Bún, phở, bánh cuốn, cơm rang, cháo cho người ốm cần năng lượng nhanh.' },
+    { nameVi: 'Gạo Japonica (hạt ngắn, dẻo)', icon: '🍙',
+      descVi: 'Nhiều Amylopectin, khó tiêu hơn, giàu axit amin thiết yếu.',
+      useVi: 'Nấu cháo cho người khỏe rất bổ dưỡng. Cơm sushi, cơm nắm.' },
+    { nameVi: 'Gạo lứt / Ngũ cốc nguyên cám', icon: '🌾',
+      descVi: 'Giàu xơ + Vitamin B, no lâu, ổn định đường huyết.',
+      useVi: 'KHÔNG ăn 100% dài hạn! Axit Phytic ức chế Canxi/Magie. Ăn đan xen gạo trắng.' },
+  ],
+  cookingTipVi: 'Thêm 3-4ml giấm khi nấu → cơm dẻo, thơm, không thiu. Hành hoa tươi khử mùi khê. Không vo gạo nước nóng (mất vitamin).',
+  sugarRiceMythVi: 'Nồi cơm điện "tách đường" = lãng phí vitamin B và dưỡng chất trong nước bọt cơm, KHÔNG giúp giảm đường huyết đáng kể.',
+  plasticRiceMythVi: 'Gạo nhựa KHÔNG TỒN TẠI. Nhựa đắt gấp 3-4 lần gạo. Clip trên mạng = máy ép cám gia cầm hoặc mô hình trưng bày.',
+};
+
+// ============================================================================
+// 3e. LDL & LIPID GUIDE
+// ============================================================================
+
+export const LIPID_GUIDE = {
+  ldlTruthVi: 'LDL = "con tàu" chuyên chở dinh dưỡng, KHÔNG hoàn toàn xấu. LDL chỉ xấu (loại B) khi bị oxy hóa hoặc đường hóa (Glycosin).',
+  goldenRatioVi: 'Chỉ số vàng: Triglyceride / HDL < 2.0',
+  keyInsightVi: 'Để giảm mỡ máu xấu: CẮT GIẢM ĐƯỜNG (carbohydrate), không phải cắt mỡ!',
+  omega6WarningVi: 'Chỉ dùng dầu thực vật → thừa Omega-6 → viêm tự miễn, xơ vữa. Phải LUÂN PHIÊN dầu mỡ.',
+};
+
+// ============================================================================
+// 3f. LIFESTYLE TIPS — Vi nhựa, Rượu, Nước
+// ============================================================================
+
+export const LIFESTYLE_TIPS = {
+  microplastics: {
+    titleVi: '🥤 Vi nhựa — kẻ giết người thầm lặng',
+    boilTipVi: 'Đun sôi nước máy 5 phút → cặn CaCO3 kết tủa → "nhốt" >80% vi nhựa.',
+    checkVi: 'Lật đáy chai: TRÁNH nhựa số 3 (PVC) và số 6 (PS-xốp). Chứa BPA bắt chước estrogen → rối loạn nội tiết, ung thư.',
+    receiptVi: 'Hóa đơn siêu thị bóng loáng, vé xe buýt, túi giấy tráng nilon = BPA. Hạn chế cầm nắm.',
+    microwareVi: 'KHÔNG dùng màng bọc/hộp nhựa hâm nóng trong lò vi sóng!',
+  },
+  alcohol: {
+    titleVi: '🍺 Sơ cứu ngộ độc rượu lậu',
+    methanoVi: 'Rượu quê/tự nấu có thể chứa Methanol → MÙ LÒA, TỬ VONG.',
+    symptomsVi: 'Dấu hiệu: chóng mặt, mắt nhìn mờ, nhìn một thành hai.',
+    firstAidVi: 'Cho uống BIA hoặc rượu xịn (Ethanol). Ethanol cạnh tranh men gan → ngăn Methanol → Axit Formic. Gọi cấp cứu ngay!',
+  },
+  sugarAlcohols: {
+    titleVi: '🍬 Đường cồn (Xylitol, Sorbitol, Erythritol)',
+    safeVi: 'Ít calo, an toàn cho tiểu đường.',
+    dangerVi: 'Quá 50g/ngày → rút nước vào ruột → tiêu chảy, đầy hơi, biến đổi hệ vi sinh.',
+  },
+  honeyWarningVi: '🍯 Tuyệt đối KHÔNG cho trẻ dưới 2 tuổi dùng mật ong → nguy cơ ngộ độc thịt (Botulinum).',
+  fructoseDeepVi: 'Fructose không chịu sự kiểm soát Insulin, đi thẳng vào gan. 70% → mỡ → gan nhiễm mỡ. Không tạo cảm giác no → ăn thêm. Tăng axit uric (Gút) + bùng phát hại khuẩn đại tràng → rò rỉ ruột.',
+};
+
+// ============================================================================
+// 4. MYTH-BUSTING QUIZ — 18 câu hỏi
 // ============================================================================
 
 export interface QuizQuestion {
@@ -457,4 +566,66 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     ],
     correctIndex: 2,
     explanationVi: 'Fructose oxy hóa cực mạnh, chuyển hóa TRỰC TIẾP ở gan → gan nhiễm mỡ, lão hóa da. Trái cây nguyên quả (có chất xơ) OK. Nhưng mật ong, nước ép = đường tinh khiết đi thẳng vào gan!' },
+
+  // --- 6 câu mới từ 10 bài giảng ---
+  { id: 13, icon: '🩸', module: 1,
+    questionVi: 'Chỉ số nào quan trọng nhất để đánh giá mỡ máu?',
+    options: [
+      { label: 'A', text: 'LDL cholesterol (càng thấp càng tốt)' },
+      { label: 'B', text: 'Tổng cholesterol' },
+      { label: 'C', text: 'Tỷ lệ Triglyceride / HDL (mục tiêu < 2.0)' },
+      { label: 'D', text: 'Cholesterol trong thức ăn' },
+    ],
+    correctIndex: 2,
+    explanationVi: 'LDL không hoàn toàn xấu — nó là "tàu" chuyên chở dinh dưỡng. LDL chỉ độc hại khi bị oxy hóa hoặc đường hóa. Tỷ lệ Triglyceride/HDL < 2.0 mới là chỉ số vàng. Muốn giảm mỡ xấu: CẮT ĐƯỜNG, không phải cắt mỡ!' },
+  { id: 14, icon: '🍚', module: 3,
+    questionVi: 'Gạo lứt 100% ăn hàng ngày có thực sự tốt?',
+    options: [
+      { label: 'A', text: 'Có, càng nhiều chất xơ càng tốt' },
+      { label: 'B', text: 'KHÔNG. Vỏ chứa Axit Phytic ức chế hấp thu Canxi, Magie' },
+      { label: 'C', text: 'Có, WHO khuyến cáo ăn 100% gạo lứt' },
+      { label: 'D', text: 'Chỉ tốt cho người tiểu đường' },
+    ],
+    correctIndex: 1,
+    explanationVi: 'Gạo lứt giàu xơ + B nhưng vỏ chứa Axit Phytic — ức chế hấp thu Canxi, Magie dẫn đến đau khớp, sương mù não, mất ngủ, suy nhược. Phải ăn ĐAN XEN gạo trắng + gạo lứt, không ăn 100% lứt dài hạn!' },
+  { id: 15, icon: '🍊', module: 1,
+    questionVi: 'Nước cốt chanh có thể chữa ung thư/sỏi thận không?',
+    options: [
+      { label: 'A', text: 'Có, Vitamin C trong chanh chống ung thư' },
+      { label: 'B', text: 'Có, nước chanh hòa tan sỏi thận' },
+      { label: 'C', text: 'KHÔNG. Chanh chỉ có 20mg Vitamin C — quá ít. Đây là tin đồn thổi phồng' },
+      { label: 'D', text: 'Có nếu uống đủ 3 lít/ngày' },
+    ],
+    correctIndex: 2,
+    explanationVi: 'Nước cốt chanh chỉ có ~20mg Vitamin C/100g — thua xa ớt chuông (200mg), ổi, kiwi. Tuyên bố chữa ung thư, sỏi thận, giảm cân là SAI SỰ THẬT. Cần 200-300mg Vitamin C/ngày từ nhiều nguồn, không quá 1000mg.' },
+  { id: 16, icon: '🏃', module: 4,
+    questionVi: 'Nên ăn gì trước khi tập thể dục?',
+    options: [
+      { label: 'A', text: 'Không ăn gì — đốt mỡ tốt hơn' },
+      { label: 'B', text: 'Tinh bột trước 30 phút hoặc protein trước 2-3 tiếng' },
+      { label: 'C', text: 'Uống nước đường ngay trước tập' },
+      { label: 'D', text: 'Ăn no xong tập luôn' },
+    ],
+    correctIndex: 1,
+    explanationVi: 'Tập khi đói → cơ thể tiêu hủy cơ Vân → sinh hypoxanthine + axit lactic → gan chuyển thành Axit Uric → GÚT! Ăn tinh bột (cơm, khoai) trước 30p hoặc protein (thịt, trứng) trước 2-3h. Sau tập phải uống nước để thải uric qua nước tiểu.' },
+  { id: 17, icon: '🥤', module: 4,
+    questionVi: 'Cách nào giúp giảm vi nhựa trong nước uống?',
+    options: [
+      { label: 'A', text: 'Lọc bằng máy lọc RO là đủ' },
+      { label: 'B', text: 'Đun sôi nước máy 5 phút — cặn vôi "nhốt" 80% vi nhựa' },
+      { label: 'C', text: 'Uống nước đóng chai an toàn hơn' },
+      { label: 'D', text: 'Vi nhựa không có trong nước uống' },
+    ],
+    correctIndex: 1,
+    explanationVi: 'Đun sôi nước 5 phút → cặn Canxi Cacbonat (cặn vôi) kết tủa, "nhốt" được >80% hạt vi nhựa. Chai nhựa số 3 (PVC) và số 6 (PS-xốp) chứa BPA bắt chước estrogen → rối loạn nội tiết. Lật đáy chai kiểm tra số nhựa!' },
+  { id: 18, icon: '🧈', module: 3,
+    questionVi: 'Tại sao không nên BỎ HOÀN TOÀN mỡ lợn?',
+    options: [
+      { label: 'A', text: 'Vì mỡ lợn giàu Vitamin' },
+      { label: 'B', text: 'Vì chỉ dùng dầu thực vật → thừa Omega-6 → viêm tự miễn' },
+      { label: 'C', text: 'Vì mỡ lợn rẻ hơn' },
+      { label: 'D', text: 'Không có lý do, nên bỏ hoàn toàn' },
+    ],
+    correctIndex: 1,
+    explanationVi: 'Dầu thực vật chứa nhiều Omega-6. Thừa Omega-6, thiếu Omega-3 → kích hoạt viêm tự miễn, xơ vữa, tiểu đường. Mỡ lợn bền nhiệt, phù hợp chiên rán. LUÂN PHIÊN: bữa mỡ lợn, bữa dầu thực vật, đổi loại dầu!' },
 ];

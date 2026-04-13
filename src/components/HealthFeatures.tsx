@@ -6,7 +6,8 @@ import {
   HAND_RULES, HAND_RULE_NOTE, GI_FOOD_TABLE, GI_GL_GUIDE,
   SUGAR_WARNING, VITAMIN_ABSORPTION_RULES,
   SUPPLEMENT_SCHEDULE, SUPPLEMENT_GOLDEN_RULE, MAGNESIUM_TYPES, MAGNESIUM_DEEP,
-  OMEGA3_GUIDE, ZINC_GUIDE, VITAMIN_D3_GUIDE, EXERCISE_RULES,
+  OMEGA3_GUIDE, ZINC_GUIDE, VITAMIN_D3_GUIDE, VITAMIN_C_GUIDE,
+  EXERCISE_RULES, RICE_GUIDE, LIPID_GUIDE, LIFESTYLE_TIPS,
   QUIZ_QUESTIONS,
   type DailyTip, type QuizQuestion,
 } from '@/data/health-content';
@@ -15,7 +16,7 @@ import {
 // Feature Picker — Menu chọn 4 tính năng
 // ============================================================================
 
-type Feature = 'tips' | 'meal' | 'supplement' | 'quiz' | 'exercise';
+type Feature = 'tips' | 'meal' | 'supplement' | 'quiz' | 'exercise' | 'lifestyle';
 
 export default function HealthFeatures() {
   const [feature, setFeature] = useState<Feature | null>(null);
@@ -25,6 +26,7 @@ export default function HealthFeatures() {
   if (feature === 'supplement') return <SupplementView onBack={() => setFeature(null)} />;
   if (feature === 'quiz') return <QuizView onBack={() => setFeature(null)} />;
   if (feature === 'exercise' as Feature) return <ExerciseView onBack={() => setFeature(null)} />;
+  if (feature === 'lifestyle' as Feature) return <LifestyleView onBack={() => setFeature(null)} />;
 
   const todayTip = getTodayTip();
 
@@ -49,7 +51,8 @@ export default function HealthFeatures() {
         <FeatureCard icon="💊" title="Lịch Vi chất" desc="Canxi · Magie · Kẽm · D3" color="violet" onClick={() => setFeature('supplement')} />
         <FeatureCard icon="🏃" title="Đơn thuốc tập luyện" desc="Nhịp tim · Thời điểm" color="red" onClick={() => setFeature('exercise')} />
         <FeatureCard icon="🧠" title="Quiz kiến thức" desc="12 câu hỏi" color="blue" onClick={() => setFeature('quiz')} />
-        <FeatureCard icon="💡" title="20 Tips BS Phúc" desc="Mỗi ngày 1 tip" color="amber" onClick={() => setFeature('tips')} />
+        <FeatureCard icon="🛡️" title="Lối sống an toàn" desc="Vi nhựa · Rượu · Đường" color="red" onClick={() => setFeature('lifestyle')} />
+        <FeatureCard icon="💡" title="30 Tips BS Phúc" desc="Mỗi ngày 1 tip" color="amber" onClick={() => setFeature('tips')} />
       </div>
     </div>
   );
@@ -185,6 +188,37 @@ function MealPlannerView({ onBack }: { onBack: () => void }) {
         </div>
         <div className="text-[11px] text-blue-700 mt-3 font-medium">✅ {VITAMIN_ABSORPTION_RULES.mythBust}</div>
       </div>
+
+      {/* Rice Guide */}
+      <div>
+        <h3 className="text-sm font-bold text-gray-800 mb-2">🍚 Cách chọn gạo đúng</h3>
+        <div className="space-y-2">
+          {RICE_GUIDE.types.map((r, i) => (
+            <div key={i} className="bg-white border border-gray-100 rounded-xl px-3.5 py-2.5 shadow-sm">
+              <div className="text-sm font-bold text-gray-800">{r.icon} {r.nameVi}</div>
+              <div className="text-xs text-gray-600 mt-0.5">{r.descVi}</div>
+              <div className="text-[11px] text-teal-600 font-medium mt-1">📌 {r.useVi}</div>
+            </div>
+          ))}
+        </div>
+        <div className="bg-amber-50 border border-amber-200 rounded-xl px-3 py-2 mt-2 text-[11px] text-amber-800">
+          👨‍🍳 {RICE_GUIDE.cookingTipVi}
+        </div>
+        <div className="bg-red-50 border border-red-200 rounded-xl px-3 py-2 mt-2 text-[11px] text-red-700">
+          ⚠️ {RICE_GUIDE.sugarRiceMythVi}
+        </div>
+      </div>
+
+      {/* LDL Truth */}
+      <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4">
+        <h3 className="text-sm font-bold text-blue-800 mb-2">🩸 Sự thật về Mỡ máu LDL</h3>
+        <div className="text-xs text-blue-700 space-y-1.5">
+          <div>🚢 {LIPID_GUIDE.ldlTruthVi}</div>
+          <div className="font-bold">🎯 {LIPID_GUIDE.goldenRatioVi}</div>
+          <div>💡 {LIPID_GUIDE.keyInsightVi}</div>
+          <div>⚠️ {LIPID_GUIDE.omega6WarningVi}</div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -299,6 +333,81 @@ function SupplementView({ onBack }: { onBack: () => void }) {
           <div>🎨 {VITAMIN_D3_GUIDE.skinColorVi}</div>
         </div>
       </div>
+
+      {/* Vitamin C */}
+      <div className="bg-orange-50 border border-orange-200 rounded-2xl p-4">
+        <h3 className="text-sm font-bold text-orange-800 mb-2">🍊 Vitamin C — Thợ dệt & Đốt mỡ</h3>
+        <div className="space-y-2">
+          {VITAMIN_C_GUIDE.roles.map((r, i) => (
+            <div key={i} className="bg-white/70 rounded-xl px-3 py-2">
+              <div className="text-xs font-bold text-gray-800">{r.icon} {r.titleVi}</div>
+              <div className="text-[11px] text-gray-600">{r.bodyVi}</div>
+            </div>
+          ))}
+        </div>
+        <div className="text-xs text-orange-700 mt-2 font-medium">💊 {VITAMIN_C_GUIDE.dosageVi}</div>
+        <div className="text-[11px] text-red-600 mt-1">❌ {VITAMIN_C_GUIDE.lemonMythVi}</div>
+        <div className="text-[11px] text-orange-600 mt-1">🏆 Top nguồn: {VITAMIN_C_GUIDE.topSources.join(' · ')}</div>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================================
+// Feature 6: Lifestyle Tips (Vi nhựa, Rượu, Đường)
+// ============================================================================
+
+function LifestyleView({ onBack }: { onBack: () => void }) {
+  return (
+    <div className="space-y-4 animate-slide-up">
+      <BackButton onBack={onBack} title="Lối sống An toàn" />
+
+      {/* Microplastics */}
+      <div className="bg-red-50 border border-red-200 rounded-2xl p-4">
+        <h3 className="text-sm font-bold text-red-800 mb-2">{LIFESTYLE_TIPS.microplastics.titleVi}</h3>
+        <div className="text-xs text-red-700 space-y-1.5">
+          <div>💧 {LIFESTYLE_TIPS.microplastics.boilTipVi}</div>
+          <div>🔍 {LIFESTYLE_TIPS.microplastics.checkVi}</div>
+          <div>🧾 {LIFESTYLE_TIPS.microplastics.receiptVi}</div>
+          <div className="font-bold">⛔ {LIFESTYLE_TIPS.microplastics.microwareVi}</div>
+        </div>
+      </div>
+
+      {/* Alcohol */}
+      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+        <h3 className="text-sm font-bold text-amber-800 mb-2">{LIFESTYLE_TIPS.alcohol.titleVi}</h3>
+        <div className="text-xs text-amber-700 space-y-1.5">
+          <div>☠️ {LIFESTYLE_TIPS.alcohol.methanoVi}</div>
+          <div>👁️ {LIFESTYLE_TIPS.alcohol.symptomsVi}</div>
+          <div className="font-bold">🍺 {LIFESTYLE_TIPS.alcohol.firstAidVi}</div>
+        </div>
+      </div>
+
+      {/* Sugar Alcohols */}
+      <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4">
+        <h3 className="text-sm font-bold text-blue-800 mb-2">{LIFESTYLE_TIPS.sugarAlcohols.titleVi}</h3>
+        <div className="text-xs text-blue-700 space-y-1">
+          <div>✅ {LIFESTYLE_TIPS.sugarAlcohols.safeVi}</div>
+          <div>⚠️ {LIFESTYLE_TIPS.sugarAlcohols.dangerVi}</div>
+        </div>
+      </div>
+
+      {/* Honey Warning */}
+      <div className="bg-red-50 border border-red-300 rounded-2xl px-4 py-3">
+        <div className="text-xs font-bold text-red-800">{LIFESTYLE_TIPS.honeyWarningVi}</div>
+      </div>
+
+      {/* Fructose Deep */}
+      <div className="bg-orange-50 border border-orange-200 rounded-2xl p-4">
+        <h3 className="text-sm font-bold text-orange-800 mb-2">🍯 Fructose — Nguy hiểm hơn đường mía</h3>
+        <div className="text-xs text-orange-700 leading-relaxed">{LIFESTYLE_TIPS.fructoseDeepVi}</div>
+      </div>
+
+      {/* Rice Myths */}
+      <div className="bg-green-50 border border-green-200 rounded-2xl p-4">
+        <h3 className="text-sm font-bold text-green-800 mb-2">🍚 Tin đồn Gạo Nhựa</h3>
+        <div className="text-xs text-green-700 leading-relaxed">{RICE_GUIDE.plasticRiceMythVi}</div>
+      </div>
     </div>
   );
 }
@@ -344,6 +453,24 @@ function ExerciseView({ onBack }: { onBack: () => void }) {
       <div className="bg-green-50 border border-green-200 rounded-2xl p-4">
         <h3 className="text-sm font-bold text-green-800 mb-2">🧠 Tập thể dục = Rèn não #1</h3>
         <div className="text-xs text-green-700 leading-relaxed">{EXERCISE_RULES.brainVi}</div>
+      </div>
+
+      {/* Pre-meal */}
+      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+        <h3 className="text-sm font-bold text-amber-800 mb-2">🍽️ Ăn gì trước khi tập?</h3>
+        <div className="text-xs text-amber-700 leading-relaxed">{EXERCISE_RULES.preMealVi}</div>
+      </div>
+
+      {/* Post water */}
+      <div className="bg-cyan-50 border border-cyan-200 rounded-2xl p-4">
+        <h3 className="text-sm font-bold text-cyan-800 mb-2">💧 Sau tập phải uống nước!</h3>
+        <div className="text-xs text-cyan-700 leading-relaxed">{EXERCISE_RULES.postWaterVi}</div>
+      </div>
+
+      {/* Aerobic vs Anaerobic */}
+      <div className="bg-green-50 border border-green-200 rounded-2xl p-4">
+        <h3 className="text-sm font-bold text-green-800 mb-2">🫁 Hiếu khí vs Kỵ khí</h3>
+        <div className="text-xs text-green-700 leading-relaxed">{EXERCISE_RULES.anaerobicVi}</div>
       </div>
 
       {/* Danger */}
