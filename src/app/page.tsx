@@ -248,6 +248,35 @@ export default function HomePage() {
         </div>
       )}
 
+      {/* === DAILY TRACKER TIPS (show after any result) === */}
+      {mode && (
+        <div className="mt-5 space-y-2 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+          <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Lời khuyên BS Phúc</div>
+          <div className="bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5">
+            <div className="text-[11px] text-amber-800">
+              <span className="font-semibold">😋 Quy tắc bữa ăn:</span> No 70% thôi. Nhai 20-30 lần mỗi miếng. Thức ăn ấm ~40°C.
+            </div>
+          </div>
+          <div className="bg-blue-50 border border-blue-200 rounded-xl px-3 py-2.5">
+            <div className="text-[11px] text-blue-800">
+              <span className="font-semibold">🚶 Sau bữa ăn:</span> Đừng nằm ngay! Ngồi nghỉ hoặc đi dạo nhẹ ít nhất 30 phút.
+            </div>
+          </div>
+          <div className="bg-red-50 border border-red-200 rounded-xl px-3 py-2.5">
+            <div className="text-[11px] text-red-800">
+              <span className="font-semibold">☠️ Thức ăn thừa:</span> Mua đến đâu ăn hết đến đấy. Để tủ lạnh &gt;3 ngày = Aflatoxin gây ung thư.
+            </div>
+          </div>
+          {mealTime === 'sáng' && (
+            <div className="bg-purple-50 border border-purple-200 rounded-xl px-3 py-2.5">
+              <div className="text-[11px] text-purple-800">
+                <span className="font-semibold">🧠 Mẹo bổ não:</span> Ăn kẹo ngọt hoặc uống nước đường trước giờ thi — não cần Glucose!
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Empty state */}
       {!mode && !isShaking && (
         <div className="mt-10 text-center text-gray-400">

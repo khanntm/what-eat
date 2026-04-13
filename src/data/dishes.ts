@@ -41,8 +41,11 @@ export type SuperfoodTag =
 export type CookingWarningId =
   | 'lectin-grain'       // Bánh mì nguyên cám, gạo lứt
   | 'lectin-bean-raw'    // Đậu đỗ sống
+  | 'lectin-bean-cook'   // Đậu phải hầm kỹ (nồi áp suất)
   | 'lectin-soy-sprout'  // Giá đỗ tương sống
   | 'aflatoxin-leftover' // Thức ăn thừa >3 ngày
+  | 'benzopyrene-grill'  // Nướng than/BBQ gây ung thư
+  | 'reused-oil'         // Dầu ăn đã qua sử dụng
   | 'oil-high-heat'      // Dầu thực vật chiên rán nhiệt cao
   | 'raw-salad'          // Rau sống miễn dịch yếu
   | 'juice-no-fiber';    // Nước ép mất chất xơ
