@@ -150,6 +150,38 @@ export const DAILY_TIPS: DailyTip[] = [
   { id: 40, icon: '🍖', categoryVi: 'Giải mã tin đồn', module: 2,
     titleVi: 'Lòng già lợn: ít mỡ nhất trong nội tạng!',
     bodyVi: 'Lòng già (đại tràng) có tỷ lệ mỡ + cholesterol THẤP NHẤT so với dạ dày, lòng non. Ngược lại TRÁNH: óc lợn (cholesterol khổng lồ), móng giò, thịt cổ (hạch bạch huyết). Lẩu rất tốt cho người tỳ vị yếu — nhưng đừng ăn quá no!' },
+
+  // --- Nước, Đạm, Chất béo, Rau, Sắt, B1, Probiotics ---
+  { id: 41, icon: '💧', categoryVi: 'Bữa ăn', module: 3,
+    titleVi: 'Uống nước SAI = biến nước thành chất độc!',
+    bodyVi: 'Tế bào hấp thu nước qua kênh aquaporin. Uống từng ngụm nhỏ (<250ml/lần) để tránh hạ natri máu. Trà, cà phê, rượu bia = "nước giả" — tăng áp suất thẩm thấu, hút nước NGƯỢC từ tế bào ra → tế bào CÀng KHÁT!' },
+  { id: 42, icon: '🥩', categoryVi: 'Bữa ăn', module: 3,
+    titleVi: 'ĐỪNG chan canh khi ăn thịt!',
+    bodyVi: 'Protein cần axit dạ dày (HCl) mạnh để tiêu hóa. Chan canh = loãng axit → protein không tiêu → biến thành "kháng nguyên" → viêm nhiễm + rò rỉ ruột. Ăn thịt/cá TRƯỚC, uống canh SAU bữa ăn 30 phút.' },
+  { id: 43, icon: '🥥', categoryVi: 'Bữa ăn', module: 3,
+    titleVi: 'Dầu dừa: đi thẳng vào tế bào, không qua gan!',
+    bodyVi: 'Axit béo chuỗi trung bình (MCT) trong dầu dừa đi THẲNG vào niêm mạc ruột tạo năng lượng tức thì — không cần qua gan xử lý. Tỷ lệ Omega-6:3 lý tưởng = 1:1, tối đa 4:1. Hiện đại lên tới 20:1 → viêm nhiễm hàng loạt!' },
+  { id: 44, icon: '🥬', categoryVi: 'Bữa ăn', module: 3,
+    titleVi: 'Ngâm rau nước muối = ĐÚNG MÀ SAI!',
+    bodyVi: 'Áp suất thẩm thấu ĐẨY thuốc trừ sâu NGƯỢC vào trong rau! Cách đúng: rửa dưới vòi nước chảy, rửa từng lá, gọt vỏ củ quả, chần qua nước sôi, hoặc để nơi thoáng gió cho thuốc bay hơi.' },
+  { id: 45, icon: '🩸', categoryVi: 'Vi chất', module: 1,
+    titleVi: 'Sắt: ĐỪNG tự ý bổ sung — có thể gây ung thư!',
+    bodyVi: 'Sắt thừa → phản ứng Fenton → gốc tự do phá hủy tế bào → lão hóa + ung thư. PHẢI xét nghiệm (Ferritin, Transferrin) trước. TUYỆT ĐỐI không uống sắt khi đang viêm nhiễm/ung thư — cơ thể đang "vườn không nhà trống" bỏ đói vi khuẩn!' },
+  { id: 46, icon: '⚡', categoryVi: 'Vi chất', module: 1,
+    titleVi: 'Vitamin B1: ổ cắm điện khởi động năng lượng',
+    bodyVi: 'B1 = "ổ cắm" khởi động chu trình đốt đường → ATP. Thiếu B1 → đường lên men → axit lactic → đau cơ, chuột rút, sương mù não. B1 sợ nhiệt + tia UV + kiềm. Thêm GIẤM khi nấu cơm = bảo toàn B1. Rượu bia phá hủy B1!' },
+  { id: 47, icon: '🦠', categoryVi: 'Vi chất', module: 1,
+    titleVi: 'Men vi sinh phải có "BÀO TỬ" mới sống sót!',
+    bodyVi: 'Dạ dày pH 1.6-3.4 — siêu axit giết hết lợi khuẩn. Chỉ có bào tử (Spore) mới sống sót đến ruột. Kiểm tra nhãn: phải ghi "Bào tử/Spore". Liều 10-30 tỷ CFU hàng ngày. 100 tỷ CFU → chướng bụng do diệt hại khuẩn ồ ạt.' },
+  { id: 48, icon: '🐟', categoryVi: 'Vi chất', module: 1,
+    titleVi: 'Omega-3 rTG hấp thu GẤP ĐÔI dạng EE!',
+    bodyVi: 'Chọn Omega-3 dạng rTG (Triglyceride tái tổ hợp) — hấp thu gấp nhiều lần dạng EE (Ethyl Ester). Tỷ lệ chữa bệnh: (EPA+DHA)/tổng chất béo ≥ 0.6 (60%). Mỡ máu: EPA > DHA. Não/mắt: DHA > EPA.' },
+  { id: 49, icon: '🛡️', categoryVi: 'Vi chất', module: 1,
+    titleVi: '7 vi chất vàng = "thuốc giảm đau tự nhiên"!',
+    bodyVi: 'Bộ 7: Magie + Canxi + D3 + Vitamin tổng hợp + Vitamin C + Kẽm + Omega-3. Bộ ba Mg+Ca+D3 = "thuốc giảm đau" cho cả thể xác lẫn tinh thần. Thiếu 1 = cơ thể không thể tự chữa lành!' },
+  { id: 50, icon: '😤', categoryVi: 'Lối sống', module: 4,
+    titleVi: 'Sắp nổi giận? Uống nửa viên Magie!',
+    bodyVi: 'Tức giận + sợ hãi tiêu tốn Magie KHỔNG LỒ → co giật, trầm cảm. Chủ động uống nửa viên Magie khi thấy sắp nổi giận. Sống theo C3H3: Clear head (minh mẫn) + Clever hands (khéo léo) + Clean habit (lành mạnh).' },
 ];
 
 /** Lấy tip cho ngày hôm nay (xoay vòng) */
@@ -493,9 +525,87 @@ export const FOOD_INSIGHTS = {
   sleepGoldenVi: '11h đêm - 3h sáng: hGH đạt đỉnh sửa chữa tế bào. Thức khuya = phá hủy toàn bộ nội tiết!',
   karaokeWarningVi: 'Karaoke âm lượng lớn, gào thét quãng 8 → tăng áp lực lồng ngực → nổ phế nang! Nghe nhạc khí/giao hưởng để chữa lành.',
   mindfulEatingVi: '"Ăn mía ngược" — nhai kỹ, từ tốn giống cách ông bà gặm mía. Ăn chậm → enzyme tiêu hóa tăng → no lâu → bảo vệ tỳ vị.',
+  warmBathVi: 'Tắm nước ấm (36-37°C) trước ngủ 30-45p → mạch máu giãn → hạ nhiệt → tuyến tùng tiết Melatonin → ngủ sâu. Phòng ngủ phải TỐI HOÀN TOÀN.',
+  kegelVi: 'Tập cơ sàn chậu (Kegel) kích thích thần kinh phó giao cảm → tăng nhu động đại tràng → khắc phục táo bón mãn tính.',
+  hiitFastingVi: 'HIIT lúc đói (trước bữa ăn): nhảy dây/leo cầu thang 5-7 hiệp → mở "cửa Insulin" + đốt mỡ + kích thích HGH. NHƯNG đừng kéo dài khi đói = tiêu cơ!',
+  c3h3Vi: 'Công thức C3H3: Clear head (minh mẫn) + Clever hands (khéo léo) + Clean habit (lành mạnh) = bảo vệ cơ thể khỏi thế giới hóa chất.',
+  mgAngerVi: 'Sắp nổi giận? Uống nửa viên Magie! Giận dữ + sợ hãi tiêu tốn Magie khổng lồ → co giật, trầm cảm.',
 };
 
 // ============================================================================
+// 3l. WATER GUIDE — Uống nước đúng khoa học
+// ============================================================================
+
+export const WATER_GUIDE = {
+  aquaporinVi: 'Tế bào hấp thu nước qua kênh protein aquaporin trên màng tế bào. Chỉ NƯỚC LỌC TINH KHIẾT mới đi qua được.',
+  ruleVi: 'Uống từng ngụm nhỏ (<250ml/lần) để tránh hạ natri máu đột ngột.',
+  fakeWaterVi: 'Trà, cà phê, rượu bia, nước ép = "nước giả". Đường/cồn/cafein tăng áp lực thẩm thấu → hút nước NGƯỢC từ tế bào → càng khát → đi tiểu nhiều.',
+  krebsVi: 'Nước = nguyên liệu BẮT BUỘC cho chu trình Krebs đốt mỡ. Thiếu nước = không đốt được mỡ!',
+  urineVi: 'Vàng nhạt = đủ ✅. Đục/vàng đậm = thiếu, uống ngay! Trong vắt = thừa, giảm lại.',
+};
+
+// ============================================================================
+// 3m. PROTEIN GUIDE — Ăn đạm đúng cách
+// ============================================================================
+
+export const PROTEIN_GUIDE = {
+  digestionVi: 'Protein là cơ chất khó tiêu nhất — cần axit dạ dày (HCl) + enzyme mạnh. Ăn quá nhiều đạm 1 lúc hoặc chan canh = loãng axit → protein không tiêu → "kháng nguyên" → viêm + rò rỉ ruột.',
+  superSourcesVi: 'Trứng (đặc biệt trứng cút) + Đậu phụ: đủ 20 axit amin thiết yếu (đặc biệt Lysine), tỷ lệ hấp thu cực cao.',
+  albuminVi: 'Protein → Albumin = "phà" vận chuyển axit béo, hormone, khoáng chất. Thiếu đạm → axit béo quay về gan → GAN NHIỄM MỠ.',
+  lectinWarningVi: 'Bột mì (gluten) + đậu đỗ = nhiều Lectin gây viêm mãn. Đậu: BỎ VỎ + ngâm kỹ + nấu NỒI ÁP SUẤT.',
+  noSoupVi: 'Ăn thịt/cá TRƯỚC. Uống canh/nước SAU bữa ăn 30 phút. ĐỪNG chan canh khi ăn!',
+};
+
+// ============================================================================
+// 3n. IRON GUIDE — Sắt: "Vàng đen" nguy hiểm
+// ============================================================================
+
+export const IRON_GUIDE = {
+  roleVi: 'Sắt tạo hồng cầu (hemoglobin) + sản xuất ATP. Là "vàng đen" của cơ thể.',
+  dangerVi: 'Sắt thừa → phản ứng Fenton → gốc tự do → phá hủy tế bào → lão hóa + ung thư.',
+  testFirstVi: 'TUYỆT ĐỐI không tự ý bổ sung. Xét nghiệm: Ferritin, Transferrin, TIBC, Sắt huyết thanh.',
+  warfareVi: 'Khi viêm nhiễm/ung thư: cơ thể khóa hấp thu sắt ("vườn không nhà trống") để bỏ đói vi khuẩn + tế bào ung thư. Uống sắt lúc này = TIẾP TAY CHO GIẶC!',
+};
+
+// ============================================================================
+// 3o. VITAMIN B1 GUIDE
+// ============================================================================
+
+export const B1_GUIDE = {
+  roleVi: 'B1 (Thiamin) = "ổ cắm điện" khởi động chu trình đốt đường → ATP.',
+  deficiencyVi: 'Thiếu B1 → đường lên men → axit lactic → đau mỏi cơ, chuột rút, sương mù não.',
+  enemiesVi: 'B1 sợ: nhiệt độ cao, tia UV, môi trường kiềm (baking soda). Rượu bia ức chế trực tiếp hấp thu + hoạt hóa B1.',
+  protectVi: 'Thêm GIẤM (axit) khi nấu cơm/ngũ cốc = bảo toàn B1 ở nhiệt độ cao.',
+};
+
+// ============================================================================
+// 3p. PROBIOTICS GUIDE
+// ============================================================================
+
+export const PROBIOTICS_GUIDE = {
+  gutVi: 'Ruột chứa 3kg vi khuẩn, quyết định 80% hệ miễn dịch.',
+  sporeMustVi: 'Dạ dày pH 1.6-3.4 = siêu axit. Chỉ BÀO TỬ (Spore) mới sống sót xuống ruột. Kiểm tra nhãn: "Bào tử" hoặc "Spore".',
+  dosageVi: 'Hàng ngày: 10-30 tỷ CFU. KHÔNG dùng 100 tỷ+ CFU → diệt hại khuẩn ồ ạt → sinh độc tố → chướng bụng.',
+  fiberVi: 'Ăn rau củ quả nguyên bản (chất xơ) = nuôi lợi khuẩn ruột. Ép nước = mất chất xơ = bỏ đói lợi khuẩn!',
+};
+
+// ============================================================================
+// 3q. OMEGA-3 SELECTION GUIDE (Expanded)
+// ============================================================================
+
+export const OMEGA3_SELECTION = {
+  formsVi: {
+    rTG: 'rTG (Triglyceride tái tổ hợp): hấp thu GẤP ĐÔI dạng EE — ưu tiên chọn!',
+    EE: 'EE (Ethyl Ester): phổ biến, rẻ hơn nhưng hấp thu kém.',
+  },
+  ratioVi: 'Tỷ lệ chữa bệnh: (EPA+DHA)/tổng chất béo ≥ 0.6 (60%). Bảo vệ: ≥ 0.3 (30%).',
+  personalizeVi: {
+    lipid: 'Mỡ máu, gan nhiễm mỡ: chọn EPA > DHA (EPA "quét" mạch máu)',
+    brain: 'Phát triển não, mắt, người khỏe: Dọn DHA ≥ EPA (DHA vượt hàng rào máu não)',
+  },
+  omegaRatioVi: 'Omega-6:Omega-3 lý tưởng = 1:1, tối đa 4:1. Hiện đại = 20:1 → viêm nhiễm hàng loạt!',
+  coconutOilVi: 'Dầu dừa: MCT (axit béo chuỗi trung bình) → đi thẳng vào tế bào niêm mạc ruột → năng lượng tức thì, không qua gan.',
+};
 // 3c. VITAMIN C DEEP DIVE
 // ============================================================================
 
@@ -828,4 +938,66 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     ],
     correctIndex: 2,
     explanationVi: '84% khối lượng mỡ đốt cháy → CO2 (thở ra), chỉ 16% → H2O (mồ hôi/nước tiểu). Vì vậy tập thở cơ hoành, hít sâu thở dài = tăng oxy vào + đẩy CO2 ra = đốt mỡ hiệu quả hơn cả chạy bộ thở nông!' },
+
+  // --- Nước, Sắt, B1, Probiotics, Omega-3 rTG, Rửa rau ---
+  { id: 25, icon: '💧', module: 3,
+    questionVi: 'Tại sao uống nhiều trà/bia lại KHÔNG giải khát?',
+    options: [
+      { label: 'A', text: 'Vì chúng không có khoáng chất' },
+      { label: 'B', text: 'Vì đường/cồn/cafein tăng áp lực thẩm thấu → hút nước NGƯỢC từ tế bào ra' },
+      { label: 'C', text: 'Vì chúng quá lạnh' },
+      { label: 'D', text: 'Vì cơ thể không tiêu hóa được' },
+    ],
+    correctIndex: 1,
+    explanationVi: 'Đường, cồn, cafein tăng áp lực thẩm thấu trong máu → nước bị hút NGƯỢC từ tế bào ra → tế bào càng khát! Vì vậy uống bia xong lại muốn uống thêm. Tế bào chỉ hấp thu nước lọc qua kênh protein aquaporin. Uống từng ngụm nhỏ <250ml/lần.' },
+  { id: 26, icon: '🥬', module: 3,
+    questionVi: 'Cách nào xử lý thuốc trừ sâu trên rau ĐÚNG nhất?',
+    options: [
+      { label: 'A', text: 'Ngâm nước muối 30 phút' },
+      { label: 'B', text: 'Rửa dưới vòi nước chảy, rửa từng lá, gọt vỏ, chần nước sôi' },
+      { label: 'C', text: 'Ngâm nước vo gạo' },
+      { label: 'D', text: 'Rửa bằng nước ấm' },
+    ],
+    correctIndex: 1,
+    explanationVi: 'Ngâm nước muối = SAI! Áp suất thẩm thấu đẩy thuốc trừ sâu NGƯỢC vào trong rau. Đúng: rửa dưới vòi nước chảy, rửa từng lá (bắp cải), gọt vỏ, chần nước sôi, hoặc để nơi thoáng gió cho thuốc bay hơi.' },
+  { id: 27, icon: '🩸', module: 1,
+    questionVi: 'Khi nào TUYỆT ĐỐI không được uống sắt?',
+    options: [
+      { label: 'A', text: 'Khi đói bụng' },
+      { label: 'B', text: 'Khi đang bị viêm nhiễm cấp/mãn tính hoặc ung thư' },
+      { label: 'C', text: 'Khi uống cùng vitamin C' },
+      { label: 'D', text: 'Không có trường hợp nào cần kiêng' },
+    ],
+    correctIndex: 1,
+    explanationVi: 'Khi viêm nhiễm/ung thư, cơ thể kích hoạt "vườn không nhà trống" — đóng cửa hấp thu sắt để BỎ ĐÓI vi khuẩn và tế bào ung thư. Uống sắt lúc này = tiếp tay cho giặc! Sắt thừa → phản ứng Fenton → gốc tự do → lão hóa, ung thư. LUÔN xét nghiệm trước.' },
+  { id: 28, icon: '⚡', module: 1,
+    questionVi: 'Thêm gì khi nấu cơm để bảo toàn Vitamin B1?',
+    options: [
+      { label: 'A', text: 'Baking soda (môi trường kiềm)' },
+      { label: 'B', text: 'Muối' },
+      { label: 'C', text: 'Giấm (môi trường axit)' },
+      { label: 'D', text: 'Đường' },
+    ],
+    correctIndex: 2,
+    explanationVi: 'B1 sợ nhiệt, tia UV và MÔI TRƯỜNG KIỀM (baking soda phá hủy B1). Thêm GIẤM (axit) khi nấu cơm/ngũ cốc = bảo toàn B1 ở nhiệt độ cao. B1 = "ổ cắm điện" khởi động đốt đường → ATP. Thiếu B1 → axit lactic → đau cơ, sương mù não. Rượu bia phá hủy B1!' },
+  { id: 29, icon: '🦠', module: 1,
+    questionVi: 'Men vi sinh (Probiotics) phải có đặc điểm gì?',
+    options: [
+      { label: 'A', text: 'Càng nhiều CFU càng tốt (100 tỷ+)' },
+      { label: 'B', text: 'Phải có ghi "Bào tử/Spore" trên nhãn' },
+      { label: 'C', text: 'Chọn loại không cần tủ lạnh' },
+      { label: 'D', text: 'Uống khi bụng no để bảo vệ vi khuẩn' },
+    ],
+    correctIndex: 1,
+    explanationVi: 'Dạ dày pH 1.6-3.4 = siêu axit, giết hết lợi khuẩn thường. Chỉ BÀO TỬ (Spore) mới sống sót xuống ruột. Liều hàng ngày 10-30 tỷ CFU. 100 tỷ CFU → diệt hại khuẩn ồ ạt → độc tố → chướng bụng. Ruột chứa 3kg vi khuẩn = 80% miễn dịch!' },
+  { id: 30, icon: '🐟', module: 1,
+    questionVi: 'Omega-3 dạng nào hấp thu TỐT NHẤT?',
+    options: [
+      { label: 'A', text: 'Dạng EE (Ethyl Ester) — phổ biến, rẻ' },
+      { label: 'B', text: 'Dạng rTG (Triglyceride tái tổ hợp) — hấp thu gấp nhiều lần EE' },
+      { label: 'C', text: 'Dạng nào cũng giống nhau' },
+      { label: 'D', text: 'Dầu gan cá tuyết là tốt nhất' },
+    ],
+    correctIndex: 1,
+    explanationVi: 'rTG hấp thu GẤP ĐÔI dạng EE! Tỷ lệ chữa bệnh: (EPA+DHA)/tổng chất béo ≥ 0.6 (60%). Mỡ máu/gan nhiễm mỡ: EPA > DHA. Phát triển não/mắt: DHA > EPA. Dầu gan cá tuyết chủ yếu là A+D, DHA rất thấp!' },
 ];
