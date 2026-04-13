@@ -182,6 +182,38 @@ export const DAILY_TIPS: DailyTip[] = [
   { id: 50, icon: '😤', categoryVi: 'Lối sống', module: 4,
     titleVi: 'Sắp nổi giận? Uống nửa viên Magie!',
     bodyVi: 'Tức giận + sợ hãi tiêu tốn Magie KHỔNG LỒ → co giật, trầm cảm. Chủ động uống nửa viên Magie khi thấy sắp nổi giận. Sống theo C3H3: Clear head (minh mẫn) + Clever hands (khéo léo) + Clean habit (lành mạnh).' },
+
+  // --- Trục Giáp-Ruột, Khẩu phần, B6, Cortisol, Nắng, Nước ---
+  { id: 51, icon: '🍽️', categoryVi: 'Bữa ăn', module: 3,
+    titleVi: 'Công thức đĩa ăn: 1/4 đạm + 1/4 tinh bột + 1/2 rau!',
+    bodyVi: 'Tỷ lệ vàng: 1/4 đạm (thịt, cá, trứng) + 1/4 tinh bột (ngũ cốc, hạt) + 1/2 rau củ quả. 65-70% năng lượng từ nhóm này + 30-35% từ chất béo. Đơn giản, không cần đếm calo!' },
+  { id: 52, icon: '🦋', categoryVi: 'Bữa ăn', module: 3,
+    titleVi: 'Trục Giáp-Ruột: rò rỉ ruột → viêm tuyến giáp!',
+    bodyVi: 'Quá nhiều đường/Fructose → loạn khuẩn ruột → rò rỉ ruột → Gluten (lúa mì) + Casein (sữa) lọt vào máu → miễn dịch tấn công NHẦM tuyến giáp = bệnh Hashimoto. Hạn chế đường + gluten = bảo vệ tuyến giáp!' },
+  { id: 53, icon: '🥥', categoryVi: 'Bữa ăn', module: 3,
+    titleVi: 'Dầu dừa: 87% béo bão hòa, KHÔNG có Omega-3!',
+    bodyVi: 'Dầu dừa tốt cho nấu ăn nhiệt cao (bền) nhưng TRÁNH dùng làm nguồn Omega-3 vì không có! Dầu thực vật: CHỈ dưới 140°C, xào nhẹ/salad. Chiên rán → dùng MỠ LỢN. Luân phiên các loại dầu mỗi bữa.' },
+  { id: 54, icon: '💊', categoryVi: 'Vi chất', module: 1,
+    titleVi: 'Vitamin B6: 160 phản ứng + vỏ bọc thần kinh!',
+    bodyVi: 'B6 tổng hợp protein, tạo vỏ Myelin thần kinh, giải quyết "bão cytokine" viêm nhiễm, sản sinh Serotonin + Dopamine (hạnh phúc). Tan trong nước → nạp hàng ngày. Bị phá hủy bởi ánh sáng + nhiệt nấu nướng.' },
+  { id: 55, icon: '🥚', categoryVi: 'Siêu thực phẩm', module: 2,
+    titleVi: 'Trứng cút: Lecithin gấp 3-4 lần trứng gà!',
+    bodyVi: 'Trứng cút chứa Lecithin + Cephalin cao gấp 3-4 lần trứng gà — cực tốt cho não trẻ em. Người lớn: 1 quả gà/ngày hoặc 3-5 quả/tuần. Trứng luộc chín tới = 97% hấp thu. Chiên rán kỹ = biến tính protein!' },
+  { id: 56, icon: '😰', categoryVi: 'Lối sống', module: 4,
+    titleVi: 'Cortisol: kẻ cắp bình yên, tích mỡ bụng!',
+    bodyVi: 'Stress mãn tính + thức khuya → Cortisol tăng → TIÊU HỦY cơ bắp + TÍCH MỠ bụng, mặt, gáy + ỨC CHẾ miễn dịch. Ngủ đủ giấc tự nhiên + thư thái = Cortisol hạ thấp ban đêm. Ngủ TRƯỚC 11h đêm!' },
+  { id: 57, icon: '☀️', categoryVi: 'Lối sống', module: 4,
+    titleVi: 'Tắm nắng ĐÚNG: 10h-16h, UVB KHÔNG xuyên kính!',
+    bodyVi: 'UVB tổng hợp D3 chỉ có khi bóng râm ngắn hơn chiều cao (10h-16h). UVB KHÔNG xuyên cửa kính, quần áo, kem chống nắng! Tắm nắng qua cửa sổ = VÔ DỤNG. Phơi da trực tiếp 15-20 phút.' },
+  { id: 58, icon: '💧', categoryVi: 'Lối sống', module: 4,
+    titleVi: '2 thời điểm uống nước cứu mạng!',
+    bodyVi: 'SÁNG THỨC DẬY: 1-2 cốc ngay — máu cô đặc sau đêm → ngừa tai biến, nhồi máu! TRƯỚC NGỦ: lượng vừa đủ chống cục máu đông ban đêm (đừng nhiều quá kẻo tiểu đêm). Tiêu chuẩn: ~2 lít/ngày.' },
+  { id: 59, icon: '🏃', categoryVi: 'Lối sống', module: 4,
+    titleVi: 'Tập quá mức = rò rỉ ruột!',
+    bodyVi: 'Tập quá sức → ruột thiếu oxy → căng thẳng thần kinh → viêm + rò rỉ ruột. Tập VỪA SỨC + tăng tuần hoàn = cuốn trôi mảng bám mạch máu. 2-3 tiếng ngoài trời/ngày kích thích ngũ quan, chữa trầm cảm.' },
+  { id: 60, icon: '🧠', categoryVi: 'Lối sống', module: 4,
+    titleVi: 'Học Toán, Lý, Hóa = tập gym cho não!',
+    bodyVi: 'Liên tục học kiến thức mới (Toán, Lý, Hóa, Văn, Lịch sử) = bài tập rèn não xuất sắc nhất. Não không dùng sẽ đình trệ → suy giảm trí nhớ → lú lẫn khi già. Đọc sách mỗi ngày = phòng Alzheimer!' },
 ];
 
 /** Lấy tip cho ngày hôm nay (xoay vòng) */
@@ -605,7 +637,95 @@ export const OMEGA3_SELECTION = {
   },
   omegaRatioVi: 'Omega-6:Omega-3 lý tưởng = 1:1, tối đa 4:1. Hiện đại = 20:1 → viêm nhiễm hàng loạt!',
   coconutOilVi: 'Dầu dừa: MCT (axit béo chuỗi trung bình) → đi thẳng vào tế bào niêm mạc ruột → năng lượng tức thì, không qua gan.',
+  coconutWarningVi: 'Dầu dừa: 87% béo bão hòa, KHÔNG có Omega-3. Tốt cho nấu nhiệt cao nhưng KHÔNG phải nguồn Omega-3!',
 };
+
+// ============================================================================
+// 3r. THYROID-GUT AXIS
+// ============================================================================
+
+export const THYROID_GUT_AXIS = {
+  titleVi: '🦋 Trục Giáp-Ruột: Bảo vệ ruột = Bảo vệ tuyến giáp',
+  mechanismVi: 'Quá nhiều đường (đặc biệt Fructose) → loạn khuẩn ruột → HỘI CHỨNG RÒ RỈ RUỘT → Gluten (lúa mì) + Casein (sữa) lọt vào máu → miễn dịch tấn công NHẦM tuyến giáp.',
+  diseaseVi: 'Kết quả: Viêm tuyến giáp tự miễn Hashimoto — bệnh tuyến giáp phổ biến nhất.',
+  preventionVi: [
+    'Hạn chế đường, đặc biệt Fructose (mật ong, nước ép)',
+    'Giảm Gluten (bánh mì lúa mì, mì ống)',
+    'Giảm Casein (sữa bò) nếu có triệu chứng',
+    'Bổ sung Probiotics bào tử nuôi dưỡng ruột',
+    'Ăn rau nguyên bản (chất xơ nuôi vi khuẩn tốt)',
+  ],
+};
+
+// ============================================================================
+// 3s. MEAL PLATE RATIO
+// ============================================================================
+
+export const MEAL_PLATE_RATIO = {
+  ratioVi: '1/4 đạm + 1/4 tinh bột + 1/2 rau củ quả',
+  energyVi: '65-70% năng lượng từ thực phẩm + 30-35% từ chất béo',
+  proteinSourcesVi: 'Thịt nạc, cá, tôm, trứng, đậu phụ',
+  starchSourcesVi: 'Ngũ cốc, các loại hạt, khoai lang, bún',
+  veggieSourcesVi: 'Rau lá xanh, cà rốt, cà chua, bông cải, trái cây nguyên quả',
+};
+
+// ============================================================================
+// 3t. B6 DEEP DIVE
+// ============================================================================
+
+export const B6_GUIDE = {
+  reactionsCount: 160,
+  roles: [
+    { icon: '🧬', titleVi: 'Tổng hợp protein', bodyVi: 'Giúp cơ thể tạo protein từ axit amin.' },
+    { icon: '🧠', titleVi: 'Tạo vỏ Myelin', bodyVi: 'Bọc bảo vệ dây thần kinh. Thiếu B6 → tê bì, đau dây thần kinh.' },
+    { icon: '🔥', titleVi: 'Giải "bão cytokine"', bodyVi: 'Kiểm soát phản ứng viêm quá mức khi nhiễm trùng.' },
+    { icon: '😊', titleVi: 'Sản sinh hormone hạnh phúc', bodyVi: 'Tạo Serotonin (bình yên) + Dopamine (hạnh phúc).' },
+  ],
+  enemiesVi: 'B6 tan trong nước, bị phá hủy bởi: ánh sáng + nhiệt nấu nướng. Cần nạp hàng ngày.',
+  synergyVi: 'B6 là "radar" dẫn Magie đến bảo vệ Tim và Não. Mg + B6 → Lecithin → phân cắt mỡ.',
+};
+
+// ============================================================================
+// 3u. CORTISOL GUIDE
+// ============================================================================
+
+export const CORTISOL_GUIDE = {
+  titleVi: '😰 Cortisol — Kẻ cắp Bình yên',
+  triggersVi: 'Stress mãn tính, thức khuya, tiếp xúc hóa chất',
+  damageVi: [
+    '💪 Tiêu hủy cơ bắp (phá đạm để tạo đường)',
+    '🫃 Tích mỡ bụng, mặt, gáy (dự trữ năng lượng)',
+    '🛡️ Ức chế hệ miễn dịch',
+  ],
+  solutionVi: 'Ngủ đủ giấc (trước 11h) + thư thái + hạn chế hóa chất = Cortisol hạ thấp ban đêm. Uống Magie giúp kiểm soát Cortisol.',
+};
+
+// ============================================================================
+// 3v. SUNBATH GUIDE
+// ============================================================================
+
+export const SUNBATH_GUIDE = {
+  timeVi: '10h sáng - 4h chiều (bóng râm < chiều cao)',
+  durationVi: '15-20 phút phơi da trực tiếp',
+  rulesVi: [
+    'UVB KHÔNG xuyên qua: cửa kính, quần áo, kem chống nắng',
+    'Tắm nắng qua cửa sổ = VÔ DỤNG',
+    'Phải phơi da trực tiếp (tay, chân, mặt)',
+  ],
+  comboVi: 'Vitamin D3 + Vitamin C = bộ đôi chống lão hóa da, dưỡng ẩm, giảm melanin, tăng collagen.',
+};
+
+// ============================================================================
+// 3w. SUPPLEMENT TIMING (Expanded)
+// ============================================================================
+
+export const SUPPLEMENT_TIMING_RULES = {
+  cafeineVi: 'Vitamin B, C tan trong nước: uống CÁCH giờ uống cà phê ít nhất 1 tiếng (cafein lợi tiểu đào thải mất).',
+  calciumMealVi: 'Canxi: uống SAU ĂN 30 phút (dịch vị axit hòa tan). Đặc biệt uống TRƯỚC NGỦ ngăn tuyến cận giáp rút Ca từ xương lúc 3h sáng.',
+  separationVi: 'Canxi ↔ Magie: cách nhau 2 tiếng. Canxi ↔ Kẽm: cách nhau.',
+  morningWaterVi: 'Sáng thức dậy: 1-2 cốc nước TRƯỚC KHI uống vi chất. Máu đang cô đặc nhất!',
+};
+
 // 3c. VITAMIN C DEEP DIVE
 // ============================================================================
 
@@ -1000,4 +1120,66 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     ],
     correctIndex: 1,
     explanationVi: 'rTG hấp thu GẤP ĐÔI dạng EE! Tỷ lệ chữa bệnh: (EPA+DHA)/tổng chất béo ≥ 0.6 (60%). Mỡ máu/gan nhiễm mỡ: EPA > DHA. Phát triển não/mắt: DHA > EPA. Dầu gan cá tuyết chủ yếu là A+D, DHA rất thấp!' },
+
+  // --- Trục Giáp-Ruột, Meal Ratio, B6, Cortisol, Sunbath ---
+  { id: 31, icon: '🍽️', module: 3,
+    questionVi: 'Tỷ lệ đĩa ăn khoa học là gì?',
+    options: [
+      { label: 'A', text: '1/2 đạm + 1/4 tinh bột + 1/4 rau' },
+      { label: 'B', text: '1/4 đạm + 1/4 tinh bột + 1/2 rau củ quả' },
+      { label: 'C', text: '1/3 đạm + 1/3 tinh bột + 1/3 rau' },
+      { label: 'D', text: 'Ăn tùy thích, không cần tỷ lệ' },
+    ],
+    correctIndex: 1,
+    explanationVi: '1/4 đạm (thịt, cá, trứng) + 1/4 tinh bột (ngũ cốc, hạt) + 1/2 rau củ quả. 65-70% năng lượng từ nhóm thực phẩm + 30-35% từ chất béo. Đơn giản, dễ nhớ, không cần cân đo!' },
+  { id: 32, icon: '🦋', module: 3,
+    questionVi: 'Hội chứng rò rỉ ruột có thể gây ra bệnh gì ở tuyến giáp?',
+    options: [
+      { label: 'A', text: 'Ung thư tuyến giáp' },
+      { label: 'B', text: 'Viêm tuyến giáp tự miễn Hashimoto' },
+      { label: 'C', text: 'Bướu cổ' },
+      { label: 'D', text: 'Không liên quan đến tuyến giáp' },
+    ],
+    correctIndex: 1,
+    explanationVi: 'Đường + Fructose → loạn khuẩn → rò rỉ ruột → Gluten (lúa mì) + Casein (sữa) lọt vào máu → miễn dịch tấn công NHẦM tuyến giáp = HASHIMOTO! Đây là "trục Giáp-Ruột" — bảo vệ ruột = bảo vệ tuyến giáp.' },
+  { id: 33, icon: '☀️', module: 4,
+    questionVi: 'Tắm nắng qua cửa kính có tổng hợp được Vitamin D không?',
+    options: [
+      { label: 'A', text: 'Có, kính trong suốt cho tia UV đi qua' },
+      { label: 'B', text: 'KHÔNG. UVB không xuyên qua kính, quần áo hay kem chống nắng' },
+      { label: 'C', text: 'Có nhưng cần thời gian lâu hơn' },
+      { label: 'D', text: 'Chỉ cần nắng chiếu vào mắt' },
+    ],
+    correctIndex: 1,
+    explanationVi: 'Tia UVB tổng hợp D3 KHÔNG xuyên qua kính, quần áo, kem chống nắng! Tắm nắng qua cửa sổ = VÔ DỤNG. Phơi da trực tiếp 15-20 phút, khung giờ 10h-16h (bóng râm < chiều cao). Vitamin C + D3 = bộ đôi chống lão hóa da.' },
+  { id: 34, icon: '😰', module: 4,
+    questionVi: 'Cortisol (hormone stress) gây hại gì cho cơ thể?',
+    options: [
+      { label: 'A', text: 'Chỉ gây mất ngủ' },
+      { label: 'B', text: 'Tiêu hủy cơ bắp + tích mỡ bụng/mặt/gáy + ức chế miễn dịch' },
+      { label: 'C', text: 'Giúp đốt mỡ nhanh hơn' },
+      { label: 'D', text: 'Không ảnh hưởng gì' },
+    ],
+    correctIndex: 1,
+    explanationVi: 'Cortisol = kẻ cắp bình yên: TIÊU HỦY cơ bắp + TÍCH MỠ bụng, mặt, gáy (dự trữ năng lượng) + ỨC CHẾ miễn dịch. Stress mãn tính + thức khuya → Cortisol không hạ. Ngủ trước 11h + thư thái = Cortisol giảm ban đêm.' },
+  { id: 35, icon: '💊', module: 1,
+    questionVi: 'Vitamin B6 có vai trò gì đặc biệt?',
+    options: [
+      { label: 'A', text: 'Chỉ giúp tăng sức đề kháng' },
+      { label: 'B', text: '160 phản ứng: tạo vỏ Myelin thần kinh + giải bão cytokine + sản sinh Serotonin/Dopamine' },
+      { label: 'C', text: 'Giúp xương chắc' },
+      { label: 'D', text: 'Chỉ cần cho trẻ em' },
+    ],
+    correctIndex: 1,
+    explanationVi: 'B6 tham gia 160 phản ứng: tổng hợp protein, tạo vỏ bọc Myelin thần kinh, giải quyết "bão cytokine" viêm, sản sinh Serotonin + Dopamine (hạnh phúc). Tan trong nước → nạp hàng ngày. Sáng sáng + nhiệt phá hủy B6!' },
+  { id: 36, icon: '💧', module: 4,
+    questionVi: 'Khi nào uống nước QUAN TRỌNG NHẤT trong ngày?',
+    options: [
+      { label: 'A', text: 'Sau bữa ăn trưa' },
+      { label: 'B', text: 'Ngay khi thức dậy sáng — máu đang cô đặc nhất' },
+      { label: 'C', text: 'Trước khi tập thể dục' },
+      { label: 'D', text: 'Không có thời điểm nào quan trọng hơn' },
+    ],
+    correctIndex: 1,
+    explanationVi: 'Sau một đêm, máu cô đặc nhất → nguy cơ tai biến, nhồi máu cơ tim! Uống ngay 1-2 cốc nước lọc khi thức dậy. Trước ngủ: lượng vừa đủ chống cục máu đông ban đêm. Tiêu chuẩn: ~2 lít/ngày, kiểm tra bằng màu nước tiểu.' },
 ];
